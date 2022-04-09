@@ -32,10 +32,19 @@ elif major > minor:
     print('C-dur')
 
 elif minor == major:
-    
-    if mu_list[-1][0] == 'A':
-        print('A-mol')
+    final = mu_list[-1].strip()
+    if len(final) > 1:   
+        
+        if final[-1] == 'A':
+            print('A-mol')
 
-    if mu_list[-1][0] == 'C':
-        print('C-dur')
+        if final[-1] == 'C':
+            print('C-dur')
+    
+    else:
+        if final[0] == 'A':
+            print('A-mol')
+
+        if final[0] == 'C':
+            print('C-dur')
     
