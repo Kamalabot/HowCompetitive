@@ -12,5 +12,7 @@ compress = []
 for c in text:
     compress.append(Counter(c))
 
-for coun in compress:
-    print(coun)
+for dk in compress:
+    for char, times in dk.items():
+        print(f"{times} {char}",end=" ")
+    print("\n")
