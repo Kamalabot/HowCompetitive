@@ -1,5 +1,9 @@
 #Getting the problems from DMOJ site as PDF
 
+"""This script takes the problem id and gets the PDF files from 
+the dmoj site. If you are using the file to input the problem id
+then create file with IDs one below the other..."""
+
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -7,11 +11,21 @@ from urllib.parse import urljoin, urlparse
 
 base ="https://dmoj.ca/problem/"
 
-how_many = int(sys.stdin.readline())
-problems = []
+choice = input("How do you want to enter the problems? file / CLI")
+choice = choice.lower()
+if choice == 'file':
+    problem = []
+    file_name = input('Provide the file name, ensure it is same folder as the script: ')
+    with open(file_name) as f:
+        reader = f.readlines()
+        for x in reader:
+            problem.append(x)    
+else:
+    how_many = int(sys.stdin.readline())
+    problems = []
 
-for _ in range(how_many):
-    problems.append(sys.stdin.readline().strip('\n'))
+    for _ in range(how_many):
+        problems.append(sys.stdin.readline().strip('\n'))
 
 links = [] #get the links of the problem pages
 for probl in problems:
