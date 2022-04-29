@@ -1,34 +1,30 @@
-#Testing script for the Wesley's ANGER
-from ecoo12r1p2 import reversing, find_RnA, revers_rna, rna_todna
+#Testing script for the Platforme
+
+from crci07p1 import get_platforms
 
 
 
 def case1():
-    strand = 'AGATTATATAATGATAGGATTTAGATTGACCCGTCATGCAAGTCCATGCATGACAGC' 
+    plats = 3
 
-    find_RnA(strand)
+    data =  [[1, 5, 10], [3, 1, 5], [5, 3, 7]]
+
+    find_pillars(data)
 
 def case2():
-    strand = 'AGATTATATAATGATAGGATTTAGATTGACCCGTCATGCAAGTCCATGCATGACAGC' 
+    plats = 5
 
-    find_RnA(strand)
+    data =  [[50, 50, 90], [40, 40, 80], [30, 30, 70], [20, 20, 60], [10, 10, 50]]
 
-def case3():
-
-    strand = 'AGATTATATAATGATAGGATTTAGATTGACCCGTCATGCAAGTCCATGCATGACAGC' 
-
-    find_RnA(strand)
+    print(find_pillars(data))
 
 def main():
-    #case1()
-    #case2()
-    #case3()
-    #print(reversing('TTTACCCG'))
-    print('ATCGCGACGAAATATCGGGCGGGATCCATACCGACCCAGCCGCCCGA')
-    print('\n')
-    print(rna_todna('UAGCGCUGCUUUAU'))
-
-    print(len('UAGCGCUGCUUUAU'))
-    print('\n')
+    
     print(reversing('TCGGGCG'))
+
 if __name__ == "__main__": main()
+
+
+"""based on the pillar coordinates, the pillar location can be FOUND
+We knw he platform location and their heights. Need to provide the conditions 
+to find the heights of the pillars"""

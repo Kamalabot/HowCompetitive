@@ -58,11 +58,23 @@ def check_ifbetween(pillar: int, start: int, end: int) -> bool:
 
         return False
 
+def count_pillars(process_data: List[List[int]]) -> int:
+
+    pillar_count = 0
+
+    for data in process_data:
+
+        pillar_count = pillar_count + data[-2] + data [-1]
+
+    return pillar_count
+
 given_data = get_pillar(get_platforms()[0]) 
 
+#print(given_data)
 ind = 0
 
 while True:
+#[[1, 5, 10, 5.5, 9.5, 5, 1, 1], [3, 1, 5, 1.5, 4.5, 4, 2, 2], [5, 3, 7, 3.5, 6.5, 4, 4, 2]]
 
     chec_data = given_data.pop(ind)
 
@@ -72,14 +84,18 @@ while True:
 
     for loc_ind, data in enumerate(given_data): 
 
-        if check_ifbetween(chec_data[4], data[1], data[2]):
+        if check_ifbetween(chec_data[3], data[1], data[2]) and data[0] < chec_data[0]:
+
+            #print(f"chec_data[4]  {chec_data[3]},data[1] {data[1]},data[2]  {data[2]}")
 
             if chec_data[6] > abs(chec_data[0] - data[0]): 
                 
                 chec_data[6] = abs(chec_data[0] - data[0])
 
         
-        if check_ifbetween(chec_data[5], data[1], data[2]):
+        if check_ifbetween(chec_data[4], data[1], data[2]) and data[0] < chec_data[0]:
+
+            #print(f"chec_data[5]  {chec_data[3]},data[1] {data[1]},data[2]  {data[2]}")
 
             if chec_data[7] > abs(chec_data[0] - data[0]):
 
@@ -94,4 +110,6 @@ while True:
 
         break
 
-print(given_data)
+#print(given_data)
+
+print(count_pillars(given_data))
