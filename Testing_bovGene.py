@@ -1,4 +1,4 @@
-#Testing road Croses
+#Testing Bovine Genomics
 
 """Script reads the files and then gets the inputs. 
 After that tests it with the functions"""
@@ -7,9 +7,9 @@ import os
 import sys
 from typing import List
 
-from WhyDidtheCowCrosstheRoad import calculate_crossing, check_crossing
+from Bovine_Genomics import surmise_position
 
-base_path = os.getcwd() + '\\crossroad_bronze_feb17'
+base_path = os.getcwd() + '\\cownomics_bronze_open17'
 
 #print(base_path)
 
@@ -29,28 +29,32 @@ prob_outs = [os.path.join(base_path, x) for x in outs]
 
 for x in prob_inputs:
 
-    with open(x , 'r') as re:
-        
-        reader = re.readlines()
+    spotty = []
 
-    data_points = int(reader[0].strip('\n'))
+    plainy = []
 
-    id_location = []
+    with open(x , 'r') as yb:
 
-    ids = []
+        reader = yb.readlines()
 
-    locat = []
+    data_points = reader[0].strip('\n').split(' ')
 
-    for x in range(1, data_points + 1):
+    speci = int(data_points[0])
 
-        id = reader[x].strip('\n').split(' ')
+    gene_len = int(data_points[1])
 
-        ids.append(int(id[0]))
+    for ind, gen in enumerate(reader[1:]):
 
-        locat.append(int(id[1]))
+        if ind < speci:
+
+            spotty.append(gen.strip('\n'))
+
+        else:
+
+            plainy.append(gen.strip('\n'))
 
 
-    print(calculate_crossing(ids,locat))
+    print(surmise_position(spotty,plainy))
 
 for x in prob_outs:
 
