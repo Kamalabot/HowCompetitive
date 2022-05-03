@@ -6,7 +6,7 @@ spotty = []
 
 plainy = []
 
-with open('1.in', 'r') as yb:
+with open('cownomics.in', 'r') as yb:
 
     reader = yb.readlines()
 
@@ -71,7 +71,9 @@ def surmise_position(spot_cows, plain_cows):
     return positions
 
 def main():
-
-    print(surmise_position(spotty, plainy))
+    
+    with open('cownomics.out', 'w') as cowrite:
+        
+        cowrite.write(str(surmise_position(spotty, plainy)))
 
 if __name__ == "__main__": main()
