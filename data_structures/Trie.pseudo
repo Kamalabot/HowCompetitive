@@ -1,0 +1,8 @@
+//This is pseudo code for Trie datastructure
+//Always start with comments
+x = 75
+
+name = 'super bob'
+
+global
+global user_id = 123
