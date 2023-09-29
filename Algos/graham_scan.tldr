@@ -66,9 +66,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": -1364.344212881775,
-      "y": 733.7373430658107,
-      "lastActivityTimestamp": 1695862035257,
+      "x": -1313.165090633041,
+      "y": -203.4806515878503,
+      "lastActivityTimestamp": 1695862778099,
       "meta": {}
     },
     {
@@ -117,7 +117,7 @@
       "screenBounds": {
         "x": 0,
         "y": 0,
-        "w": 720.8333129882812,
+        "w": 485,
         "h": 743.3333129882812
       },
       "zoomBrush": null,
