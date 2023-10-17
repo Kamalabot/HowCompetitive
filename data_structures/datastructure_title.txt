@@ -1,0 +1,6 @@
+Heaps, heapsort, and priority queues - Inside code
+Trie data structure - Inside code
+Can we represent a tree with an array? - Inside code
+Hashing and hash tables crash course (+ face reveal) - Inside code
+Grouping elements in no time with the disjoint-set data structure (Union-Find) - Inside code
+How does the SET data structure really work?

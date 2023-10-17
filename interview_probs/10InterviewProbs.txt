@@ -1,0 +1,14 @@
+10 Interview Probs chapters
+https://www.youtube.com/watch?v=o3DUXPRyvT8
+
+0:00 Introduction
+0:25 Valid anagram
+4:58 First and last index in sorted array
+13:32 Kth largest element
+19:38 Symmetric tree
+26:30 Generate parentheses
+36:51 Gas station
+49:54 Course schedule
+1:06:38 Kth permutation
+1:20:01 Minimum window substring
+1:47:34 Largest rectangle in histogram
