@@ -21,4 +21,49 @@ def permute(num: List[int]) -> List[List[int]]:
 
 
 perm_me = [1, 2, 3]
-print(permute(perm_me))
+# print(permute(perm_me))
+
+
+def permuto(elements: List[int]) -> List[List[int]]:
+
+    if len(elements) == 0:
+        return [elements]
+
+    firstEl = elements[0]
+    restEl = elements[1:]
+    print('firstEl', firstEl)
+    print('restEl', restEl)
+    permWOFirst = permuto(restEl)
+
+    permutationAll = []
+    for perm in permWOFirst:
+        for i in range(len(perm)):
+            # iterate all possible insertion position
+            permWFirst = perm[:i] + [firstEl] + perm[i:]
+            permutationAll.append(permWFirst)
+    
+    return permutationAll
+
+
+perm_one = ['a']
+print('final_out', permuto(perm_one))
+
+
+def permutations(arr):
+    if len(arr) <= 1:
+        return [arr]
+
+    result = []
+    for i, element in enumerate(arr):
+        rest = arr[:i] + arr[i+1:]
+        for p in permutations(rest):
+            result.append([element] + p)
+
+    return result
+
+
+# Example usage:
+numbers = [1, 2, 3]
+all_permutations = permutations(numbers)
+
+print(all_permutations)

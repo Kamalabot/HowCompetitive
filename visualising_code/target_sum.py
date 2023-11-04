@@ -19,6 +19,9 @@ def canSumBrute(tgt, numArray):
 
     return False
 
+# m = tgt
+# n = len(numArray)
+# O(n * m)
 
 # print(canSumBrute(7, [5, 3, 4, 7]))
 # print(canSumBrute(7, [2, 4, 7]))
@@ -27,9 +30,13 @@ def canSumBrute(tgt, numArray):
 
 
 def canSumMemo(tgt, numArray, memo=dict()):
-    # Base conditions are same, not changing 
+    # Base conditions are same, not changing
+    if tgt in memo:
+        return memo[tgt]
+
     if tgt == 0:
         return True
+
     if tgt < 0:
         return False
     
@@ -41,6 +48,72 @@ def canSumMemo(tgt, numArray, memo=dict()):
     return False
 
 
-print(canSumMemo(7, [2, 4]))
-print(canSumMemo(7, [3, 4, 7]))
-print(canSumMemo(658, [3, 4, 7]))
+# print(canSumMemo(7, [2, 4]))
+# print(canSumMemo(7, [3, 4, 7]))
+# print(canSumMemo(658, [3, 4, 7]))
+
+def howSum(tgt, numArray):
+    if tgt == 0:
+        return list()
+
+    if tgt < 0:
+        return None
+
+    for x in numArray:
+        # print(x)
+        ret_reminder = howSum(tgt - x, numArray)
+        if ret_reminder is not None:
+            return ret_reminder[:] + [x]
+ 
+
+# print(howSum(7, [5, 3, 4, 7]))
+
+
+def howSumMemo(tgt, numArray, memo=dict()):
+    if tgt in memo:
+        return memo[tgt]
+
+    if tgt == 0:
+        return list()
+
+    if tgt < 0:
+        return None
+
+    for x in numArray:
+        # print(x)
+        ret_reminder = howSum(tgt - x, numArray)
+        if ret_reminder is not None:
+            memo[tgt] = ret_reminder[:] + [x]
+            return memo[tgt]
+
+    memo[tgt] = None
+    return memo[tgt]
+
+
+# print(howSumMemo(70, [7, 3, 4, 5]))
+# print(howSumMemo(700, [7, 3, 4, 5]))
+
+
+def bestSum(tgt, numArray):
+    if tgt == 0:
+        return list()
+
+    if tgt < 0:
+        return None
+
+    shortest = None
+
+    for x in numArray:
+        # print(x)
+        ret_reminder = howSum(tgt - x, numArray)
+        if ret_reminder is not None:
+            temp = ret_reminder[:] + [x]
+            if shortest is None or len(temp) < len(shortest):
+                shortest = temp
+    
+    return shortest
+
+
+print(bestSum(5, [5, 4, 3, 7]))
+print(bestSum(105, [1,25, 4, 5, 7]))
+# print(bestSum(100005, [25, 4, 5, 7]))
