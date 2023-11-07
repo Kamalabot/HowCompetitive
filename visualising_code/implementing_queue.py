@@ -12,10 +12,10 @@ queue.append(96)
 
 # Dequeue Operation: queue elements remove from front
 
-print(queue.pop(0))
-print(queue.pop(0))
-print(queue.pop(0))
-
+# print(queue.pop(0))
+# print(queue.pop(0))
+# print(queue.pop(0))
+ 
 # print(queue)
 
 # Reason for implementing queue is the time complexity of efficient queue has to be O(1) 
@@ -60,10 +60,20 @@ class Queue:
         return removeNode
 
     def __str__(self):
-        if self.size > 0:
-            return f"{self.front.val}--> {self.size - 1} elements -->{self.back.val}"
+        string = ""
+        node_ref = self.front
+        if self.size == 0:
+            return "No Elements yet"
+        while True:
+            if node_ref == self.back:
+                string += node_ref.val
+                break
+            else:
+                string += node_ref.val + "->"
 
-        return "No elements yet"
+            node_ref = node_ref.next
+
+        return string
 
 
 que1 = Queue()
@@ -80,7 +90,10 @@ print(que1)
 que1.dequeue()
 que1.dequeue()
 
+que1.enqueue('ei')
+
 print(que1)
 
 que2 = Queue()
+
 print(que2)
