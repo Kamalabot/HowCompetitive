@@ -1,4 +1,4 @@
-# Implementing Linked Lists 
+# Implementing Linked Lists iteratively 
 
 class Node:
 
@@ -8,6 +8,7 @@ class Node:
 
     def __str__(self):
         return self.val
+
 
 class LinkedList:
 
@@ -58,3 +59,22 @@ print(ll1.contains('x'))
 print(ll1.contains('y'))
 print(ll1.contains('a'))
 print(ll1.contains('c'))
+
+# Implementing LinkedList recursive 
+
+
+class LinkedList:
+
+    def __init(self):
+        self.head = None
+
+    def append(self, val):
+        if self.head == None:
+            self.head = Node(val)
+
+    @staticmethod
+    def _append(val, curr):
+        if curr.next == None:
+            curr.next = Node(val)
+            return 
+        _append(val, curr.next)

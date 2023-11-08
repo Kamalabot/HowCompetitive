@@ -1,65 +1,67 @@
-# Implementing to test queue know-how
+class Node:
 
-class QueueNode:
-
-    def __init__(self,val):
-        self.val = val 
+    def __init__(self, val):
+        self.val = val
         self.next = None
 
-# Queue must have methods to enqueue and dequeue the elements 
 
+class Stack:
 
-class Queue:
-
-    def __init__(self) -> None:
-        """Initialize the queue without any values, and size 0"""
-        self.front = None
-        self.back = None
+    def __init__(self):
+        self.top = None
+        # self.bottom = None
         self.size = 0
- 
-    def enqueue(self, val: QueueNode):
-        newNode = QueueNode(val)
-        # If the queue is empty, then first element is going to be both front and back
-        if self.size == 0:
-            self.front = newNode 
-            self.back = newNode 
-        else:
-            self.back = newNode
-            self.back.next = newNode
 
+    def push(self, val):
+        if self.size == 0:
+            self.top = Node(val)
+            # self.bottom = Node(val)
+        else:
+            pushNode = Node(val)
+            pushNode.next = self.top
+            self.top = pushNode
         self.size += 1
     
-    def dequeue(self):
+    def getTop(self):
+        return self.top.val
+    
+    def pop(self):
         if self.size == 0:
             return None
-        remo = self.front
-        self.front = self.front.next
-        self.size -= 1
-        return remo.val
+        else:
+            curr = self.top
+            self.top = self.top.next
+            self.size -= 1
+            return curr.val
 
-    def print(self):
-        # Output should start from front -> next back -> next back ...
+    def __str__(self):
         str = ""
-
-        if self.size == 0:
-            return str
-        
-        cur = self.front
-        str += cur.val
-
-        while cur.next is not None:
-            cur = cur.next
-            str += cur.val + " -> " 
-
-        print(str)
+        curr = self.top
+        #print(curr.val)
+        str += f"{curr.val} ->"
+        while curr.next is not None:
+            curr = curr.next
+            str += f"{curr.val} ->"
+        return str
 
 
+# x = Node(1)
+# y = Node(2)
+# z = Node(3)
+# No need to create the node, the values can be pushed directly
 
-trial = Queue()
-trial.enqueue('a')
-trial.enqueue('b')
-trial.enqueue('c')
+newStack = Stack()
+newStack.push(1)
+newStack.push(2)
+newStack.push(3)
+newStack.push(0.5)
+newStack.push('its awesome')
 
-print(trial.size)
+print(newStack.size)
 
-trial.print()
+print(newStack)
+
+print(newStack.pop())
+print(newStack.pop())
+
+print(newStack.size)
