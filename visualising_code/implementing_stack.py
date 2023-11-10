@@ -54,6 +54,16 @@ class Stack:
         self.top = self.top.next
         self.size -= 1
         return popedNode.val
+    
+    def __str__(self) -> str:
+        if self.size == 0:
+            return "Stack Empty"
+        curr = self.top
+        string = ""
+        while curr is not None:
+            string += "->" + str(curr.val)
+            curr = curr.next
+        return string
 
 
 stk = Stack()

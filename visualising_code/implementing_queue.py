@@ -37,7 +37,8 @@ class Queue:
 
     def enqueue(self, val):
 
-        newNode = QueueNode(val=val)
+        newNode = QueueNode(val=val) # The node has to be initiated
+        # The next node can be assigned to the newNode inside the memory
         if self.size == 0:
             # then front and back node are same
             self.front = newNode
@@ -45,7 +46,7 @@ class Queue:
         else:
             # enqueue will be done from the back, so back & 
             # next node are same
-            self.back.next = newNode
+            self.back.next = newNode # Even the assignment order matters  
             self.back = newNode
 
         self.size += 1
@@ -75,6 +76,17 @@ class Queue:
 
         return string
 
+    def print(self):
+        if self.size == 0:
+            print("No Elements")
+        string = ""
+        curr = self.front
+        while curr.next is not None:
+            string += str(curr.val) + "->"
+            curr = curr.next
+        string += str(curr.val)
+
+        print(string)
 
 que1 = Queue()
 que1.enqueue('a')

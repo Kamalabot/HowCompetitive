@@ -1,3 +1,5 @@
+# implementing queue from start
+
 class Node:
 
     def __init__(self, val):
@@ -5,63 +7,36 @@ class Node:
         self.next = None
 
 
-class Stack:
+class Linkedlist:
 
-    def __init__(self):
-        self.top = None
-        # self.bottom = None
-        self.size = 0
+    def __init__(self) -> None:
+        self.head = None
 
-    def push(self, val):
-        if self.size == 0:
-            self.top = Node(val)
-            # self.bottom = Node(val)
-        else:
-            pushNode = Node(val)
-            pushNode.next = self.top
-            self.top = pushNode
-        self.size += 1
-    
-    def getTop(self):
-        return self.top.val
-    
-    def pop(self):
-        if self.size == 0:
-            return None
-        else:
-            curr = self.top
-            self.top = self.top.next
-            self.size -= 1
-            return curr.val
+    def append(self, val):
+        if self.head is None:
+            self.head = Node(val)
+            return
 
-    def __str__(self):
-        str = ""
-        curr = self.top
-        #print(curr.val)
-        str += f"{curr.val} ->"
-        while curr.next is not None:
-            curr = curr.next
-            str += f"{curr.val} ->"
-        return str
+        cur = self.head
+
+        while cur.next is not None:
+            cur = cur.next
+
+        # Same value is assigned in two different
+        cur.next = Node(val)
+
+    def print(self):
+        cur = self.head 
+        string = str(cur.val)
+        while cur.next is not None:
+            cur = cur.next 
+            string += '->' + str(cur.val)
+        print(string)
 
 
-# x = Node(1)
-# y = Node(2)
-# z = Node(3)
-# No need to create the node, the values can be pushed directly
+ll = Linkedlist()
+ll.append('a')
+ll.append('b')
+ll.append('c')
 
-newStack = Stack()
-newStack.push(1)
-newStack.push(2)
-newStack.push(3)
-newStack.push(0.5)
-newStack.push('its awesome')
-
-print(newStack.size)
-
-print(newStack)
-
-print(newStack.pop())
-print(newStack.pop())
-
-print(newStack.size)
+ll.print()

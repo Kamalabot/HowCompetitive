@@ -21,21 +21,31 @@ class Node:
 #             self.head = Node(val)
 #             return
 #         cur = self.head
-# 
+# While there is cur.next then make the current as current.next 
 #         while cur.next is not None:
 #             cur = cur.next
-# 
+# Same val is assigned in two different locations in memory
+# And it is assigned to head 
 #         cur.next = Node(val)
 # 
 #     def print(self):
-#         str = ""
+#         string = ""
 #         cur = self.head
 #         while cur is not None:
-#             str += cur.val + "->"
+#             string += cur.val + "->"
 #             cur = cur.next  # This is key step 
 #  
-#         print(str)
-# 
+#         print(string)
+
+# Corrected print method 
+#     def print(self):
+        cur = self.head 
+        string = str(cur.val)
+        while cur.next is not None:
+            cur = cur.next 
+            string += '->' + str(cur.val)
+        print(string) 
+
 #     def contains(self, val):
 #         cur = self.head 
 #         while cur is not None:
