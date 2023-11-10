@@ -166,14 +166,6 @@ def sum_list(lhead: Node):
 
 # Implement the Linked List Deletion
 
-a = Node(11)
-b = Node(10)
-c = Node(6)
-d = Node(-6)
-
-a.next = b
-b.next = c
-c.next = d 
 
 # def deleteValue(head: Node, val: int | str | float) -> bool:
 #     curr = head
@@ -219,10 +211,47 @@ def print_list(head):
 
     return str(curr.val) + " + " + print_list(curr.next)
 
+a = Node(11)
+b = Node(10)
+c = Node(6)
+d = Node(-6)
 
-print(print_list(a))  # 11 + 10 + 6 + -6
-print(deleteValue(a, 10))  # 11
-print(print_list(a))  # 11 + 6 + -6
-print(deleteValue(a, -6))  # 11
-print(print_list(a))  # 11 + 6 +
-print(deleteValue(a, 11))  # 6
+a.next = b
+b.next = c
+c.next = d 
+
+# print(print_list(a))  # 11 + 10 + 6 + -6
+# print(deleteValue(a, 10))  # 11
+# print(print_list(a))  # 11 + 6 + -6
+# print(deleteValue(a, -6))  # 11
+# print(print_list(a))  # 11 + 6 +
+# print(deleteValue(a, 11))  # 6
+
+# def reverseList(head: Node):
+#     """Iterative solution with help of while loop"""
+#     prev = None
+#     curr = head
+# 
+#     while curr is not None:
+#         next = curr.next  # temp variable to hold the next node
+#         curr.next = prev
+#         prev = curr
+#         curr = next
+# 
+#     return prev 
+# 
+
+
+def reverseList(head: Node, prev: Node = None):
+    """Recursive solution"""
+    if head is None:
+        return prev
+    next = head.next 
+    head.next = prev
+    return reverseList(next, head)
+
+print("***Before Reverse****")
+print(print_list(a))
+new_head = reverseList(a)
+print("***After Reverse****")
+print(print_list(new_head))
