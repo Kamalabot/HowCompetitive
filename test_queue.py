@@ -1,42 +1,69 @@
-# implementing queue from start
+# implementing linked list. There are 2 ways to implement the LList, 
+# and 3 seperate functions for search, delete and reverse
 
 class Node:
 
-    def __init__(self, val):
+    def __init__(self, val) -> None:
         self.val = val
-        self.next = None
+        self.next = None 
 
 
-class Linkedlist:
+class LinkedList:
 
     def __init__(self) -> None:
         self.head = None
 
-    def append(self, val):
+    def append(self, val: Node):
         if self.head is None:
-            self.head = Node(val)
+            self.head = val
             return
 
-        cur = self.head
+        LinkedList._append(val, self.head)
 
-        while cur.next is not None:
-            cur = cur.next
+    @staticmethod
+    def _append(val, curr):
+        if curr.next is None:
+            curr.next = val
+            return
+        LinkedList._append(val, curr.next)
 
-        # Same value is assigned in two different
-        cur.next = Node(val)
-
-    def print(self):
-        cur = self.head 
-        string = str(cur.val)
-        while cur.next is not None:
-            cur = cur.next 
-            string += '->' + str(cur.val)
-        print(string)
+    def containsr(self, val):
+        if self.head is None:
+            return False
+        
+    def _containsr(val, head):
 
 
-ll = Linkedlist()
-ll.append('a')
-ll.append('b')
-ll.append('c')
+    def contains(self, val):
+        curr = self.head
+        while curr is not None:
+            if curr.val == val:
+                return True
+            curr = curr.next
+        return False
 
-ll.print()
+
+def print_list(head: Node) -> None:
+    string = ""
+    curr = head
+
+    while curr is not None:
+        string += str(curr.val) + "->"
+        curr = curr.next
+
+    print(string)
+
+ll1 = LinkedList()
+
+a = Node('a')
+b = Node('b')
+c = Node('c')
+
+ll1.append(a)
+ll1.append(b)
+ll1.append(c)
+
+print_list(a)
+
+print(ll1.contains('c'))
+print(ll1.contains('ac'))
