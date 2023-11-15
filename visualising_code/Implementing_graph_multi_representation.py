@@ -137,9 +137,10 @@ def am_isCon(node1: str, node2: str, node_list: List[str], adj_mat: List[List[in
 class Node:
 
     def __init__(self, value: str | int | float) -> None:
-        self.value = value 
+        self.color = None
+        self.value = value
         self.edgeList = []
-    
+ 
     def connect(self, node) -> None:  # Connections or the edges are taken care in the nodes itself.
         self.edgeList.append(node)
         node.edgeList.append(self)
@@ -148,7 +149,7 @@ class Node:
         return self.value 
 
     def __str__(self):
-        connections = [str(node.value) + " <-> " + str(self.value) for node in self.edgeList]
+        connections = [str(self.value) + " <-> " + str(node.value) for node in self.edgeList]
         return f"{connections}"
 
     def getEdgeList(self):
@@ -169,22 +170,70 @@ class Graph:
     def addToGraph(self, node:Node) -> None:
         self.nodes.append(node)
 
+    def isBipartite(self):
+        visited = set()
+        # Graph is made of many nodes, try checking 
+        # each node and assign legal coloring
+        for node in self.nodes:
+            if node not in visited:
+                if self.assignLegalColor(node, visited):
+                    print("Graph is bi-partite")
+                    # filter the red team
+                    red_team = [node.value for node in self.nodes if node.color == 'red']
+                    # filter the blue team
+                    blue_team = [node.value for node in self.nodes if node.color == 'blue']
+                    print("red_team: ", red_team)
+                    print("blue_team: ", blue_team)
+                else:
+                    print("Graph is not bi-partite")
+
+    @staticmethod
+    def assignLegalColor(start, visitedSet):
+        # the check if start is in visitedSet, is done down the code
+        # if start in visitedSet:
+            # Yes then return
+            # return
+        # print the node value for reference
+        # print(f"visiting {start.value}")
+        # if the start.color is none then assign red
+        if start.color is None:
+            start.color = 'red' 
+        # add the start node to visited set
+        visitedSet.add(start)
+        
+        # enumerate each node in edgeList of start node
+        for node in start.edgeList:
+            # Check if node is in visited set
+            if node not in visitedSet:
+                # assign color to the adjacencies
+                node.color = 'blue' if start.color == 'red' else 'red'
+                # print(f"Assigned {node.color} to {node.value}")
+                # call assignLegalColor with each node
+                if Graph.assignLegalColor(node, visitedSet) is False:
+                    return False
+                # the call will initiate the depth first traversal
+            else:
+                # node is in visited. Check if color same as start color
+                if node.color == start.color:
+                    # yes then return false
+                    return False
+        return True
+
 
 # Creating the nodes
-
 nodeA = Node('a')
 nodeB = Node('b')
 nodeC = Node('c')
 nodeD = Node('d')
 nodeE = Node('e')
 
-print(nodeA, nodeE)
+# print(nodeA, nodeE)
 
 graph = Graph(nodes=[nodeA, nodeB, nodeC, nodeD, nodeE])
 
-print(graph)
+# print(graph)
 
-repr(graph)
+# repr(graph)
 
 # Creating the connections, there will be only 5 as these are undirected
 nodeA.connect(nodeB)
@@ -193,24 +242,63 @@ nodeC.connect(nodeD)
 nodeC.connect(nodeB)
 nodeC.connect(nodeE)
 
-print("After creating connections")
-print(repr(nodeA))
-print(repr(nodeB))
-print(repr(nodeC))
-print(repr(nodeD))
-print(repr(nodeE))
-
-
-print(nodeA.getEdgeList())
-print(nodeB.getEdgeList())
-
+# print("After creating connections")
+# print(repr(nodeA))
+# print(repr(nodeB))
+# print(repr(nodeC))
+# print(repr(nodeD))
+# print(repr(nodeE))
+# 
+# 
+# print(nodeA.getEdgeList())
+# print(nodeB.getEdgeList())
+# 
 nodeF = Node('f')
 graph.addToGraph(nodeF)
 
-print("Aftering addin a new node")
-print(graph)
+# print("Aftering addin a new node")
+# print(graph)
+# 
+# print(nodeD.isConnected(nodeA))  # True
+# print(nodeA.isConnected(nodeC))  # False
+# print(nodeC.isConnected(nodeB))  # True
+# print(nodeF.isConnected(nodeE))  # False
 
-print(nodeD.isConnected(nodeA))  # True
-print(nodeA.isConnected(nodeC))  # False
-print(nodeC.isConnected(nodeB))  # True
-print(nodeF.isConnected(nodeE))  # False
+# This is not a Binary Tree. Its a Graph.
+# Create the nodes first.
+# Children has to be added later. They children are just attributes
+
+jack = Node(value="jack")
+emily = Node(value="emily")
+lucy = Node(value="lucy")
+david = Node(value="david")
+brian = Node(value="brian")
+chris = Node(value="chris")
+jose = Node(value="jose")
+paul = Node(value="paul")
+
+
+# Initiate a Graph Object
+
+students = Graph([jack, emily, lucy, david, brian, chris, jose, paul])
+
+# print(students)
+
+david.connect(lucy)
+david.connect(jose)
+david.connect(chris)
+lucy.connect(brian)
+lucy.connect(emily)
+emily.connect(jack)
+jose.connect(paul)
+paul.connect(chris)
+chris.connect(brian)
+brian.connect(jack)
+# below connectivity will break the bi-partite graph
+# lucy.connect(chris)
+
+
+# print(david)
+# print(paul)
+
+print(students.isBipartite())

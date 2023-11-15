@@ -17,14 +17,25 @@ b.left = d
 b.right = e
 c.right = f
 
-# Explore the level fully before going down the next level
+# Steps of the BFS Algorithm: 
+# Create a string that will hold the return value
+# create a queue and push the current node into the queue
+# While there is element in this queue, there are nodes to visit
+# pop the 0th element of the queue and assign it as observation node
+# Do some activity on the node, like reading values or modifying children
+# check if there is right child and append it to queue
+# check if there is left child and append it to queue
+# return / print the value that is collected, or the activity that is done
+
 
 def breadthFirstPrint(node):
-    queue = [node] # The node provided is the root, and it is immediately pushed into stack
+    # The node provided is the root, and it is immediately pushed into stack
+    queue = [node] 
     # algo has to run if there something in stack. 
     # If nothing in stack, means the operation is completed
     while len(queue) > 0:
-        curr = queue.pop(0) # this means the particular node has been visited
+        # pop the particular node and the visit it
+        curr = queue.pop(0) 
         print(curr.val)
         # Add curr's children to the stack. It must be non-null
 

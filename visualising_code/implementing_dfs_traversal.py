@@ -23,6 +23,16 @@ c.right = f
 #     /\    \
 #    d  e    f
 
+# Steps of the DFS Algorithm:
+# Create a string that will hold the return value
+# create a stack and push the current node into the stack 
+# While there is element in this stack, there are nodes to visit
+# pop the top element of the stack and assign it as observation node
+# Do some activity on the node, like reading values or modifying children
+# check if there is right child and insert it on top of stack
+# check if there is left child and insert it to top of stack 
+# return / print the value that is collected, or the activity that is done
+
 def depthFirstPrint(node):
     stack = [node] # The node provided is the root, and it is immediately pushed into stack
     # algo has to run if there something in stack. 
