@@ -63,6 +63,90 @@ class LinkedList:
         # Inform user the append is completed
         print(f"{newNode.value} node has been appended after {observer.value}")
 
+    def rec_append(self, val):
+        """Appends the value directly into the Linked list"""
+        # if head is none
+        if self.head is None:
+            # then attach the Node
+            self.head = Node(val)
+            # print(f"Appending {val} to head of list...")
+            return
+        # call the recursive append function with val and head
+        LinkedList._rec_append(val, self.head)
+
+    # Need to recursively call the function    
+    @staticmethod
+    def _rec_append(val, curr):
+        # check if the curr node doesn't have next node
+        if curr.next is None:
+            # yes then append new node in place of curr.next
+            curr.next = Node(val)
+            # inform the user where the new node is appended
+            # print(f"Appending {val} after {curr.value}")
+            # Return to caller
+            return
+        # current node has next node, call "self" with next node 
+        LinkedList._rec_append(val, curr.next)
+
+    def rec_contains(self, val):
+        """Checks each node and returns true if val is present in list"""
+        return LinkedList._rec_contains(val, self.head)
+
+    @staticmethod        
+    def _rec_contains(val, node):
+        """Calls its recursively with the next nodes if available"""
+        # If reached end of the list
+        if node is None:
+            # means the value is not in the list
+            return False
+        # If node's value is equal to val
+        if node.value == val:
+            # return True
+            return True
+        # Call "self" with next node
+        return LinkedList._rec_contains(val, node.next)
+    
+    def rec_print(self):
+        """Prints the values of the list"""
+        # Call the recursive print function
+        return LinkedList._rec_print(self.head)
+
+    @staticmethod
+    def _rec_print(node):
+        """Prints the value of the node and calls self recursively"""
+        # check if node is none
+        if node is None:
+            # then return as empty list
+            return "end..."
+        # append the value of node to the recursive call with next node
+        return str(node.value) + ' -> ' + LinkedList._rec_print(node.next)
+
+
+# def del_linkedlist(node: Node) -> None: 
+def del_linkedlist(mylist: LinkedList) -> None: 
+    """Recursively deletes elements in the entire list""" 
+    # check if the node is none
+    node = mylist.head
+    print(mylist.rec_print())
+    if node is None:
+        print("empty list...")
+        return
+    # check if next node is not none 
+    if node.next is not None:
+        # assign node to prev variable
+        prev = node
+        # inform the user the node connection is cut
+        print(f"{prev.value} is disconnected from {node.next.value}")
+        # cut the connection of prev to the next node
+        prev.next = None
+        # make the head's next node as the head
+        mylist.head = node.next
+        # show the new list
+        print(mylist.rec_print())
+
+    # call the function with updated mylist
+    return del_linkedlist(mylist)  
+
 
 def print_ll(start: Node) -> None:
     """Given head of a linkedlist print the rest of the list"""
@@ -102,12 +186,27 @@ f = Node('F')
 # ll1.print()  # a -> b -> c -> d -> e -> f
 
 ll1 = LinkedList()
+ll2 = LinkedList()
 
-ll1.append(a)
-ll1.append(b)
-ll1.append(c)
-ll1.append(d)
-ll1.append(e)
-ll1.append(f)
+# ll1.append(a)
+# ll1.append(b)
+# ll1.append(c)
+# ll1.append(d)
+# ll1.append(e)
+# ll1.append(f)
 
-print_ll(a)
+ll1.rec_append('a')
+ll1.rec_append('b')
+ll1.rec_append('c')
+ll1.rec_append('d')
+ll1.rec_append('e')
+ll1.rec_append('f')
+
+# print(ll1.rec_contains('f'))  # True
+# print(ll1.rec_contains('tf'))  # False
+
+# print(ll1.rec_print())  # a -> b -> c -> d -> e -> f
+# print_ll(a)
+
+del_linkedlist(ll2)  # empty list 
+del_linkedlist(ll1)  # list deleted

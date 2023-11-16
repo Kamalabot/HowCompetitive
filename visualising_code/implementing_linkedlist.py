@@ -1,6 +1,7 @@
 # Implementing Linked Lists iteratively 
 from typing import Union
 
+
 class Node:
 
     def __init__(self, val) -> None:
@@ -9,6 +10,7 @@ class Node:
 
     def __str__(self):
         return self.val
+
 
 class LinkedList:
     def __init__(self) -> None:
@@ -35,6 +37,46 @@ class LinkedList:
         observer.next = newNode
         # Inform user the append is completed
         print(f"{newNode.value} node has been appended after {observer.value}")
+
+    def rec_append(self, val):
+        """Appends the value directly into the Linked list"""
+        # if head is none
+        if self.head is None:
+            # then attach the Node
+            self.head = Node(val)
+            print(f"Appending {val} to head of list...")
+            return
+        # call the recursive append function with val and head
+        LinkedList._rec_append(val, self.head)
+
+    # Need to recursively call the function    
+    @staticmethod
+    def _rec_append(val, curr):
+        # check if the curr node doesn't have next node
+        if curr.next is None:
+            # yes then append new node in place of curr.next
+            curr.next = Node(val)
+            # inform the user where the new node is appended
+            print(f"Appending {val} after {curr.value}")
+            # Return to caller
+            return
+        # current node has next node, call "self" with next node 
+        LinkedList._rec_append(val, curr.next)
+ 
+    def rec_print(self):
+        """Prints the values of the list"""
+        # Call the recursive print function
+        return LinkedList._rec_print(self.head)
+
+    @staticmethod
+    def _rec_print(node):
+        """Prints the value of the node and calls self recursively"""
+        # check if node is none
+        if node is None:
+            # then return as empty list
+            return "end..."
+        # append the value of node to the recursive call with next node
+        return str(node.value) + ' -> ' + LinkedList._rec_print(node.next)
 
 
 def print_ll(start: Node) -> None:
@@ -193,15 +235,16 @@ def sum_list(lhead: Node):
 #     return head.val
 
 
-def deleteValue(head: Node, val: int | str | float) -> bool:
+def deleteValue(head: Node, val: int | str | float) -> Node:
+    """delete the node containing the value and return it"""
     if head.val == val:
-        return head.next.val
+        return head.next
 
     _deleteValue(head, None, val)
-    return head.val
+    return head
 
 
-def _deleteValue(curr: Node, prev: Node, val: int | str | float) -> bool:
+def _deleteValue(curr: Node, prev: Node, val: int | str | float) -> Node:
     # check the order of the base cases 
     if curr is None:
         return
