@@ -1,70 +1,84 @@
-# Practice script for implementing the graph representation as nodes
-# and traversing it breadth first and depth first for "binary tree" 
+# Practice script for implementing the Linked list representation as nodes
+# and operating on the linked list. The major operations are printing the 
+# list elements, checking if an element is present in the list,
+# reversing the entire list and deleting the list
+
 class Node:
     def __init__(self, value) -> None:
         self.value: str | int = value
-        self.right: Node = None
-        self.left: Node = None
+        self.next: Node = None
 
     def __str__(self):
         return str(self.value)
 
 
-# Starting the breadth first traversal of the nodes
-# def traverse_bfs(node):
-#     """Takes a head of a binary tree and prints out all the 
-#     nodes value. """
-#     # create the string that is going to returned
-#     string = ""
-#     # Create a supporting queue, using a simple list
-#     queue = []
-#     # Start the Node traversal with while loop
-#     while True:
-#         # assign a current node
-#         curr: Node = node 
-#         # First extract children to queue
-#         if curr.left is not None:
-#             queue.append(curr.left)     
-#         if curr.right is not None:
-#             queue.append(curr.right)
+# class LinkedList:
+#     # Instantiate a LinkedList Object
+#     def __init__(self, start) -> None:
+#         # assign the head with start node
+#         self.head = start
 # 
-#         # perform the activity on the
-#         string += str(curr.value) + ' -> '
+#     def print(self) -> None:
+#         """Prints the elements of the linked list"""
+#         # Check if the linked list head is none
+#         if self.head is None:
+#             # Yes. Then return. There is nothing to print 
+#             return
+#         # Create a variable string, to hold the output
+#         string = ""
+#         # Assign the head to observer variable
+#         observer = self.head
+#         # While the observer is not none,
+#         while observer is not None:
+#             # do the operation with the observer
+#             string += str(observer.value) + ' -> '
+#             # assign observer's next to observer
+#             observer = observer.next
+# 
+#         print(string)
 
-def traverse_bfs(node):
-    # Create a string that will hold the return value
+class LinkedList:
+    def __init__(self) -> None:
+        self. head = None
+
+    def append(self, newNode: Node) -> None:
+        """Append the new node to end of the list"""
+        # check if the head is none
+        if self.head is None:
+            # yes, then make the newNode as head
+            self.head = newNode
+            # inform user that, the node is the head
+            print(f"{newNode.value} is the head")
+            # return out
+            return
+        # create observer variable and assign it self.head
+        observer = self.head
+        # while observer.next is not None
+        while observer.next is not None:
+            # Then assign observer.next to observer
+            observer = observer.next
+        # Break out of while loop when next node becomes none 
+        # assign newNode to observer.next
+        observer.next = newNode
+        # Inform user the append is completed
+        print(f"{newNode.value} node has been appended after {observer.value}")
+
+
+def print_ll(start: Node) -> None:
+    """Given head of a linkedlist print the rest of the list"""
+    # create variable called string to hold the output
     string = ""
-    # create a queue and push the current node into the queue
-    queue = [node]
-    # While there is element in this queue, there are nodes to visit
-    while len(queue) > 0:
-        # pop the 0th element of the queue and assign it as observation node
-        observe = queue.pop(0)
-        # Do some activity on the node, like reading values or modifying children
-        string += str(observe.value) + ' -> '
-        # check if there is right child and append it to queue
-        if observe.right is not None:
-            queue.append(observe.right)
-        # check if there is left child and append it to queue
-        if observe.left is not None:
-            queue.append(observe.left)
-    
-    print(string)
-
-
-def traverse_dfs(node):
-    string = ""
-    stack = [node]
-    while len(stack) > 0:
-        observer = stack.pop(0)
-        string += str(observer.value) + " -> "
-
-        if observer.right is not None:
-            stack.insert(0, observer.right)
-
-        if observer.left is not None:
-            stack.insert(0, observer.left)
-
+    # assign start to the current node, use it as reference
+    curr = start
+    # while the next element of current node is not none
+    while curr.next is not None:
+        # append the value of the curr node to the string
+        string += str(curr.value) + " -> "
+        # assign the next node to curr
+        curr = curr.next
+    # append last node value to string
+    string += str(curr.value)
+    # print the final string variable
     print(string)
 
 
@@ -75,22 +89,25 @@ d = Node('D')
 e = Node('E')
 f = Node('F')
 
-a.left = b
-a.right = c
-b.left = d
-c.left = e
-c.right = f
+# a.next = b
+# b.next = c
+# c.next = d
+# d.next = e
+# e.next = f
+ 
+# print_ll(a)  # a -> b -> c -> d -> e -> f
 
-# Checking the Nodes output
-# print(a)
-# print(b)
-# print(c)
+# ll1 = LinkedList(a)
 
-# traverse_bfs(a)  # a -> c -> b -> d -> f -> e
-#       a
-#      / \
-#     b   c
-#    /   / \
-#   d    e  f
+# ll1.print()  # a -> b -> c -> d -> e -> f
 
-traverse_dfs(a)  # a -> b -> d -> c -> e -> f
+ll1 = LinkedList()
+
+ll1.append(a)
+ll1.append(b)
+ll1.append(c)
+ll1.append(d)
+ll1.append(e)
+ll1.append(f)
+
+print_ll(a)

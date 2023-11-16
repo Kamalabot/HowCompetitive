@@ -10,43 +10,51 @@ class Node:
     def __str__(self):
         return self.val
 
+class LinkedList:
+    def __init__(self) -> None:
+        self. head = None
 
-# class LinkedList:
-# 
-#     def __init__(self) -> None:
-#         self.head = None
-# 
-#     def append(self, val):
-#         if self.head is None:
-#             self.head = Node(val)
-#             return
-#         cur = self.head
-# While there is cur.next then make the current as current.next 
-#         while cur.next is not None:
-#             cur = cur.next
-# Same val is assigned in two different locations in memory
-# And it is assigned to head 
-#         cur.next = Node(val)
-# 
-#     def print(self):
-#         string = ""
-#         cur = self.head
-#         while cur is not None:
-#             string += cur.val + "->"
-#             cur = cur.next  # This is key step 
-#  
-#         print(string)
+    def append(self, newNode: Node) -> None:
+        """Append the new node to end of the list"""
+        # check if the head is none
+        if self.head is None:
+            # yes, then make the newNode as head
+            self.head = newNode
+            # inform user that, the node is the head
+            print(f"{newNode.value} is the head")
+            # return out
+            return
+        # create observer variable and assign it self.head
+        observer = self.head
+        # while observer.next is not None
+        while observer.next is not None:
+            # Then assign observer.next to observer
+            observer = observer.next
+        # Break out of while loop when next node becomes none 
+        # assign newNode to observer.next
+        observer.next = newNode
+        # Inform user the append is completed
+        print(f"{newNode.value} node has been appended after {observer.value}")
 
-# Corrected print method 
-#     def print(self):
-        cur = self.head 
-        string = str(cur.val)
-        while cur.next is not None:
-            cur = cur.next 
-            string += '->' + str(cur.val)
-        print(string) 
 
-#     def contains(self, val):
+def print_ll(start: Node) -> None:
+    """Given head of a linkedlist print the rest of the list"""
+    # create variable called string to hold the output
+    string = ""
+    # assign start to the current node, use it as reference
+    curr = start
+    # while the next element of current node is not none
+    while curr.next is not None:
+        # append the value of the curr node to the string
+        string += str(curr.value) + " -> "
+        # assign the next node to curr
+        curr = curr.next
+    # append last node value to string
+    string += str(curr.value)
+    # print the final string variable
+    print(string)
+
+#   def contains(self, val):
 #         cur = self.head 
 #         while cur is not None:
 #             if cur.val == val:
