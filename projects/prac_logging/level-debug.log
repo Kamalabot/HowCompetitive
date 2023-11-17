@@ -1,0 +1,4 @@
+debug call from base.func1
+Critical called from base.func1
+debug call from utils.func2
+Critical called from utils.func2
