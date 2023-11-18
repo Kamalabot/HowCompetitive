@@ -1,212 +1,218 @@
-# Practice script for implementing the Linked list representation as nodes
-# and operating on the linked list. The major operations are printing the 
-# list elements, checking if an element is present in the list,
-# reversing the entire list and deleting the list
+# Script is used for practicing queue, stack, graph and linkedlist 
+# implementation. The methods like, print, contains, 
+# delete element and reverse list functions 
+
+# implementing logging
+import logging
+# Use a create a logger 
+logger = logging.getLogger(__name__)
+# assign level to logger
+logger.setLevel(logging.INFO)
+# create a streamhandler 
+handler = logging.StreamHandler()
+# setLevel for handler
+handler.setLevel(logging.INFO)
+# create a formatter
+newfmt = logging.Formatter(fmt='%(message)s - %(levelname)s - %(asctime)s',
+                           datefmt='%d-%b %H:%M')
+# attach formatter to handler
+handler.setFormatter(newfmt)
+# attach handler to logger
+logger.addHandler(handler)
+# start using the logger
+
+# implementing Queue with Node objects
+
 
 class Node:
     def __init__(self, value) -> None:
-        self.value: str | int = value
-        self.next: Node = None
+        self.value = value
+        self.next = None
 
     def __str__(self):
         return str(self.value)
 
 
-# class LinkedList:
-#     # Instantiate a LinkedList Object
-#     def __init__(self, start) -> None:
-#         # assign the head with start node
-#         self.head = start
-# 
-#     def print(self) -> None:
-#         """Prints the elements of the linked list"""
-#         # Check if the linked list head is none
-#         if self.head is None:
-#             # Yes. Then return. There is nothing to print 
-#             return
-#         # Create a variable string, to hold the output
-#         string = ""
-#         # Assign the head to observer variable
-#         observer = self.head
-#         # While the observer is not none,
-#         while observer is not None:
-#             # do the operation with the observer
-#             string += str(observer.value) + ' -> '
-#             # assign observer's next to observer
-#             observer = observer.next
-# 
-#         print(string)
+A = Node('a')
+B = Node('b')
+C = Node('c')
+D = Node('d')
 
-class LinkedList:
-    def __init__(self) -> None:
-        self. head = None
+# print(A)
 
-    def append(self, newNode: Node) -> None:
-        """Append the new node to end of the list"""
-        # check if the head is none
-        if self.head is None:
-            # yes, then make the newNode as head
-            self.head = newNode
-            # inform user that, the node is the head
-            print(f"{newNode.value} is the head")
-            # return out
-            return
-        # create observer variable and assign it self.head
-        observer = self.head
-        # while observer.next is not None
-        while observer.next is not None:
-            # Then assign observer.next to observer
-            observer = observer.next
-        # Break out of while loop when next node becomes none 
-        # assign newNode to observer.next
-        observer.next = newNode
-        # Inform user the append is completed
-        print(f"{newNode.value} node has been appended after {observer.value}")
+# implementing Queue Class
 
-    def rec_append(self, val):
-        """Appends the value directly into the Linked list"""
-        # if head is none
-        if self.head is None:
-            # then attach the Node
-            self.head = Node(val)
-            # print(f"Appending {val} to head of list...")
-            return
-        # call the recursive append function with val and head
-        LinkedList._rec_append(val, self.head)
 
-    # Need to recursively call the function    
-    @staticmethod
-    def _rec_append(val, curr):
-        # check if the curr node doesn't have next node
-        if curr.next is None:
-            # yes then append new node in place of curr.next
-            curr.next = Node(val)
-            # inform the user where the new node is appended
-            # print(f"Appending {val} after {curr.value}")
-            # Return to caller
-            return
-        # current node has next node, call "self" with next node 
-        LinkedList._rec_append(val, curr.next)
+class Queue:
+    def __init__(self):
+        self.front = None
+        self.back = None
+        self.size = 0
 
-    def rec_contains(self, val):
-        """Checks each node and returns true if val is present in list"""
-        return LinkedList._rec_contains(val, self.head)
-
-    @staticmethod        
-    def _rec_contains(val, node):
-        """Calls its recursively with the next nodes if available"""
-        # If reached end of the list
-        if node is None:
-            # means the value is not in the list
-            return False
-        # If node's value is equal to val
-        if node.value == val:
-            # return True
-            return True
-        # Call "self" with next node
-        return LinkedList._rec_contains(val, node.next)
+    def enqueue(self, node):
+        # if queue is empty
+        if self.size == 0:
+            # enqueueed node will be front & back
+            self.front = node
+            self.back = node
+        # in other cases node is assigned to current back node's next
+        self.back.next = node
+        # also the back node will be the new node
+        self.back = node
+        # size of queue will be extended by 1
+        self.size += 1
     
-    def rec_print(self):
-        """Prints the values of the list"""
-        # Call the recursive print function
-        return LinkedList._rec_print(self.head)
+    def dequeue(self):
+        # if queue is empty
+        if self.size == 0:
+            # return empty queue
+            return 'empty queue'
+        # in other cases assign front node to outnode
+        outNode = self.front
+        # check if outNode's next attribute has value
+        if outNode.next is not None:
+            # make the next node in the next attr as front node
+            self.front = outNode.next
+        # in other cases reduce the size of queue by 1
+        self.size -= 1
+        # return the outnode
+        return str(outNode.value)
 
-    @staticmethod
-    def _rec_print(node):
-        """Prints the value of the node and calls self recursively"""
-        # check if node is none
-        if node is None:
-            # then return as empty list
-            return "end..."
-        # append the value of node to the recursive call with next node
-        return str(node.value) + ' -> ' + LinkedList._rec_print(node.next)
+    def contains(self, search):
+        # if queue is empty
+        if self.size == 0:
+            return False
+        # In other cases, start from first node 
+        curr = self.front
+        # loop while next node of observed node is not None
+        while curr.next is not None:
+            # check if value is same as search node
+            if curr.value == search:
+                return True 
+            # other cases assign the next node to current
+            curr = curr.next
+        # after checking all values, if not found return false
+        return False
 
-
-# def del_linkedlist(node: Node) -> None: 
-def del_linkedlist(mylist: LinkedList) -> None: 
-    """Recursively deletes elements in the entire list""" 
-    # check if the node is none
-    node = mylist.head
-    print(mylist.rec_print())
-    if node is None:
-        print("empty list...")
-        return
-    # check if next node is not none 
-    if node.next is not None:
-        # assign node to prev variable
-        prev = node
-        # inform the user the node connection is cut
-        print(f"{prev.value} is disconnected from {node.next.value}")
-        # cut the connection of prev to the next node
-        prev.next = None
-        # make the head's next node as the head
-        mylist.head = node.next
-        # show the new list
-        print(mylist.rec_print())
-
-    # call the function with updated mylist
-    return del_linkedlist(mylist)  
-
-
-def print_ll(start: Node) -> None:
-    """Given head of a linkedlist print the rest of the list"""
-    # create variable called string to hold the output
-    string = ""
-    # assign start to the current node, use it as reference
-    curr = start
-    # while the next element of current node is not none
-    while curr.next is not None:
-        # append the value of the curr node to the string
-        string += str(curr.value) + " -> "
-        # assign the next node to curr
-        curr = curr.next
-    # append last node value to string
-    string += str(curr.value)
-    # print the final string variable
-    print(string)
+    def printQueue(self):
+        # if queue is empty
+        if self.size == 0:
+            # print 'empty queue'
+            print('empty queue')
+        # create a variable to hold the value to be printed
+        string = ""
+        # assign the front node to curr
+        curr = self.front
+        # take the front node and add the value to string
+        string += str(curr.value)
+        # look for next nodes in queue until there is no nodes
+        while curr.next is not None:
+            # assign the next to current 
+            curr = curr.next
+            # add its value to string
+            string += ' -> ' + str(curr.value)
+        # print the string
+        print(string)
+    
+    def __len__(self):
+        "Access queue via its size attributes"
+        return self.size
 
 
-a = Node('A')
-b = Node('B')
-c = Node('C')
-d = Node('D')
-e = Node('E')
-f = Node('F')
+# queue = Queue()
+# queue.enqueue(A)
+# queue.enqueue(B)
 
-# a.next = b
-# b.next = c
-# c.next = d
-# d.next = e
-# e.next = f
- 
-# print_ll(a)  # a -> b -> c -> d -> e -> f
+# print(len(queue))
 
-# ll1 = LinkedList(a)
+# print(queue.dequeue())
+# print(queue.dequeue())
+# print(queue.size)
 
-# ll1.print()  # a -> b -> c -> d -> e -> f
+# queue.enqueue(A)
+# queue.enqueue(C)
+# queue.enqueue(B)
+# queue.enqueue(D)
 
-ll1 = LinkedList()
-ll2 = LinkedList()
+# print(queue.contains('a'))  # True
+# print(queue.contains('t'))  # False
 
-# ll1.append(a)
-# ll1.append(b)
-# ll1.append(c)
-# ll1.append(d)
-# ll1.append(e)
-# ll1.append(f)
+# queue.printQueue()
 
-ll1.rec_append('a')
-ll1.rec_append('b')
-ll1.rec_append('c')
-ll1.rec_append('d')
-ll1.rec_append('e')
-ll1.rec_append('f')
+# implementing Stack with the same Node class above
 
-# print(ll1.rec_contains('f'))  # True
-# print(ll1.rec_contains('tf'))  # False
+class Stack:
+    def __init__(self):
+        self.top = None
+        self.size = 0
 
-# print(ll1.rec_print())  # a -> b -> c -> d -> e -> f
-# print_ll(a)
+    def push(self, value):
+        # if stack is empty
+        if self.size == 0:
+            # make the value as top node
+            self.top = Node(value)
+        # else take top node and assign to next of value 
+        else:
+            # create a new node
+            newNode = Node(value)
+            newNode.next = self.top
+            # assign newNode as top
+            self.top = newNode
+        
+        # increase the size by 1
+        self.size += 1
 
-del_linkedlist(ll2)  # empty list 
-del_linkedlist(ll1)  # list deleted
+    def pop(self):
+        # if the stack is empty
+        if self.size == 0:
+            # just return
+            return None
+        # other cases, take the top node
+        popnode = self.top
+        # assign the top.next as top node
+        self.top = self.top.next
+        # reduce the stack size
+        self.size -= 1
+        # return top value
+        return popnode.value
+            
+    def contains(self, search):
+        logger.warning(f'Search is {search}')
+        # if stack is empty
+        if self.size == 0:
+            return False
+        # assign top node to curr
+        curr = self.top
+        # start looping while curr.next is not None 
+        while curr is not None: 
+            logger.warning(f'inside contains {curr.value}')
+            # check if curr.value = search
+            if curr.value == search:
+                logger.info('entering if')
+                # return True & finish
+                return True
+            # or assign curr as curr.next
+            curr = curr.next
+        # after looping not found return False
+        return False
+        
+    def printStack(self):
+        pass
+
+
+stk = Stack()
+# logger.error(stk.size)
+stk.push(A)
+# logger.warning(stk.size)
+stk.push(B)
+
+logger.info(stk.contains('a'))  # True
+# logger.info(stk.contains('t'))  # False
+# 
+# logger.info(stk.size)  # 2
+# stk.printStack()  # a -> b
+# 
+# logger.info(stk.pop())  # a
+# logger.info(stk.pop())  # b
+# logger.info(stk.size)  # 0
+# stk.printStack()  # empty stack

@@ -33,28 +33,39 @@ class Stack:
         self.top = None
         self.size = 0 
 
-    def push(self, val) -> None:
+    def push(self, value):
+        # if stack is empty
         if self.size == 0:
-            self.top = StackNode(val)
+            # make the value as top node
+            self.top = StackNode(value)
+        # else take top node and assign to next of value 
         else:
-            pushNode = StackNode(val)
-            pushNode.next = self.top
-            self.top = pushNode
-
+            # create a new node
+            newNode = StackNode(value)
+            newNode.next = self.top
+            # assign newNode as top
+            self.top = newNode
+ 
+        # increase the size by 1
         self.size += 1
-
+    
     def getTop(self):
         return self.top.val
 
     def pop(self):
+        # if the stack is empty
         if self.size == 0:
+            # just return
             return None
-        
-        popedNode = self.top
+        # other cases, take the top node
+        popnode = self.top
+        # assign the top.next as top node
         self.top = self.top.next
+        # reduce the stack size
         self.size -= 1
-        return popedNode.val
-    
+        # return top value
+        return popnode.value
+        
     def __str__(self) -> str:
         if self.size == 0:
             return "Stack Empty"
