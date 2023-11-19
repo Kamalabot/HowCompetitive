@@ -30,6 +30,18 @@ def adjancentNode(node: str, edges: List[List[str]]) -> List[str]:
     return result
 
 
+def adjacent_node(node: str, edgeList: List[List[str]]):
+    # create list to hold result
+    result = []
+    # loop on the edge list
+    for edg in edgeList:
+        # try checking if node in edge
+        if node in edg:
+            # get idx of node and take the other element 
+            result.append(edg[0]) if edg.index(node) == 1 else result.append(edg[1])
+    # return result
+    return result
+
 # print(adjancentNode('a', edges)) # ['b', 'd']
 # print(adjancentNode('c', edges)) # ['b', 'd', 'e']
 

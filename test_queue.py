@@ -1,218 +1,172 @@
-# Script is used for practicing queue, stack, graph and linkedlist 
-# implementation. The methods like, print, contains, 
-# delete element and reverse list functions 
-
-# implementing logging
+# implementing logger to retrieve the code checks
 import logging
-# Use a create a logger 
-logger = logging.getLogger(__name__)
-# assign level to logger
-logger.setLevel(logging.INFO)
-# create a streamhandler 
-handler = logging.StreamHandler()
-# setLevel for handler
+from typing import List
+
+# create a logger
+graphLog = logging.getLogger(__name__)
+# setLevel to Debug
+graphLog.setLevel(logging.DEBUG)
+# create file handler
+handler = logging.FileHandler(filename='graphlog.log',mode='w')
+# setLevel on Handler
 handler.setLevel(logging.INFO)
-# create a formatter
-newfmt = logging.Formatter(fmt='%(message)s - %(levelname)s - %(asctime)s',
-                           datefmt='%d-%b %H:%M')
+# create formatter
+logformat = logging.Formatter(fmt='%(message)s:%(asctime)s_%(levelname)s',
+                              datefmt='%b-%d-%H-%M')
 # attach formatter to handler
-handler.setFormatter(newfmt)
-# attach handler to logger
-logger.addHandler(handler)
-# start using the logger
+handler.setFormatter(logformat)
+# add handler to logger
+graphLog.addHandler(handler)
 
-# implementing Queue with Node objects
+# Implementing Graphs in 4 different methods, and 
+# checking a node/ value is contained in a graph
+# finding the adjacent node of a given graph
+datapoints = ['a', 'b', 'c', 'd', 'e', 'f']
+edges = [
+    ['a', 'b'],
+    ['a', 'c'],
+    ['b', 'd'],
+    ['a', 'd'],
+    ['b', 'e'],
+    ['e', 'f'],
+    ['c', 'f'],
+]
 
+
+# def adjacent_node(node: str, edgeList: List[List[str]]):
+#     # create list to hold result
+#     result = []
+#     # loop on the edge list
+#     for edg in edgeList:
+#         # try checking if node in edge
+#         if node in edg:
+#             # get idx of node and take the other element 
+#             result.append(edg[0]) if edg.index(node) == 1 else result.append(edg[1])
+#     # return result
+#     return result
+# 
+# 
+# def isConnected(node1: str, node2: str):
+#     # loop over the edges
+#     for edg in edges:
+#         # check if node1 and node2 are present
+#         if node1 in edg and node2 in edg:
+#             return True
+#     # complete the entire edge list and return False
+#     return False
+
+# graphLog.info(adjacent_node('a', edges))  # b, c, d
+# graphLog.info(adjacent_node('e', edges))  # b, f
+# graphLog.info(adjacent_node('b', edges))  # e, d, a
+
+# graphLog.warning(isConnected('a', 'b'))  # True
+# graphLog.warning(isConnected('d', 'b'))  # True
+# graphLog.warning(isConnected('e', 'a'))  # False
+# working on the adjacency matrix 
+edges = [
+    ['a', 'b'],
+    ['a', 'c'],
+    ['b', 'd'],
+    ['a', 'd'],
+    ['b', 'e'],
+    ['e', 'f'],
+    ['c', 'f'],
+]
+
+edgeMatrix = [
+    [0, 1, 1, 1, 0, 0],
+    [1, 0, 0, 1, 1, 0],
+    [1, 0, 0, 0, 0, 1],
+    [1, 1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 1, 0],
+] 
+
+
+# def adjacent_node(node: str, matrix: List[List[int]]):
+#     # make index map of nodes
+#     idx_map = dict()
+#     for ind, ele in enumerate(datapoints):
+#         idx_map[ele] = ind
+#     # graphLog.info(idx_map)
+#     # create list to collect nodes
+#     result = []
+#     # get idx of node, use that select element on edgematrix and loop on it
+#     for ind, ids in enumerate(matrix[idx_map[node]]):
+#         # chek if elem is 1
+#         if ids == 1:
+#             # append the node at the 'ind' by using idx_map.keys() as list
+#             result.append(list(idx_map.keys())[ind])
+#     # return result
+#     return result
+ 
+ 
+# def isConnected(node1: str, node2: str, matrix: List[List[int]]):
+#     # create the idx_map of the node and its position
+#     idx_map = dict()
+#     # loop over the datapoints
+#     for ind, val in enumerate(datapoints):
+#         idx_map[val] = ind
+#     # get the indices of node1 and node2 
+#     x, y = idx_map[node1], idx_map[node2]
+#     # return True if it is 1 at indices inside matrix else return False
+#     if matrix[x][y] == 1:
+#         return True
+#     else:
+#         return False
+
+
+# graphLog.info(adjacent_node('a', edgeMatrix))  # b, c, d
+# graphLog.info(adjacent_node('e', edgeMatrix))  # b, f
+# graphLog.info(adjacent_node('b', edgeMatrix))  # e, d, a
+ 
+# graphLog.warning(isConnected('e', 'f', edgeMatrix))  # True
+# graphLog.warning(isConnected('a', 'f', edgeMatrix))  # False
+
+# Implementing the Graph based on Nodes datastructure
 
 class Node:
-    def __init__(self, value) -> None:
+    def __init__(self, value):
         self.value = value
-        self.next = None
+        self.nodes = []
+
+    def connect(self, other: "Node"):
+        self.nodes.append(other)
+        other.nodes.append(self)
 
     def __str__(self):
-        return str(self.value)
+        # return the node value along with the values of nodes connected with it
+        return f"{self.value} is connected with {','.join([ele.value for ele in self.nodes])}"
+
+    def connecteNodes(self):
+        "Return the value of connected nodes"
+        return ",".join([ele.value for ele in self.nodes])
+
+    def isConnected(self, other: 'Node'):
+        "check if other node is self.nodes list"
+        return other in self.nodes
 
 
 A = Node('a')
+F = Node('f')
 B = Node('b')
 C = Node('c')
 D = Node('d')
+E = Node('e')
 
-# print(A)
+A.connect(B)
+A.connect(C)
+C.connect(B)
+D.connect(C)
+B.connect(E)
+A.connect(D)
 
-# implementing Queue Class
+graphLog.info(A)
+graphLog.info(B)
 
+graphLog.warning(A.connecteNodes())
+graphLog.warning(B.connecteNodes())
+graphLog.warning(E.connecteNodes())
 
-class Queue:
-    def __init__(self):
-        self.front = None
-        self.back = None
-        self.size = 0
-
-    def enqueue(self, node):
-        # if queue is empty
-        if self.size == 0:
-            # enqueueed node will be front & back
-            self.front = node
-            self.back = node
-        # in other cases node is assigned to current back node's next
-        self.back.next = node
-        # also the back node will be the new node
-        self.back = node
-        # size of queue will be extended by 1
-        self.size += 1
-    
-    def dequeue(self):
-        # if queue is empty
-        if self.size == 0:
-            # return empty queue
-            return 'empty queue'
-        # in other cases assign front node to outnode
-        outNode = self.front
-        # check if outNode's next attribute has value
-        if outNode.next is not None:
-            # make the next node in the next attr as front node
-            self.front = outNode.next
-        # in other cases reduce the size of queue by 1
-        self.size -= 1
-        # return the outnode
-        return str(outNode.value)
-
-    def contains(self, search):
-        # if queue is empty
-        if self.size == 0:
-            return False
-        # In other cases, start from first node 
-        curr = self.front
-        # loop while next node of observed node is not None
-        while curr.next is not None:
-            # check if value is same as search node
-            if curr.value == search:
-                return True 
-            # other cases assign the next node to current
-            curr = curr.next
-        # after checking all values, if not found return false
-        return False
-
-    def printQueue(self):
-        # if queue is empty
-        if self.size == 0:
-            # print 'empty queue'
-            print('empty queue')
-        # create a variable to hold the value to be printed
-        string = ""
-        # assign the front node to curr
-        curr = self.front
-        # take the front node and add the value to string
-        string += str(curr.value)
-        # look for next nodes in queue until there is no nodes
-        while curr.next is not None:
-            # assign the next to current 
-            curr = curr.next
-            # add its value to string
-            string += ' -> ' + str(curr.value)
-        # print the string
-        print(string)
-    
-    def __len__(self):
-        "Access queue via its size attributes"
-        return self.size
-
-
-# queue = Queue()
-# queue.enqueue(A)
-# queue.enqueue(B)
-
-# print(len(queue))
-
-# print(queue.dequeue())
-# print(queue.dequeue())
-# print(queue.size)
-
-# queue.enqueue(A)
-# queue.enqueue(C)
-# queue.enqueue(B)
-# queue.enqueue(D)
-
-# print(queue.contains('a'))  # True
-# print(queue.contains('t'))  # False
-
-# queue.printQueue()
-
-# implementing Stack with the same Node class above
-
-class Stack:
-    def __init__(self):
-        self.top = None
-        self.size = 0
-
-    def push(self, value):
-        # if stack is empty
-        if self.size == 0:
-            # make the value as top node
-            self.top = Node(value)
-        # else take top node and assign to next of value 
-        else:
-            # create a new node
-            newNode = Node(value)
-            newNode.next = self.top
-            # assign newNode as top
-            self.top = newNode
-        
-        # increase the size by 1
-        self.size += 1
-
-    def pop(self):
-        # if the stack is empty
-        if self.size == 0:
-            # just return
-            return None
-        # other cases, take the top node
-        popnode = self.top
-        # assign the top.next as top node
-        self.top = self.top.next
-        # reduce the stack size
-        self.size -= 1
-        # return top value
-        return popnode.value
-            
-    def contains(self, search):
-        logger.warning(f'Search is {search}')
-        # if stack is empty
-        if self.size == 0:
-            return False
-        # assign top node to curr
-        curr = self.top
-        # start looping while curr.next is not None 
-        while curr is not None: 
-            logger.warning(f'inside contains {curr.value}')
-            # check if curr.value = search
-            if curr.value == search:
-                logger.info('entering if')
-                # return True & finish
-                return True
-            # or assign curr as curr.next
-            curr = curr.next
-        # after looping not found return False
-        return False
-        
-    def printStack(self):
-        pass
-
-
-stk = Stack()
-# logger.error(stk.size)
-stk.push(A)
-# logger.warning(stk.size)
-stk.push(B)
-
-logger.info(stk.contains('a'))  # True
-# logger.info(stk.contains('t'))  # False
-# 
-# logger.info(stk.size)  # 2
-# stk.printStack()  # a -> b
-# 
-# logger.info(stk.pop())  # a
-# logger.info(stk.pop())  # b
-# logger.info(stk.size)  # 0
-# stk.printStack()  # empty stack
+graphLog.info(E.isConnected(A))  # False
+graphLog.info(E.isConnected(B))  # True
