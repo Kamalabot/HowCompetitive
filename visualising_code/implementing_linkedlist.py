@@ -290,8 +290,24 @@ c.next = d
 #         curr = next
 # 
 #     return prev 
-# 
-
+ 
+def reverse_list(start: Node):
+    """Iteratively reversing the linked list which has start node"""
+    # assign prev and curr
+    prev = None
+    curr = start
+    # iteratively loop while curr is not none
+    while curr is not None:
+        # create a next variable and assign it to curr.next
+        next = curr.next
+        # assign curr.next variable to prev
+        curr.next = prev
+        # assign curr to prev
+        prev = curr
+        # assign next variable as curr
+        curr = next
+        # continue
+    return prev
 
 def reverseList(head: Node, prev: Node = None):
     """Recursive solution"""

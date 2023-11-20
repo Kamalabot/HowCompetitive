@@ -1,172 +1,139 @@
-# implementing logger to retrieve the code checks
+# file is for practicing the linkedlist implementation and traversal
+# Append, delete and recursive reverse is still pending
+
 import logging
-from typing import List
 
-# create a logger
-graphLog = logging.getLogger(__name__)
-# setLevel to Debug
-graphLog.setLevel(logging.DEBUG)
-# create file handler
-handler = logging.FileHandler(filename='graphlog.log',mode='w')
-# setLevel on Handler
-handler.setLevel(logging.INFO)
-# create formatter
-logformat = logging.Formatter(fmt='%(message)s:%(asctime)s_%(levelname)s',
-                              datefmt='%b-%d-%H-%M')
-# attach formatter to handler
-handler.setFormatter(logformat)
-# add handler to logger
-graphLog.addHandler(handler)
+# for a change use the basic logger
+logging.basicConfig(filemode='w', filename='linklog.log',
+                    datefmt="%b-%d | %H:%M",
+                    format='%(message)s | %(asctime)s | %(levelname)s',
+                    level=logging.INFO,
+                    force=True)
 
-# Implementing Graphs in 4 different methods, and 
-# checking a node/ value is contained in a graph
-# finding the adjacent node of a given graph
-datapoints = ['a', 'b', 'c', 'd', 'e', 'f']
-edges = [
-    ['a', 'b'],
-    ['a', 'c'],
-    ['b', 'd'],
-    ['a', 'd'],
-    ['b', 'e'],
-    ['e', 'f'],
-    ['c', 'f'],
-]
+# testing the logging
+# logging.info("info is recorded")
+# logging.warning("warning is recorded")
+# logging.critical("critical is recieved")
 
+# implementing linked-list with the nodes
 
-# def adjacent_node(node: str, edgeList: List[List[str]]):
-#     # create list to hold result
-#     result = []
-#     # loop on the edge list
-#     for edg in edgeList:
-#         # try checking if node in edge
-#         if node in edg:
-#             # get idx of node and take the other element 
-#             result.append(edg[0]) if edg.index(node) == 1 else result.append(edg[1])
-#     # return result
-#     return result
-# 
-# 
-# def isConnected(node1: str, node2: str):
-#     # loop over the edges
-#     for edg in edges:
-#         # check if node1 and node2 are present
-#         if node1 in edg and node2 in edg:
-#             return True
-#     # complete the entire edge list and return False
-#     return False
-
-# graphLog.info(adjacent_node('a', edges))  # b, c, d
-# graphLog.info(adjacent_node('e', edges))  # b, f
-# graphLog.info(adjacent_node('b', edges))  # e, d, a
-
-# graphLog.warning(isConnected('a', 'b'))  # True
-# graphLog.warning(isConnected('d', 'b'))  # True
-# graphLog.warning(isConnected('e', 'a'))  # False
-# working on the adjacency matrix 
-edges = [
-    ['a', 'b'],
-    ['a', 'c'],
-    ['b', 'd'],
-    ['a', 'd'],
-    ['b', 'e'],
-    ['e', 'f'],
-    ['c', 'f'],
-]
-
-edgeMatrix = [
-    [0, 1, 1, 1, 0, 0],
-    [1, 0, 0, 1, 1, 0],
-    [1, 0, 0, 0, 0, 1],
-    [1, 1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 1, 0],
-] 
-
-
-# def adjacent_node(node: str, matrix: List[List[int]]):
-#     # make index map of nodes
-#     idx_map = dict()
-#     for ind, ele in enumerate(datapoints):
-#         idx_map[ele] = ind
-#     # graphLog.info(idx_map)
-#     # create list to collect nodes
-#     result = []
-#     # get idx of node, use that select element on edgematrix and loop on it
-#     for ind, ids in enumerate(matrix[idx_map[node]]):
-#         # chek if elem is 1
-#         if ids == 1:
-#             # append the node at the 'ind' by using idx_map.keys() as list
-#             result.append(list(idx_map.keys())[ind])
-#     # return result
-#     return result
- 
- 
-# def isConnected(node1: str, node2: str, matrix: List[List[int]]):
-#     # create the idx_map of the node and its position
-#     idx_map = dict()
-#     # loop over the datapoints
-#     for ind, val in enumerate(datapoints):
-#         idx_map[val] = ind
-#     # get the indices of node1 and node2 
-#     x, y = idx_map[node1], idx_map[node2]
-#     # return True if it is 1 at indices inside matrix else return False
-#     if matrix[x][y] == 1:
-#         return True
-#     else:
-#         return False
-
-
-# graphLog.info(adjacent_node('a', edgeMatrix))  # b, c, d
-# graphLog.info(adjacent_node('e', edgeMatrix))  # b, f
-# graphLog.info(adjacent_node('b', edgeMatrix))  # e, d, a
- 
-# graphLog.warning(isConnected('e', 'f', edgeMatrix))  # True
-# graphLog.warning(isConnected('a', 'f', edgeMatrix))  # False
-
-# Implementing the Graph based on Nodes datastructure
 
 class Node:
-    def __init__(self, value):
+    def __init__(self, value) -> None:
         self.value = value
-        self.nodes = []
+        self.next = None
 
-    def connect(self, other: "Node"):
-        self.nodes.append(other)
-        other.nodes.append(self)
 
-    def __str__(self):
-        # return the node value along with the values of nodes connected with it
-        return f"{self.value} is connected with {','.join([ele.value for ele in self.nodes])}"
+class Linkedlist:
+    """Class is implemented to provide a set of methods that work on
+    a linked list. The object is instantiated with head node of the
+    linkedlist"""
+    def __init__(self) -> None:
+        self.head = None
+    
+    def print_all(self):
+        """prints all the elements of the linkedlist by traversing iteratively"""
+        if self.head is None:
+            return 'Empty List'
+        # create a variable to hold the result
+        string = ""
+        # make the head as observed
+        observed = self.head
+        # start loop the linkedlist, as long as next attr of observed
+        # is not None
+        while observed is not None:
+            # attach value of head to the string
+            string += str(observed.value) + " => "
+            # make the next node as observed
+            observed = observed.next
+        # exit while loop once observed becomes None            
+        # return the built string
+        return string
+    
+    def print_rec(self):
+        """prints all the elements of the linkedlist by traversing recursively"""
+        # return the result of the _rec_print function result
+        return Linkedlist._print_rec(self.head)
 
-    def connecteNodes(self):
-        "Return the value of connected nodes"
-        return ",".join([ele.value for ele in self.nodes])
+    @staticmethod
+    def _print_rec(start: Node):
+        """Static method used by the print_rec for traversing the 
+        Linkedlist recursively"""
+        # create a string variable to hold the results
+        # string = ""
+        if start is None:
+            return ''
+        # create a return statement with value of start + " => " + values that is
+        # recursively attached by calling _print_rec with start.next
+        return start.value + " => " + Linkedlist._print_rec(start.next)
 
-    def isConnected(self, other: 'Node'):
-        "check if other node is self.nodes list"
-        return other in self.nodes
+#     def reverse_list(self):
+#         """Method reverses the linkedlist in place iteratively"""
+#         # check if the linkedlist is populated
+#         if self.head is None:
+#             # return empty list
+#             return 'empty list'
+#         # create a prev node with None value
+#         prev = None
+#         # make the next node of head node as observed
+#         observed = self.head.next
+#         # start the loop on linkedlist as long as observed is not None
+#         while observed is not None:
+#             # make the observed_node next 
+#             next_node.next = observed
+#             # make the observed node next to point to prev 
+#             observed.next = prev
 
+
+def reverse_list(start: Node):
+    """Iteratively reversing the linked list which has start node"""
+    # assign prev and curr
+    prev = None
+    curr = start
+    # iteratively loop while curr is not none
+    while curr is not None:
+        # create a next variable and assign it to curr.next
+        next = curr.next
+        # assign curr.next variable to prev
+        curr.next = prev
+        # assign curr to prev
+        prev = curr
+        # assign next variable as curr
+        curr = next
+        # continue
+    return prev
+
+# The following nodes are created
 
 A = Node('a')
-F = Node('f')
 B = Node('b')
 C = Node('c')
 D = Node('d')
 E = Node('e')
 
-A.connect(B)
-A.connect(C)
-C.connect(B)
-D.connect(C)
-B.connect(E)
-A.connect(D)
+# the above nodes are connected by assigning it to the next attribute
 
-graphLog.info(A)
-graphLog.info(B)
+A.next = B
+B.next = C
+C.next = D
+D.next = E
 
-graphLog.warning(A.connecteNodes())
-graphLog.warning(B.connecteNodes())
-graphLog.warning(E.connecteNodes())
 
-graphLog.info(E.isConnected(A))  # False
-graphLog.info(E.isConnected(B))  # True
+# linked list is instantiated with a given head node
+ll1 = Linkedlist()
+ll1.head = A
+
+ll2 = Linkedlist()
+
+# checking the print_all method
+
+# logging.info(ll1.print_all())  # a => b => c => d => e =>
+# logging.info(ll2.print_all())  # EmptyList
+
+# logging.info(ll1.print_rec())  # a => b => c => d => e =>
+# logging.info(ll2.print_rec())  # EmptyList
+
+logging.info(reverse_list(A).value)
+
+# linked list has not changed... Why?
+logging.info(ll1.print_all())
