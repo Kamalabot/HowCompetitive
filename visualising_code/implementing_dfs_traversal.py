@@ -87,7 +87,7 @@ def dfs_inorder(node):
     dfs_inorder(node.right)
 
 # print("******post*********")
-# dfs_postorder(a)
+dfs_postorder(a)
 # print("******pre*********")
 # dfs_preorder(a)
 # print("******InOrder*******")
@@ -116,4 +116,4 @@ def dfs_sum(node):
     return dfs_sum(node.right) + node.val + dfs_sum(node.left)
 
 
-print(dfs_sum(a))
+# print(dfs_sum(a))
