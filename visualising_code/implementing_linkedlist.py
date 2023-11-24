@@ -317,8 +317,24 @@ def reverseList(head: Node, prev: Node = None):
     head.next = prev
     return reverseList(next, head)
 
+
+def append_rec(start: Node, newNode: Node):
+    # if start's next is None
+    if start.next is None:
+        # log the last node
+        logging.info(f"value of last node is: {start.value}")
+        # assign newNode to start's next
+        start.next = newNode
+        # return
+        return
+    # test the recursive stack
+    logging.info(f"value in stack is: {start.value}")
+    # call self with start.next and newNode 
+    append_rec(start.next, newNode)
+
 print("***Before Reverse****")
 print(print_list(a))
 new_head = reverseList(a)
 print("***After Reverse****")
 print(print_list(new_head))
+

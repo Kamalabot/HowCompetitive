@@ -1,5 +1,7 @@
 # file is for practicing the linkedlist implementation and traversal
-# Append, delete and recursive reverse is still pending
+# iterative and recursive Append is done.
+# iterative delete is done
+# recursive reverse and delete is still pending
 
 import logging
 
@@ -23,66 +25,16 @@ class Node:
         self.value = value
         self.next = None
 
-
-class Linkedlist:
-    """Class is implemented to provide a set of methods that work on
-    a linked list. The object is instantiated with head node of the
-    linkedlist"""
-    def __init__(self) -> None:
-        self.head = None
-    
-    def print_all(self):
-        """prints all the elements of the linkedlist by traversing iteratively"""
-        if self.head is None:
-            return 'Empty List'
-        # create a variable to hold the result
-        string = ""
-        # make the head as observed
-        observed = self.head
-        # start loop the linkedlist, as long as next attr of observed
-        # is not None
-        while observed is not None:
-            # attach value of head to the string
-            string += str(observed.value) + " => "
-            # make the next node as observed
-            observed = observed.next
-        # exit while loop once observed becomes None            
-        # return the built string
-        return string
-    
-    def print_rec(self):
-        """prints all the elements of the linkedlist by traversing recursively"""
-        # return the result of the _rec_print function result
-        return Linkedlist._print_rec(self.head)
-
-    @staticmethod
-    def _print_rec(start: Node):
-        """Static method used by the print_rec for traversing the 
-        Linkedlist recursively"""
-        # create a string variable to hold the results
-        # string = ""
-        if start is None:
-            return ''
-        # create a return statement with value of start + " => " + values that is
-        # recursively attached by calling _print_rec with start.next
-        return start.value + " => " + Linkedlist._print_rec(start.next)
-
-#     def reverse_list(self):
-#         """Method reverses the linkedlist in place iteratively"""
-#         # check if the linkedlist is populated
-#         if self.head is None:
-#             # return empty list
-#             return 'empty list'
-#         # create a prev node with None value
-#         prev = None
-#         # make the next node of head node as observed
-#         observed = self.head.next
-#         # start the loop on linkedlist as long as observed is not None
-#         while observed is not None:
-#             # make the observed_node next 
-#             next_node.next = observed
-#             # make the observed node next to point to prev 
-#             observed.next = prev
+def _print_rec(start: Node):
+    """Static method used by the print_rec for traversing the 
+    Linkedlist recursively"""
+    # create a string variable to hold the results
+    # string = ""
+    if start is None:
+        return ''
+    # create a return statement with value of start + " => " + values that is
+    # recursively attached by calling _print_rec with start.next
+    return start.value + " => " + _print_rec(start.next)
 
 
 def reverse_list(start: Node):
@@ -103,6 +55,72 @@ def reverse_list(start: Node):
         # continue
     return prev
 
+
+def append_node(start: Node, newNode: Node):
+    """Append newNode to a list starting at start node"""
+    # Start by looking at the start node
+    # if start's next is None
+    if start.next is None:
+        # make start's next as newNode
+        start.next = newNode
+    
+    # Traverse all the way to the end and find the last node
+    # observe the start node
+    observer = start  # A
+    # as long as observer's next is not none keep looping
+    while observer.next is not None:
+        # assign observer to temp
+        temp = observer  # D
+        # assign observer's next to observer
+        observer = observer.next  # E
+    # entire list has been traversed, and temp is last node
+    logging.info(f"Checking the obserer node {observer.value}") 
+    # assign the newNode as temp's Next
+    observer.next = newNode
+    # print the entire list
+    logging.info(f"printing full list after append: {_print_rec(start)}")
+
+
+def delete_node(start: Node, delNode: Node):
+    """Delete a node from a linked list with start node"""
+    # if the start node is delNode
+    if start == delNode:
+        start = None
+        start.next = None
+        return 'List is empty'
+    # assign start node as prev
+    prev: Node = start  # A
+    # observe the start's next node
+    observe: Node = start.next  # B
+    # as long as observe's next node is not None
+    while observe.next is not None:  # C
+        # check if observe is delNode, and detach it from list
+        if observe.value == delNode.value: # B
+            # assign prev's next node, 
+            prev.next = observe.next
+            # return delete completion
+            return f"Node with {observe.value} value has been deleted"
+        # continue by assigning observe to prev
+        prev = observe
+        # assign observe's next to observe
+        observe = observe.next
+    return 'Node not in list'
+
+
+def append_rec(start: Node, newNode: Node):
+    # if start's next is None
+    if start.next is None:
+        # log the last node
+        logging.info(f"value of last node is: {start.value}")
+        # assign newNode to start's next
+        start.next = newNode
+        # return
+        return
+    # test the recursive stack
+    logging.info(f"value in stack is: {start.value}")
+    # call self with start.next and newNode 
+    append_rec(start.next, newNode)
+
 # The following nodes are created
 
 A = Node('a')
@@ -119,21 +137,23 @@ C.next = D
 D.next = E
 
 
-# linked list is instantiated with a given head node
-ll1 = Linkedlist()
-ll1.head = A
+# logging.info(_print_rec(E))  # should print only e
 
-ll2 = Linkedlist()
+# logging.info(reverse_list(A).value)  # should return e
 
-# checking the print_all method
+# logging.info(_print_rec(E))  # should return the reverse of the list
 
-# logging.info(ll1.print_all())  # a => b => c => d => e =>
-# logging.info(ll2.print_all())  # EmptyList
+F = Node('f')
+I = Node('i')
 
-# logging.info(ll1.print_rec())  # a => b => c => d => e =>
-# logging.info(ll2.print_rec())  # EmptyList
+# append_node(start=A, newNode=F)  # prints temp value and full list a to f
+# 
+# delete_node(start=A, delNode=E)  # d has been deleted
+# 
+# logging.info(_print_rec(start=A))  # a => b => c => e
+# 
+# logging.info(delete_node(start=A, delNode=I))  # d has been deleted
 
-logging.info(reverse_list(A).value)
+append_rec(start=A, newNode=F)  # prints temp value and full list a to f
 
-# linked list has not changed... Why?
-logging.info(ll1.print_all())
+logging.info(_print_rec(start=A))
