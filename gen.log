@@ -1,0 +1,87 @@
+0
+1
+2
+3
+4
+5
+6
+New next value of generator after for loop: 0
+0
+1
+2
+3
+4
+5
+a
+ 
+v
+e
+r
+y
+8
+9
+caught stop iteration
+Traceback (most recent call last):
+  File "D:\gitFolders\HowCompetitive\testing_code.py", line 77, in <module>
+    genlog.info(next(mulx))
+                ^^^^^^^^^^
+StopIteration
+Now moving on to send, throw and close
+caught error with send
+8
+9
+new_itr created...
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+catching thrown error
+Now this ends

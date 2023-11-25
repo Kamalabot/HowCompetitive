@@ -1,6 +1,4 @@
 # file is for practicing the linkedlist implementation and traversal
-# iterative and recursive Append is done.
-# iterative delete is done
 # recursive reverse and delete is still pending
 
 import logging

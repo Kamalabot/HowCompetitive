@@ -1,126 +1,130 @@
-# implementing binary Trees with Nodes
+# reviewing generators
+
+# generators are objects that return a value when called with next
+# generators are created using functions, that yields a value
+
 import logging
 
-dfslog = logging.getLogger(__name__)
-dfslog.setLevel(logging.INFO)
-dfshnd = logging.StreamHandler()
-dfshnd.setLevel(logging.INFO)
-dform = logging.Formatter(fmt='%(message)s | %(asctime)s', datefmt='%d-%b | %H:%M')
-dfshnd.setFormatter(dform)
-dfslog.addHandler(dfshnd)
+genlog = logging.getLogger('genlog')
+genlog.setLevel(logging.INFO)
+hndlr = logging.FileHandler(filename='gen.log', mode='w')
+hndlr.setLevel(logging.INFO)
+genf = logging.Formatter(fmt='%(message)s')
+hndlr.setFormatter(genf)
+genlog.addHandler(hndlr)
 
 
-class Node:
-    def __init__(self, value) -> None:
-        self.value = value
-        self.right = None
-        self.left = None
-
-    def __str__(self):
-        return str(self.value)
-
-
-A = Node('A')
-B = Node('B')
-C = Node('C')
-D = Node('D')
-E = Node('E')
-F = Node('F')
-
-A.right = B
-A.left = C
-B.right = D
-C.right = E
-C.left = F
+def inf_gen():
+    # declare num
+    num = 0
+    # start a loop
+    while True:
+        # yield b4 operating
+        yield num
+        # operate
+        num += 1
 
 
-def print_elem_dfs(start: Node):
-    # if the node is None
-    if start is None:
-        return 'empty tree'
-    # declare variable to hold final value
-    string = ''
-    # declare stack
-    stack = []
-    # push start node into stack
-    stack.insert(0, start)
-    # as long as there is element in stack
-    while len(stack) > 0:
-        # pop the top element
-        curr = stack.pop()
-        # do operation on the element
-        string += str(curr.value) + ' -> '
-        # check if right node is present
-        if curr.right is not None:
-            # push the element on to the stack
-            stack.insert(0, curr.right)
-        # check for left node 
-        if curr.left is not None:
-            stack.insert(0, curr.left) 
-    # return the string value
-    return string
+# loop on generator
+for i in inf_gen():
+    # log result
+    genlog.warning(i)
+    if i > 5:
+        break
 
-# def print_elem_rec_dfs(start):
-#     # if start is None
-#     if start is None:
-#         # return None
-#         return
-#     # do operation with a var
-#     string = [str(start.value)]
-#     # call self using start.right
-#     string.append(print_elem_rec_dfs(start.right))
-#     # call self using start.left
-#     string.append(print_elem_rec_dfs(start.left))
-#     # return string
-#     return string
+genlog.info(f"New next value of generator after for loop: {next(inf_gen())}")
+
+# if creating an object and assigning it to variable, then we can access next values
+
+genx = inf_gen()
+
+genlog.info(next(genx))
+genlog.info(next(genx))
+genlog.info(next(genx))
+genlog.info(next(genx))
+genlog.info(next(genx))
+genlog.info(next(genx))
+
+# generators can be created using comprehensions
+try_gent = (i for i in 'a very long string')
+
+genlog.info(next(try_gent))
+genlog.info(next(try_gent))
+genlog.info(next(try_gent))
+genlog.info(next(try_gent))
+genlog.info(next(try_gent))
+genlog.info(next(try_gent))
+
+# there can be multi-yield functions 
 
 
-def print_elem_rec_dfs(start):
-    # if start is None
-    if start is None:
-        # return None
-        return
-    # do operation with a var
-    print(start.value)
-    # call self using start.right
-    print_elem_rec_dfs(start.right)
-    # call self using start.left
-    print_elem_rec_dfs(start.left)
-    # return nothing 
+def mul_yld():
+    # declare first variable 
+    var1 = 8
+    yield var1  # will yield 8
+    # operate on var 1
+    var1 += 1
+    yield var1  # call to next will yield 9 
+    # the generator will stop
 
 
-def print_elem_rec_dfs_post(start):
-    # if start is None
-    if start is None:
-        # return None
-        return
-    # call self using start.right
-    print_elem_rec_dfs_post(start.right)
-    # call self using start.left
-    print_elem_rec_dfs_post(start.left)
-    # do operation with a var
-    print(start.value)
-    # return nothing 
+mulx = mul_yld()
 
 
-def print_elem_rec_dfs_in(start):
-    # if start is None
-    if start is None:
-        # return None
-        return
-    # call self using start.right
-    print_elem_rec_dfs_in(start.right)
-    # do operation with a var
-    print(start.value)
-    # call self using start.left
-    print_elem_rec_dfs_in(start.left)
-    # return nothing 
+try:
+    genlog.info(next(mulx))
+    genlog.info(next(mulx))
+    genlog.info(next(mulx))
+
+except Exception:
+    genlog.exception('caught stop iteration')
+
+genlog.info("Now moving on to send, throw and close")
+
+# you can modify the variables inside the generator
+nexmulx = mul_yld()
+
+try:
+    nexmulx.send(25)  # Throws a typeError stating non-None value cannot be sent
+except TypeError:
+    genlog.info('caught error with send')
+
+genlog.info(next(nexmulx))
+# nexmulx.send(25)  # send cannot be used between nexts like so
+genlog.info(next(nexmulx))
 
 
-# dfslog.info(print_elem_dfs(A))  # A -> B -> D -> C -> E -> F
-# dfslog.info(print_elem_rec_dfs(A))  # A -> B -> D -> C -> E -> F   got ['A', ['B', ['D', None, None], None], ['C', ['E', None, None], ['F', None, None]]]
-print_elem_rec_dfs(A)  # A B D C E F
-print("********")
-print_elem_rec_dfs_post(A)  # A B D C E F  D B E F C A
-print("^*^^*^^*^*^^*^*")
-print_elem_rec_dfs_in(A)  # A B D C E F  D B A E C F
+# create a function that yields "good_value", where the value is a number
+def iter_yld():
+    # have a marker variable
+    num = 0
+    # start a loop
+    while True:
+        yield f"good_"
+        # increment marker 
+        num += 3
+        # if marker above 100
+        if num > 1000:
+            # break
+            break
+
+"""
+iter_var = iter_yld()
+
+for i in iter_var:  # Wasn't sure will this work, but it will work
+    genlog.info(i)  # expecting good_ 4 times
+    iter_var.send(50) # expecting good_ 2 times, as i value is > 10
+"""
+
+# making generators to throw error and close is straight forward
+new_iter = iter_yld()
+genlog.info('new_itr created...')
+for ind, i in enumerate(new_iter):
+    genlog.info(ind)
+    if ind > 50:
+        try:
+            new_iter.throw(ValueError("enough nexting me..."))
+        except ValueError:
+            genlog.info('catching thrown error')
+        genlog.info('Now this ends')
+        new_iter.close()
