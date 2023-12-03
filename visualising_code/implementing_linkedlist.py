@@ -239,19 +239,23 @@ def deleteValue(head: Node, val: int | str | float) -> Node:
     """delete the node containing the value and return it"""
     if head.val == val:
         return head.next
-
+    # call the recursive function
     _deleteValue(head, None, val)
     return head
 
 
 def _deleteValue(curr: Node, prev: Node, val: int | str | float) -> Node:
     # check the order of the base cases 
+    # there are 3 args entering the recursive function, how to decide these?
+    # check if current node is None
     if curr is None:
-        return
-    if curr.val == val:
+        return  # simply return None
+    # proceed and check if current node value is equal to value
+    if curr.val == val: 
+        # direct the prev node's next to current node's next, deleting current node
         prev.next = curr.next
-        return
-
+        return  # return None
+    # call self with next node of the current, current and value to be deleted
     _deleteValue(curr.next,  curr, val)
 
 
@@ -311,10 +315,17 @@ def reverse_list(start: Node):
 
 def reverseList(head: Node, prev: Node = None):
     """Recursive solution"""
+    # check if head is None, when the list is empty or 
+    # it is made None by below logic
     if head is None:
+        # return prev, which can be None in 1st call
+        # or be the final node, that is returned as head 
         return prev
+    # assign the next node of head node, to next variable  
     next = head.next 
+    # direct the next node of the head node to prev node
     head.next = prev
+    # call self with new next and head, in place of head and prev nodes
     return reverseList(next, head)
 
 

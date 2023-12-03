@@ -1,130 +1,103 @@
-# reviewing generators
-
-# generators are objects that return a value when called with next
-# generators are created using functions, that yields a value
-
+# practicing to implement the queue class, 
+# using the node objects
+from typing import List, Any
 import logging
 
-genlog = logging.getLogger('genlog')
-genlog.setLevel(logging.INFO)
-hndlr = logging.FileHandler(filename='gen.log', mode='w')
-hndlr.setLevel(logging.INFO)
-genf = logging.Formatter(fmt='%(message)s')
-hndlr.setFormatter(genf)
-genlog.addHandler(hndlr)
+praclog = logging.getLogger('prac_log')
+praclog.setLevel(logging.DEBUG)
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+prform = logging.Formatter(fmt='%(message)s - %(levelname)s - %(asctime)s', 
+                           datefmt='%b-%d')
+handler.setFormatter(prform)
+praclog.addHandler(handler)
 
 
-def inf_gen():
-    # declare num
-    num = 0
-    # start a loop
-    while True:
-        # yield b4 operating
-        yield num
-        # operate
-        num += 1
+class Node:
+    def __init__(self, val) -> None:
+        self.value = val
+        self.next = None
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
-# loop on generator
-for i in inf_gen():
-    # log result
-    genlog.warning(i)
-    if i > 5:
-        break
+class Queue:
+    def __init__(self, node: Node) -> None:
+        # Queue with a node can be initialized
+        self.node = node
 
-genlog.info(f"New next value of generator after for loop: {next(inf_gen())}")
-
-# if creating an object and assigning it to variable, then we can access next values
-
-genx = inf_gen()
-
-genlog.info(next(genx))
-genlog.info(next(genx))
-genlog.info(next(genx))
-genlog.info(next(genx))
-genlog.info(next(genx))
-genlog.info(next(genx))
-
-# generators can be created using comprehensions
-try_gent = (i for i in 'a very long string')
-
-genlog.info(next(try_gent))
-genlog.info(next(try_gent))
-genlog.info(next(try_gent))
-genlog.info(next(try_gent))
-genlog.info(next(try_gent))
-genlog.info(next(try_gent))
-
-# there can be multi-yield functions 
+    def __str__(self):
+        # declare container var
+        container = ''
+        # declare curr node & assign first node to it
+        curr = self.node
+        # add curr node value to container
+        container = str(curr.value)
+        # start iterating until there is next node
+        while curr.next is not None:
+            # make the next node as curr
+            curr = curr.next
+            # add the node value to container
+            container += ' =>' + str(curr.value)
+        # after iterating return the container
+        return container
 
 
-def mul_yld():
-    # declare first variable 
-    var1 = 8
-    yield var1  # will yield 8
-    # operate on var 1
-    var1 += 1
-    yield var1  # call to next will yield 9 
-    # the generator will stop
+def contains(node, check: str | int):
+    """Checks all nodes of the queue,
+    and returns True if value is present
+    else returns false"""
+   # check if node is None, return False 
+    if node is None:
+        return False
+    # check if node value is equal to check
+    if node.value == check:
+        praclog.info(f'checking {node.value}')
+        return True
+    # recursively call this function with next node
+    return contains(node.next, check)
 
 
-mulx = mul_yld()
+def reverse(node: Node):
+    """Takes a linked list of Nodes and reverses"""
+    # if curr node is none, then list is empty, so return empty string 
+    if node is not None:
+    # declare a prev variable
+        prev = None
+    # declare node to curr variable
+        curr = node
+    # as that will be the head
+    if curr.next is None:
+        return curr.value
+    # assign given node to prev
+    prev = node
+    # make the next node of the curr node as curr
+    curr = curr.next
+    # proceeding further assign, next node of given node as prev
+    curr.next = prev
+    # call self with curr
+    reverse(curr)
 
 
-try:
-    genlog.info(next(mulx))
-    genlog.info(next(mulx))
-    genlog.info(next(mulx))
+a = Node('a')
+b = Node('b')
+c = Node('c')
+d = Node('d')
+e = Node('e')
+f = Node('f')
 
-except Exception:
-    genlog.exception('caught stop iteration')
+a.next = b
+b.next = c
+c.next = d
+d.next = e
+e.next = f
 
-genlog.info("Now moving on to send, throw and close")
-
-# you can modify the variables inside the generator
-nexmulx = mul_yld()
-
-try:
-    nexmulx.send(25)  # Throws a typeError stating non-None value cannot be sent
-except TypeError:
-    genlog.info('caught error with send')
-
-genlog.info(next(nexmulx))
-# nexmulx.send(25)  # send cannot be used between nexts like so
-genlog.info(next(nexmulx))
-
-
-# create a function that yields "good_value", where the value is a number
-def iter_yld():
-    # have a marker variable
-    num = 0
-    # start a loop
-    while True:
-        yield f"good_"
-        # increment marker 
-        num += 3
-        # if marker above 100
-        if num > 1000:
-            # break
-            break
-
-"""
-iter_var = iter_yld()
-
-for i in iter_var:  # Wasn't sure will this work, but it will work
-    genlog.info(i)  # expecting good_ 4 times
-    iter_var.send(50) # expecting good_ 2 times, as i value is > 10
-"""
-
-# making generators to throw error and close is straight forward
-new_iter = iter_yld()
-genlog.info('new_itr created...')
-for ind, i in enumerate(new_iter):
-    genlog.info(ind)
-    if ind > 50:
-        try:
-            new_iter.throw(ValueError("enough nexting me..."))
-        except ValueError:
-            genlog.info('catching thrown error')
-        genlog.info('Now this ends')
-        new_iter.close()
+# praclog.info(a)
+# qq1 = Queue(['a', 'b', 'c', 'd', 'e', 'f'])
+qq1 = Queue(a)
+praclog.info(qq1)  # a => b => c => d => e => f
+praclog.info(contains(a, 'f'))  # True
+praclog.info(contains(a, 'it'))  # False
+# praclog.info(qq1.pop())  # a
+# praclog.info(qq1)  # b => c => d => e => f
