@@ -1,5 +1,5 @@
 # Both the Pytest and Mocking is getting reviewed in this file
-from visualising_code.services import get_todos
+from .services import get_todos, get_uncompleted_todos
 from unittest.mock import Mock, patch
 import requests
 import pytest
@@ -159,7 +159,7 @@ def test_request_response():
     assert resp is not None
 
 @pytest.mark.skip
-@patch('visualising_code.services.requests.get')
+@patch('services.requests.get')
 def test_getting_todos_mock(mock_get):
     # configure mock to respond with OK stat code
     mock_get.return_value.ok = True
@@ -169,7 +169,7 @@ def test_getting_todos_mock(mock_get):
     assert resp is not None
 @pytest.mark.skip
 def test_context_getting_todo_mock():
-    with patch('visualising_code.services.requests.get') as mock_get:
+    with patch('services.requests.get') as mock_get:
         mock_get.return_value.ok = True
         resp = get_todos()
     assert resp is not None
@@ -183,7 +183,7 @@ Use a patcher when you need to explicitly start and stop mocking a function acro
 Remember how @patch() works: You provide it a path to the function you want to mock. The function is found, patch() creates a Mock object, and the real function is temporarily replaced with the mock. When get_todos() is called by the test, the function uses the mock_get the same way it would use the real get() method.
 '''
 @pytest.mark.skip
-@patch('visualising_code.services.requests.get')
+@patch('services.requests.get')
 def test_getting_todos_when_response_ok(mock_get):
     todos = [{
         'userId': 1,
@@ -198,9 +198,9 @@ def test_getting_todos_when_response_ok(mock_get):
 
 # Remember, when you mock a function, you are replacing the actual object with the mock, and you only have to worry about how the service function interacts with that mock.
 
-from visualising_code.services import get_uncompleted_todos
+from .services import get_uncompleted_todos
 @pytest.mark.skip
-@patch('visualising_code.services.get_todos')
+@patch('services.get_todos')
 def test_when_todo_list(mock_get_todos):
     todo1 = {
         'userId': 1,
@@ -231,7 +231,7 @@ def test_integration_contract():
     actual = get_todos()
     actual_keys = actual.json().pop().keys()
     # now start context patch
-    with patch('visualising_code.services.requests.get') as mock_get:
+    with patch('services.requests.get') as mock_get:
         mock_get.return_value.ok = True
         mock_get.return_value.json.return_value = [{
             'userId':1,
@@ -243,3 +243,106 @@ def test_integration_contract():
         mocked_keys = mocked.json().pop().keys()
     
     assert list(mocked_keys) == list(actual_keys)
+
+# testing Mock understanding 
+
+json = Mock()
+
+json.loads('{"key":"value"}')
+
+assert json.loads.called == True
+
+json.loads.assert_called_once()
+
+
+def todos():
+    resp = get("http://jsonserver/todos")
+    data = resp.json()
+    return data
+# the function declared by user is mocked
+# todos = Mock()  # Entire function is being mocked
+
+td1 = {
+    "user":1,
+    "id": 'athe1',
+    'task': 'testing mock'
+}
+
+# todos.return_value = td1
+
+# this is giving mocked data
+# got_data = todos()
+
+# todos.assert_called_once()
+
+# print(got_data)
+
+# another way is to mock the functions imported
+# get = Mock()
+# get.return_value.ok = True
+# get.return_value.json.return_value = td1
+
+# another = todos()
+# 
+# print(another)
+# 
+# get.assert_called()
+# 
+# assert get.call_count == 1
+ 
+def add(t):
+    return 50 + t
+
+add = Mock()
+
+add.return_value = 55
+
+test_5 = add(5)
+test_7 = add(7)
+
+print(test_5)
+print(test_7)
+
+# add.assert_called_once()  # will raise Assertion Error 
+# add.assert_called_once_with(5)  # will raise Assertion Error
+
+# making the Mock more verbose by using side_effect
+get = Mock()
+
+def request_log(url):
+    print(f'Making request to {url}')
+    print('Fake response recieved')
+
+    response_mock = Mock()
+    response_mock.status_code = 200
+    response_mock.json.return_value = {
+        'userId': 1,
+        'devel': True
+    }
+    return response_mock
+
+get.side_effect = request_log
+getData = todos()
+print(getData)
+
+# there is a tricky part of the patch, that needs to be understood
+with patch('__main__.add'):
+    print(add('t'))  # Observe the add() is mocked, and any value can be given to it
+
+resp_mock_with_spec = Mock(spec=['status_code', 'json'])
+
+print(resp_mock_with_spec.json())
+print(resp_mock_with_spec.status_code)
+
+# Now assigning values to these attr
+
+resp_mock_with_spec.json.return_value = dict({'id': 5, 
+                                              'user': 'lo'})
+
+print(resp_mock_with_spec.json())
+
+import services
+
+with patch('__main__.services', autospec=True) as serv:
+    print(serv.get_todos)
+    print(serv.get_uncompleted_todos)

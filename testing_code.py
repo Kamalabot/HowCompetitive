@@ -1,103 +1,51 @@
-# practicing to implement the queue class, 
-# using the node objects
-from typing import List, Any
-import logging
+# Practicing Mock objects and testing using them
 
-praclog = logging.getLogger('prac_log')
-praclog.setLevel(logging.DEBUG)
-handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
-prform = logging.Formatter(fmt='%(message)s - %(levelname)s - %(asctime)s', 
-                           datefmt='%b-%d')
-handler.setFormatter(prform)
-praclog.addHandler(handler)
+from unittest.mock import Mock, patch 
+import requests
+from requests import get
 
+json = Mock()
 
-class Node:
-    def __init__(self, val) -> None:
-        self.value = val
-        self.next = None
+json.loads('{"key":"value"}')
 
-    def __str__(self) -> str:
-        return str(self.value)
+assert json.loads.called == True
+
+json.loads.assert_called_once()
 
 
-class Queue:
-    def __init__(self, node: Node) -> None:
-        # Queue with a node can be initialized
-        self.node = node
+def todos():
+    resp = get("http://jsonserver/todos")
+    data = resp.json()
+    return data
+# the function declared by user is mocked
+# todos = Mock()  # Entire function is being mocked
 
-    def __str__(self):
-        # declare container var
-        container = ''
-        # declare curr node & assign first node to it
-        curr = self.node
-        # add curr node value to container
-        container = str(curr.value)
-        # start iterating until there is next node
-        while curr.next is not None:
-            # make the next node as curr
-            curr = curr.next
-            # add the node value to container
-            container += ' =>' + str(curr.value)
-        # after iterating return the container
-        return container
+td1 = {
+    "user":1,
+    "id": 'athe1',
+    'task': 'testing mock'
+}
 
+# todos.return_value = td1
 
-def contains(node, check: str | int):
-    """Checks all nodes of the queue,
-    and returns True if value is present
-    else returns false"""
-   # check if node is None, return False 
-    if node is None:
-        return False
-    # check if node value is equal to check
-    if node.value == check:
-        praclog.info(f'checking {node.value}')
-        return True
-    # recursively call this function with next node
-    return contains(node.next, check)
+# this is giving mocked data
+# got_data = todos()
 
+# todos.assert_called_once()
 
-def reverse(node: Node):
-    """Takes a linked list of Nodes and reverses"""
-    # if curr node is none, then list is empty, so return empty string 
-    if node is not None:
-    # declare a prev variable
-        prev = None
-    # declare node to curr variable
-        curr = node
-    # as that will be the head
-    if curr.next is None:
-        return curr.value
-    # assign given node to prev
-    prev = node
-    # make the next node of the curr node as curr
-    curr = curr.next
-    # proceeding further assign, next node of given node as prev
-    curr.next = prev
-    # call self with curr
-    reverse(curr)
+# print(got_data)
+
+# another way is to mock the functions imported
+get = Mock()
+get.return_value.ok = True
+get.return_value.json.return_value = td1
+
+another = todos()
+
+print(another)
+
+get.assert_called()
+
+assert get.call_count == 1
 
 
-a = Node('a')
-b = Node('b')
-c = Node('c')
-d = Node('d')
-e = Node('e')
-f = Node('f')
-
-a.next = b
-b.next = c
-c.next = d
-d.next = e
-e.next = f
-
-# praclog.info(a)
-# qq1 = Queue(['a', 'b', 'c', 'd', 'e', 'f'])
-qq1 = Queue(a)
-praclog.info(qq1)  # a => b => c => d => e => f
-praclog.info(contains(a, 'f'))  # True
-praclog.info(contains(a, 'it'))  # False
-# praclog.info(qq1.pop())  # a
-# praclog.info(qq1)  # b => c => d => e => f
