@@ -1,0 +1,15 @@
+{% extends 'one.html' %}
+{% block main_body %}
+<h1>{{ thing }}</h1>
+<table>
+    <th>
+        <td>name</td>
+        <td>count</td>
+    </th>
+    {% for row in data %}
+        <tr {% if loop.index is divisibleby 3 %} class="diff" {% endif %}>
+            <td>{{ row.name }}</td>
+            <td>{{ row.count }}</td>
+    {% endfor %}
+</table>
+{% endblock %}
