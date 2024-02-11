@@ -1,15 +1,34 @@
-# The file contains the implementation of Graphs in 
+# The file contains the implementation of Graphs in
 # different ways, following the coderbyte video
 from typing import List
 
 vertices = ['a', 'b', 'c', 'd', 'e']
 
+# vertex list contains the node, and just its connected node
 edges = [['a', 'b'],
          ['a', 'd'],
          ['b', 'c'],
          ['c', 'd'],
          ['c', 'e'],
          ['d', 'e']]
+
+# Adjancency Matrix : A 2 dimensional Array
+adj_matrix = [
+    [0, 1, 0, 1, 0],  # rep a node
+    [0, 0, 1, 0, 0],  # rep b node
+    [0, 1, 0, 1, 1],  # rep c node
+    [1, 0, 1, 0, 1],  # rep d node
+    [0, 0, 1, 1, 0],  # rep e node
+]
+
+# adj list contains the list of nodes connected to a particular node
+adj_list = [
+    ['b', 'd'],
+    ['c', 'a', 'e'],
+    ['b', 'd'],
+    ['a', 'c'],
+    ['b']
+]
 
 # Why implement? To find adjacent nodes to a given node
 
@@ -84,16 +103,15 @@ def isConnected(node1: str, node2: str) -> bool:
 #  print(isConnected('a', 'c', vertices, adj_matrix))  # False
 #  print(isConnected('d', 'c', vertices, adj_matrix))  # True 
 #  print(isConnected('b', 'c', vertices, adj_matrix))  # True
- 
-# Adjancency Matrix : A 2 dimensional Array 
 
-adj_matrix = [
-    [0, 1, 0, 1, 0],  # rep a node
-    [0, 0, 1, 0, 0],  # rep b node
-    [0, 1, 0, 1, 1],  # rep c node
-    [1, 0, 1, 0, 1],  # rep d node
-    [0, 0, 1, 1, 0],  # rep e node
-]
+
+
+
+def list_isconn(node1: str, node2: str, adj_list: List[List]) -> bool:
+    # find index of node1
+    idx = vertices.index(node1)
+    # check if node2 in the elem found at adj_list[idx]
+    return True if node2 in adj_list[idx] else False
 
 
 def am_adjNode(node: str, adj_mat: List[List[int]], node_list: List[int]) -> List[int]:
