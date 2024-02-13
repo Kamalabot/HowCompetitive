@@ -9,12 +9,12 @@ class Node:
         self.next = None
 
     def __str__(self):
-        return self.val
+        return str(self.val)  # only string has to be returned
 
 
 class LinkedList:
     def __init__(self) -> None:
-        self. head = None
+        self.head = None
 
     def append(self, newNode: Node) -> None:
         """Append the new node to end of the list"""
@@ -215,6 +215,23 @@ def sum_list(lhead: Node):
 # print(sum_list(ll1.head))
 
 # Implement the Linked List Deletion
+
+def delete_by_loop(llist, val):
+    curr = llist.head
+    prev = None
+
+    if llist.head.val == val:
+        llist.head = llist.head.next
+        return
+
+    while curr is not None:
+        if curr.val == val:
+            # print('here')
+            prev.next = curr.next
+        # print(curr.val)
+        prev = curr
+        curr = curr.next
+    return
 
 
 # def deleteValue(head: Node, val: int | str | float) -> bool:
