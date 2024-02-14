@@ -105,8 +105,6 @@ def isConnected(node1: str, node2: str) -> bool:
 #  print(isConnected('b', 'c', vertices, adj_matrix))  # True
 
 
-
-
 def list_isconn(node1: str, node2: str, adj_list: List[List]) -> bool:
     # find index of node1
     idx = vertices.index(node1)
@@ -187,6 +185,56 @@ class Node:
 
     def isConnected(self, node):
         return node in self.edgeList
+
+    def get_vertex_list(self, node_list):
+        vert_list = []  # create a list store
+        # get index of self
+        self_idx = node_list.index(self.val)
+        # traverse the edjelist
+        for edge in self.edgeList:
+            # get index of the edge in node_list
+            idx = node_list.index(edge.val)
+            # append the edge connectivity to vert_list
+            vert_list.append([self_idx, idx])
+        return vert_list
+
+
+def build_vertex_list(node, node_list):
+    vert_list = []  # Get a store
+    tk = [node]
+    while len(tk) > 0:
+        curr = tk.pop(0)
+        vertices = curr.get_vertex_list(node_list)
+        vert_list.extend(vertices)
+        if len(curr.edgeList) > 0:
+            [tk.insert(0, elem) for elem in curr.edgeList]
+    return vert_list
+
+
+def build_adj_list(node):
+    adj_list = []  # Get a store
+    tk = [node]
+    while len(tk) > 0:
+        curr = tk.pop(0)
+        vertices = curr.get_adj_list()
+        adj_list.append(vertices)
+        if len(curr.edgeList) > 0:
+            [tk.insert(0, elem) for elem in curr.edgeList]
+    return adj_list
+
+
+list_len = len(vertices)
+adj_matrix = [[0 for _ in range(list_len)]
+              for _ in vertices]
+
+
+def gen_adj_matrix(node, adj_matrix, node_list):
+    vertices = node.gen_vertex_list(node_list)
+    new_am = adj_matrix
+    for vert in vertices:
+        print(vert)
+        new_am[vert[0]][vert[1]] = 1
+    return new_am
 
 
 class Graph:

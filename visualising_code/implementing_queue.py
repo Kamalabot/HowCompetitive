@@ -66,13 +66,14 @@ class Queue:
         if self.size == 0:
             return "No Elements yet"
         while True:
-            if node_ref == self.back:
+            if node_ref == self.back:  # check if node is back node
                 string += node_ref.val
                 break
             else:
                 string += node_ref.val + "->"
 
-            node_ref = node_ref.next
+            node_ref = node_ref.next  # here the raw node needs to be 
+            # visualised, not front or back variables 
 
         return string
 
