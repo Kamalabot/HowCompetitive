@@ -46,7 +46,7 @@ class Queue:
         else:
             # enqueue will be done from the back, so back & 
             # next node are same
-            self.back.next = newNode # Even the assignment order matters  
+            self.back.next = newNode # This assignment is for existing back node  
             self.back = newNode
 
         self.size += 1

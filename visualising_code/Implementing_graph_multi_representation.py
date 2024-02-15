@@ -380,3 +380,50 @@ brian.connect(jack)
 # print(paul)
 
 print(students.isBipartite())
+
+
+class Grp:
+    def __init__(self):
+        self.head = None
+    
+    def connect(self, val):
+        gnode = Gnode(val)
+        if self.head is None:
+            self.head = gnode
+        else:
+            stk = [self.head]
+            while len(stk) > 0:
+                curr = stk.pop(0)
+                if curr.left is None:
+                    curr.left = gnode
+                    return
+                else:
+                    stk.insert(0, curr.left)
+                if curr.right is None:
+                    curr.right = gnode
+                    return
+                else:
+                    stk.insert(0, curr.right)
+    
+    def print_loop(self):
+        stk = [self.head]
+        store = ""
+        while len(stk) > 0:
+            curr = stk.pop(0)
+            store += str(curr.val) + ' - '
+            if curr.right is not None:
+                stk.insert(0, curr.right)
+
+            if curr.left is not None:
+                stk.insert(0, curr.left)
+        print(store)
+        return
+
+
+lts = 'graphinto'
+graph = Grp()
+
+for x in lts:
+    graph.connect(x)
+
+graph.print_loop()

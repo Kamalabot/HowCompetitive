@@ -217,6 +217,9 @@ def sum_list(lhead: Node):
 # Implement the Linked List Deletion
 
 def delete_by_loop(llist, val):
+    if llist.head is None:
+        return
+
     curr = llist.head
     prev = None
 

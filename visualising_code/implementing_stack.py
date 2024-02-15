@@ -22,7 +22,7 @@ stack.insert(0, 'c')
 
 class StackNode:
 
-    def __init__(self,val):
+    def __init__(self, val):
         self.val = val
         self.next = None
 
@@ -31,7 +31,7 @@ class Stack:
 
     def __init__(self) -> None:
         self.top = None
-        self.size = 0 
+        self.size = 0
 
     def push(self, value):
         # if stack is empty
@@ -65,7 +65,7 @@ class Stack:
         self.size -= 1
         # return top value
         return popnode.value
-        
+ 
     def __str__(self) -> str:
         if self.size == 0:
             return "Stack Empty"
