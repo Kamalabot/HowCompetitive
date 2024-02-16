@@ -382,10 +382,17 @@ brian.connect(jack)
 print(students.isBipartite())
 
 
+class Gnode:
+    def __init__(self, val) -> None:
+        self.val = val
+        self.right = None
+        self.left = None
+
+
 class Grp:
     def __init__(self):
         self.head = None
-    
+ 
     def connect(self, val):
         gnode = Gnode(val)
         if self.head is None:
@@ -404,7 +411,7 @@ class Grp:
                     return
                 else:
                     stk.insert(0, curr.right)
-    
+ 
     def print_loop(self):
         stk = [self.head]
         store = ""
