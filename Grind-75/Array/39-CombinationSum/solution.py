@@ -24,7 +24,8 @@ class Solution:
         else:
             for i in range(index, self.cand_length):
                 # enumerate range of index to list length
-                self.find_all_combination(i, target-self.cand[i], path+[self.cand[i]])
+                self.find_all_combination(i, target-self.cand[i],
+                                          path+[self.cand[i]])
                 # fac(0, 7 - 2, [2])
                     # fac(1, 5 - 3, [2, 3])
                         # fac(2, 2 - 6, [2, 3, 6])  # return up
