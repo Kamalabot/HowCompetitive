@@ -1,7 +1,10 @@
 from typing import List
 
 
-def memoization(func):
+intlist = List[int]
+
+
+def memoization(func):  # implementing cache
     memo = {}
 
     def helper(x):
@@ -12,7 +15,9 @@ def memoization(func):
 
 
 class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+    def jobScheduling(self, startTime: intlist,
+                      endTime: intlist,
+                      profit: intlist) -> int:
         def find_next_available_job(index: int, end_time: int) -> int:
             left, right = index, len(jobs)
             while left < right:
@@ -29,7 +34,8 @@ class Solution:
             if index == len(jobs):
                 return 0
             next_available_job = find_next_available_job(index, jobs[index][1])
-            max_profit = max(jobs[index][2]+find_optimal_schedule(next_available_job), find_optimal_schedule(index+1))
+            max_profit = max(jobs[index][2] + find_optimal_schedule(next_available_job),
+                             find_optimal_schedule(index+1))
             return max_profit
 
         jobs = sorted(zip(startTime, endTime, profit))
