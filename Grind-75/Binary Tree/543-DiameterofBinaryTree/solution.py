@@ -18,8 +18,10 @@ class Solution:
 
     def find_diameter(self, node: Optional[TreeNode]) -> int:
         if node is None:
-            return -1
-
+            return -1  # when root is none, then dia is -1
+        # recursively find_dia for left and right nodes
         left, right = self.find_diameter(node.left), self.find_diameter(node.right)
-        self.answer = max(self.answer, 2+left+right)
-        return 1 + max(left, right)
+        # store the max of answer compared with dia of left + right + 2
+        self.answer = max(self.answer, 2 + left + right)
+        # answer = max(0, 2 + 0 + 0) = 2  for the tree with 2 leaf nodes
+        return 1 + max(left, right)  # 1 + max(-1, -1) = 0

@@ -1,6 +1,8 @@
 from logging import root
 from typing import List, Optional
 
+
+# Tree is constructed from 2 lists of elements provided 
 # Definition for a binary tree node.
 
 
@@ -12,19 +14,28 @@ class TreeNode:
 
 
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+    def buildTree(self, preorder: List[int],
+                  inorder: List[int]) -> Optional[TreeNode]:
+        # Only the node needs to be returned, after the tree 
+        # has been built
         def array_to_tree(left: int, right: int) -> Optional[TreeNode]:
+            # Tree is built inside this fn
             nonlocal preorder_index
+            # nonlocal refers to var outside scope
             if left > right:
                 return None
 
             root_value = preorder[preorder_index]
-            root_node = TreeNode(root_value)
-            preorder_index += 1
-            root_node.left = array_to_tree(left, inorder_map[root_value]-1)
-            root_node.right = array_to_tree(inorder_map[root_value]+1, right)
+            # preorder_index is used for getting values
+            root_node = TreeNode(root_value)  # root node is created
+            preorder_index += 1  # idx is icremented on every call
+            # the sub tree are generated recursively
+            root_node.left = array_to_tree(left, inorder_map[root_value] - 1)
+            # and attached to left and right of root nodes
+            root_node.right = array_to_tree(inorder_map[root_value] + 1, right)
+            # value's indices are taken from inorder_map
 
-            return root_node
+            return root_node  # this final root node
 
         inorder_map = {}
         preorder_index = 0

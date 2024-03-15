@@ -5,13 +5,15 @@ from typing import Optional
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
+        # Regular Tree node.
         self.val = val
         self.left = left
         self.right = right
 
 
 class Solution:
-    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+    def iTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if root:
-            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+            # left is assigned to right, and right to left
+            root.left, root.right = self.iTree(root.right), self.iTree(root.left)
         return root

@@ -27,7 +27,7 @@ class Codec:
                 else:
                     output_list.append("#")
 
-        return " ".join(output_list)
+        return " ".join(output_list)  # provides the string output
 
     def deserialize(self, data: str) -> Optional[TreeNode]:
         if len(data) == 0:
@@ -35,18 +35,23 @@ class Codec:
 
         i = 0
         binary_tree = data.split()
-        root = TreeNode(binary_tree[0])
+        root = TreeNode(binary_tree[0])  # start with root node
         queue = deque([root])
         while queue:
             node = queue.popleft()
             i += 1
             if i < len(binary_tree) and binary_tree[i] != "#":
+                # loop until there is list elems avbl & '#' is not reached
                 node.left = TreeNode(int(binary_tree[i]))
+                # create nodes and attach to left
                 queue.append(node.left)
 
             i += 1
             if i < len(binary_tree) and binary_tree[i] != "#":
+                # loop until there is list elems avbl & '#' is not reached
                 node.right = TreeNode(int(binary_tree[i]))
+                # create nodes and attach to right 
                 queue.append(node.right)
 
         return root
+        # once built return tree

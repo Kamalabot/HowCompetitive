@@ -17,15 +17,18 @@ class Solution:
 
         output_list = []
         queue = deque([root])
+        # queue helps traversing the tree breadth first
         while queue:
-            temp = []
+            temp = []  # collect the node values
             for _ in range(len(queue)):
                 node = queue.popleft()
-                temp.append(node.val)
+                temp.append(node.val)  # append val
                 if node.left is not None:
                     queue.append(node.left)
                 if node.right is not None:
                     queue.append(node.right)
             output_list.append(temp[-1])
+            # only the right val is appended to 
+            # output_list
 
         return output_list
