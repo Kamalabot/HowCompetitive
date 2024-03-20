@@ -1,5 +1,7 @@
 from typing import List
 
+# need to review the bitwise operation before
+# completing this commenting
 
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:

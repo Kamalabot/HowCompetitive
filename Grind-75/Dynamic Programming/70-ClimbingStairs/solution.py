@@ -11,9 +11,15 @@ def memoization(func):
 class Solution:
     @memoization
     def climbStairs(self, n: int) -> int:
-        if n == 1:
-            return 1
-        elif n == 2:
-            return 2
+        if n == 1:  # can climb one step
+            return 1  # return 1 as only one way 
+        elif n == 2:  # can climb 2 step
+            return 2  # there are 2 ways, 1 n 2 steps 
         else:
             return self.climbStairs(n-1) + self.climbStairs(n-2)
+
+
+lsn = Solution()
+
+print(lsn.climbStairs(5))
+print(lsn.climbStairs(3))

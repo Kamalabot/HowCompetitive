@@ -6,14 +6,15 @@ tgt = 4
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left, right = 0, len(nums)-1  
+        left, right = 0, len(nums) - 1 
         # objective is to have the search done in O(n) complexity 
         while left <= right:
             mid = left + (right-left) // 2  # only the unsorted part of the array is concentrated
             if nums[mid] == target:
                 return mid  # found target then return mid
 
-            if nums[mid] >= nums[left]:  # mid val is gt left val
+            # movement of the index is done below, by checking with tgt
+            if nums[mid] >= nums[left]:  # mid val is bigger than left val
                 if nums[left] <= target < nums[mid]:  # left val is lte tgt and lt mid val
                     right = mid - 1  # move right by 1 step before the mid towards left
                 else:
