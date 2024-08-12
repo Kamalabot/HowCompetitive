@@ -1,16 +1,14 @@
 # The file contains the implementation of Graphs in
 # different ways, following the coderbyte video
+
+# Go to 166 line for Node implementation
+
 from typing import List
 
-vertices = ['a', 'b', 'c', 'd', 'e']
+vertices = ["a", "b", "c", "d", "e"]
 
 # vertex list contains the node, and just its connected node
-edges = [['a', 'b'],
-         ['a', 'd'],
-         ['b', 'c'],
-         ['c', 'd'],
-         ['c', 'e'],
-         ['d', 'e']]
+edges = [["a", "b"], ["a", "d"], ["b", "c"], ["c", "d"], ["c", "e"], ["d", "e"]]
 
 # Adjancency Matrix : A 2 dimensional Array
 adj_matrix = [
@@ -22,44 +20,42 @@ adj_matrix = [
 ]
 
 # adj list contains the list of nodes connected to a particular node
-adj_list = [
-    ['b', 'd'],
-    ['c', 'a', 'e'],
-    ['b', 'd'],
-    ['a', 'c'],
-    ['b']
-]
+adj_list = [["b", "d"], ["c", "a", "e"], ["b", "d"], ["a", "c"], ["b"]]
 
 # Why implement? To find adjacent nodes to a given node
 
 
 def adjancentNode(node: str, edges: List[List[str]]) -> List[str]:
-    # Create result list to hold output 
+    """Returns the list of connected nodes to the given node
+    when the connected pairs are given"""
+    # Create result list to hold output
     result = []
-    # Look at the each edge in edges list 
+    # Look at the each edge in edges list
     for edg in edges:
-        # Check if node we want is in the element then 
+        # Check if node we want is in the element then
         if node in edg:
             # push the other node in the list
             if edg.index(node) == 1:
                 result.append(edg.pop(0))
             else:
                 result.append(edg.pop(1))
- 
+
     return result
 
 
 def adjacent_node(node: str, edgeList: List[List[str]]):
+    """Returns the list of connected nodes when adj_list is given"""
     # create list to hold result
     result = []
     # loop on the edge list
     for edg in edgeList:
         # try checking if node in edge
         if node in edg:
-            # get idx of node and take the other element 
+            # get idx of node and take the other element
             result.append(edg[0]) if edg.index(node) == 1 else result.append(edg[1])
     # return result
     return result
+
 
 # print(adjancentNode('a', edges)) # ['b', 'd']
 # print(adjancentNode('c', edges)) # ['b', 'd', 'e']
@@ -68,7 +64,7 @@ def adjacent_node(node: str, edgeList: List[List[str]]):
 # def isConnected(node1: str, node2: str) -> bool:
 #     # Create a result list to hold bools
 #     result = []
-#  
+#
 #     # Loop over the list of edges
 #     for edg in edges:
 #         print(edg)
@@ -78,7 +74,7 @@ def adjacent_node(node: str, edgeList: List[List[str]]):
 #             if node2 in edg:
 #                 # append True
 #                 result.append(True)
-#             else: 
+#             else:
 #                 # else return False
 #                 result.append(False)
 #         else:
@@ -86,7 +82,8 @@ def adjacent_node(node: str, edgeList: List[List[str]]):
 #     print(result)
 #     return any(result)
 
-# Pseudo code itself has to be modified when it comes to the logic 
+# Pseudo code itself has to be modified when it comes to the logic
+
 
 def isConnected(node1: str, node2: str) -> bool:
     result = []
@@ -101,7 +98,7 @@ def isConnected(node1: str, node2: str) -> bool:
 
 #  print(isConnected('a', 'b', vertices, adj_matrix))  # True
 #  print(isConnected('a', 'c', vertices, adj_matrix))  # False
-#  print(isConnected('d', 'c', vertices, adj_matrix))  # True 
+#  print(isConnected('d', 'c', vertices, adj_matrix))  # True
 #  print(isConnected('b', 'c', vertices, adj_matrix))  # True
 
 
@@ -113,15 +110,16 @@ def list_isconn(node1: str, node2: str, adj_list: List[List]) -> bool:
 
 
 def am_adjNode(node: str, adj_mat: List[List[int]], node_list: List[int]) -> List[int]:
-    # find the index of node in the node_list 
+    """Returns the list of connected / adj nodes"""
+    # find the index of node in the node_list
     # idx = node_list.index(node) # This will have O(n) complexity, which can be reduced to O(1) using a dict
 
     # Another way to find node in the list, is first creating dictionary
- 
-    node_dict = dict() 
+
+    node_dict = dict()
     for ind, elm in enumerate(node_list):
         node_dict[elm] = ind
-    idx = node_dict[node]  # This will be O(1) complexity 
+    idx = node_dict[node]  # This will be O(1) complexity
 
     # create a result list
     result = []
@@ -140,11 +138,13 @@ def am_adjNode(node: str, adj_mat: List[List[int]], node_list: List[int]) -> Lis
 # print(am_adjNode('c', adj_matrix, vertices))  # ['b', 'd', 'e']
 
 
-def am_isCon(node1: str, node2: str, node_list: List[str], adj_mat: List[List[int]]) -> bool:
+def am_isCon(
+    node1: str, node2: str, node_list: List[str], adj_mat: List[List[int]]
+) -> bool:
     node_dict = dict()
     for ind, ele in enumerate(node_list):
         node_dict[ele] = ind
-    
+
     # Find the indices of both the nodes in the node_list
     x, y = node_dict[node1], node_dict[node2]
     # Go to the corresponding sub_array, and the element location.
@@ -156,28 +156,31 @@ def am_isCon(node1: str, node2: str, node_list: List[str], adj_mat: List[List[in
 
 # print(am_isCon('a', 'b', vertices, adj_matrix))  # True
 # print(am_isCon('a', 'c', vertices, adj_matrix))  # False
-# print(am_isCon('d', 'c', vertices, adj_matrix))  # True 
+# print(am_isCon('d', 'c', vertices, adj_matrix))  # True
 # print(am_isCon('b', 'c', vertices, adj_matrix))  # True
 
-# Adjacency List implementation: Will building a Node Closs, Graph Class, adding the edgeList for the connections and then work on the functions 
+# Adjacency List implementation: Will building a Node Closs, Graph Class, adding the edgeList for the connections and then work on the functions
 
 
 class Node:
-
     def __init__(self, value: str | int | float) -> None:
         self.color = None
         self.value = value
         self.edgeList = []
- 
-    def connect(self, node) -> None:  # Connections or the edges are taken care in the nodes itself.
+
+    def connect(
+        self, node
+    ) -> None:  # Connections or the edges are taken care in the nodes itself.
         self.edgeList.append(node)
         node.edgeList.append(self)
 
     def __repr__(self):
-        return self.value 
+        return self.value
 
     def __str__(self):
-        connections = [str(self.value) + " <-> " + str(node.value) for node in self.edgeList]
+        connections = [
+            str(self.value) + " <-> " + str(node.value) for node in self.edgeList
+        ]
         return f"{connections}"
 
     def getEdgeList(self):
@@ -201,10 +204,11 @@ class Node:
 
 def build_vertex_list(node, node_list):
     vert_list = []  # Get a store
-    tk = [node]
-    while len(tk) > 0:
+    tk = [node]  # a stack to push the connected nodes
+    while len(tk) > 0:  # in starting any way it will be true
         curr = tk.pop(0)
         vertices = curr.get_vertex_list(node_list)
+        # will get the vertices of the curr node
         vert_list.extend(vertices)
         if len(curr.edgeList) > 0:
             [tk.insert(0, elem) for elem in curr.edgeList]
@@ -224,8 +228,7 @@ def build_adj_list(node):
 
 
 list_len = len(vertices)
-adj_matrix = [[0 for _ in range(list_len)]
-              for _ in vertices]
+adj_matrix = [[0 for _ in range(list_len)] for _ in vertices]
 
 
 def gen_adj_matrix(node, adj_matrix, node_list):
@@ -237,29 +240,37 @@ def gen_adj_matrix(node, adj_matrix, node_list):
     return new_am
 
 
-class Graph:
+# code for locating a BiPartite Graph
+# Bipartite graph is when the vertices can be split into
+# two dijoint sets
 
+
+class Graph:
     def __init__(self, nodes: List[Node]) -> None:
         self.nodes = [node for node in nodes]
 
     def __str__(self):
         return f"{[node.value for node in self.nodes]}"
-    
-    def addToGraph(self, node:Node) -> None:
+
+    def addToGraph(self, node: Node) -> None:
         self.nodes.append(node)
 
     def isBipartite(self):
         visited = set()
-        # Graph is made of many nodes, try checking 
+        # Graph is made of many nodes, try checking
         # each node and assign legal coloring
         for node in self.nodes:
             if node not in visited:
                 if self.assignLegalColor(node, visited):
                     print("Graph is bi-partite")
                     # filter the red team
-                    red_team = [node.value for node in self.nodes if node.color == 'red']
+                    red_team = [
+                        node.value for node in self.nodes if node.color == "red"
+                    ]
                     # filter the blue team
-                    blue_team = [node.value for node in self.nodes if node.color == 'blue']
+                    blue_team = [
+                        node.value for node in self.nodes if node.color == "blue"
+                    ]
                     print("red_team: ", red_team)
                     print("blue_team: ", blue_team)
                 else:
@@ -269,22 +280,22 @@ class Graph:
     def assignLegalColor(start, visitedSet):
         # the check if start is in visitedSet, is done down the code
         # if start in visitedSet:
-            # Yes then return
-            # return
+        # Yes then return
+        # return
         # print the node value for reference
         # print(f"visiting {start.value}")
         # if the start.color is none then assign red
         if start.color is None:
-            start.color = 'red' 
+            start.color = "red"
         # add the start node to visited set
         visitedSet.add(start)
-        
+
         # enumerate each node in edgeList of start node
         for node in start.edgeList:
             # Check if node is in visited set
             if node not in visitedSet:
                 # assign color to the adjacencies
-                node.color = 'blue' if start.color == 'red' else 'red'
+                node.color = "blue" if start.color == "red" else "red"
                 # print(f"Assigned {node.color} to {node.value}")
                 # call assignLegalColor with each node
                 if Graph.assignLegalColor(node, visitedSet) is False:
@@ -299,11 +310,11 @@ class Graph:
 
 
 # Creating the nodes
-nodeA = Node('a')
-nodeB = Node('b')
-nodeC = Node('c')
-nodeD = Node('d')
-nodeE = Node('e')
+nodeA = Node("a")
+nodeB = Node("b")
+nodeC = Node("c")
+nodeD = Node("d")
+nodeE = Node("e")
 
 # print(nodeA, nodeE)
 
@@ -326,17 +337,17 @@ nodeC.connect(nodeE)
 # print(repr(nodeC))
 # print(repr(nodeD))
 # print(repr(nodeE))
-# 
-# 
+#
+#
 # print(nodeA.getEdgeList())
 # print(nodeB.getEdgeList())
-# 
-nodeF = Node('f')
+#
+nodeF = Node("f")
 graph.addToGraph(nodeF)
 
 # print("Aftering addin a new node")
 # print(graph)
-# 
+#
 # print(nodeD.isConnected(nodeA))  # True
 # print(nodeA.isConnected(nodeC))  # False
 # print(nodeC.isConnected(nodeB))  # True
@@ -392,7 +403,7 @@ class Gnode:
 class Grp:
     def __init__(self):
         self.head = None
- 
+
     def connect(self, val):
         gnode = Gnode(val)
         if self.head is None:
@@ -411,13 +422,13 @@ class Grp:
                     return
                 else:
                     stk.insert(0, curr.right)
- 
+
     def print_loop(self):
         stk = [self.head]
         store = ""
         while len(stk) > 0:
             curr = stk.pop(0)
-            store += str(curr.val) + ' - '
+            store += str(curr.val) + " - "
             if curr.right is not None:
                 stk.insert(0, curr.right)
 
@@ -427,7 +438,7 @@ class Grp:
         return
 
 
-lts = 'graphinto'
+lts = "graphinto"
 graph = Grp()
 
 for x in lts:
