@@ -25,6 +25,7 @@ def merge_sort(arr):
         # j tracks right half
         # k tracks the main array
 
+        # Below itself the sorting of the array is completed
         while i < len(left_half) and j < len(right_half):
             # start assigning the lowest value to
             # initial locations in arr
@@ -35,13 +36,15 @@ def merge_sort(arr):
                 arr[k] = right_half[j]
                 j += 1
             k += 1
+        # why are we doing this part?
 
-        # checking if any element is left
+        # to check if there are any element is left half
         while i < len(left_half):
             arr[k] = left_half[i]
             i += 1
             k += 1
 
+        # to check if there are any element is right half
         while j < len(right_half):
             arr[k] = right_half[j]
             j += 1
