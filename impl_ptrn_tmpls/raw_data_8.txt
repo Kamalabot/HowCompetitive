@@ -1,0 +1,227 @@
+
+### 1. Prefix Sum
+
+```python
+# Pattern: Prefix Sum
+# Introduction: Prefix Sum involves preprocessing an array to create a new array where each element at index i 
+# represents the sum of the array from the start up to i. This allows for efficient sum queries on subarrays.
+
+# Sample Problem: Given an array nums, answer multiple queries about the sum of elements within a specific range [i, j].
+# Input: nums = [1, 2, 3, 4, 5, 6], i = 1, j = 3
+# Output: 9
+
+# Example Implementation:
+def prefix_sum(nums, i, j):
+    P = [0] * len(nums)
+    P[0] = nums[0]
+    for k in range(1, len(nums)):
+        P[k] = P[k-1] + nums[k]
+    return P[j] - P[i-1]
+
+# LeetCode Problems: 
+# - Range Sum Query - Immutable (LeetCode #303)
+# - Contiguous Array (LeetCode #525)
+# - Subarray Sum Equals K (LeetCode #560)
+```
+
+### 2. Two Pointers
+
+```python
+# Pattern: Two Pointers
+# Introduction: The Two Pointers pattern involves using two pointers to iterate through an array or list, often used 
+# to find pairs or elements that meet specific criteria.
+
+# Sample Problem: Find two numbers in a sorted array that add up to a target value.
+# Input: nums = [1, 2, 3, 4, 6], target = 6
+# Output: [1, 3]
+
+# Example Implementation:
+def two_pointers(nums, target):
+    left, right = 0, len(nums) - 1
+    while left < right:
+        if nums[left] + nums[right] == target:
+            return [left, right]
+        elif nums[left] + nums[right] < target:
+            left += 1
+        else:
+            right -= 1
+    return []
+
+# LeetCode Problems:
+# - Two Sum II - Input Array is Sorted (LeetCode #167)
+# - 3Sum (LeetCode #15)
+# - Container With Most Water (LeetCode #11)
+```
+
+### 3. Sliding Window
+
+```python
+# Pattern: Sliding Window
+# Introduction: The Sliding Window pattern is used to find a subarray or substring that satisfies a specific condition, 
+# optimizing the time complexity by maintaining a window of elements.
+
+# Sample Problem: Find the maximum sum of a subarray of size k.
+# Input: nums = [2, 1, 5, 1, 3, 2], k = 3
+# Output: 9
+
+# Example Implementation:
+def sliding_window(nums, k):
+    max_sum = sum(nums[:k])
+    current_sum = max_sum
+    for i in range(k, len(nums)):
+        current_sum += nums[i] - nums[i - k]
+        max_sum = max(max_sum, current_sum)
+    return max_sum
+
+# LeetCode Problems:
+# - Maximum Average Subarray I (LeetCode #643)
+# - Longest Substring Without Repeating Characters (LeetCode #3)
+# - Minimum Window Substring (LeetCode #76)
+```
+
+### 4. Fast & Slow Pointers
+
+```python
+# Pattern: Fast & Slow Pointers
+# Introduction: The Fast & Slow Pointers (Tortoise and Hare) pattern is used to detect cycles in linked lists and other 
+# similar structures.
+
+# Sample Problem: Detect if a linked list has a cycle.
+# Input: head = [3, 2, 0, -4], pos = 1
+# Output: True (cycle exists)
+
+# Example Implementation:
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+def hasCycle(head):
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
+
+# LeetCode Problems:
+# - Linked List Cycle (LeetCode #141)
+# - Happy Number (LeetCode #202)
+# - Find the Duplicate Number (LeetCode #287)
+```
+
+### 5. LinkedList In-place Reversal
+
+```python
+# Pattern: LinkedList In-place Reversal
+# Introduction: The In-place Reversal of a LinkedList pattern reverses parts of a linked list without using extra space.
+
+# Sample Problem: Reverse a sublist of a linked list from position m to n.
+# Input: head = [1, 2, 3, 4, 5], m = 2, n = 4
+# Output: [1, 4, 3, 2, 5]
+
+# Example Implementation:
+def reverseBetween(head, m, n):
+    if not head:
+        return None
+    dummy = ListNode(0)
+    dummy.next = head
+    prev = dummy
+    for _ in range(m - 1):
+        prev = prev.next
+    reverse = None
+    curr = prev.next
+    for _ in range(n - m + 1):
+        next = curr.next
+        curr.next = reverse
+        reverse = curr
+        curr = next
+    prev.next.next = curr
+    prev.next = reverse
+    return dummy.next
+
+# LeetCode Problems:
+# - Reverse Linked List (LeetCode #206)
+# - Reverse Linked List II (LeetCode #92)
+# - Swap Nodes in Pairs (LeetCode #24)
+```
+
+### 6. Monotonic Stack
+
+```python
+# Pattern: Monotonic Stack
+# Introduction: The Monotonic Stack pattern uses a stack to maintain a sequence of elements in a specific order 
+# (increasing or decreasing).
+
+# Sample Problem: Find the next greater element for each element in an array. Output -1 if the greater element doesn’t exist.
+# Input: nums = [2, 1, 2, 4, 3]
+# Output: [4, 2, 4, -1, -1]
+
+# Example Implementation:
+def nextGreaterElements(nums):
+    result = [-1] * len(nums)
+    stack = []
+    for i in range(len(nums)):
+        while stack and nums[stack[-1]] < nums[i]:
+            result[stack.pop()] = nums[i]
+        stack.append(i)
+    return result
+
+# LeetCode Problems:
+# - Next Greater Element I (LeetCode #496)
+# - Daily Temperatures (LeetCode #739)
+# - Largest Rectangle in Histogram (LeetCode #84)
+```
+
+### 7. Top ‘K’ Elements
+
+```python
+# Pattern: Top ‘K’ Elements
+# Introduction: The Top 'K' Elements pattern finds the top k largest or smallest elements in an array or stream of data 
+# using heaps or sorting.
+
+# Sample Problem: Find the k-th largest element in an unsorted array.
+# Input: nums = [3, 2, 1, 5, 6, 4], k = 2
+# Output: 5
+
+# Example Implementation:
+import heapq
+
+def findKthLargest(nums, k):
+    return heapq.nlargest(k, nums)[-1]
+
+# LeetCode Problems:
+# - Kth Largest Element in an Array (LeetCode #215)
+# - Top K Frequent Elements (LeetCode #347)
+# - Find K Pairs with Smallest Sums (LeetCode #373)
+```
+
+### 8. Overlapping Intervals
+
+```python
+# Pattern: Overlapping Intervals
+# Introduction: The Overlapping Intervals pattern is used to merge or handle overlapping intervals in an array.
+
+# Sample Problem: Merge all overlapping intervals.
+# Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+# Output: [[1, 6], [8, 10], [15, 18]]
+
+# Example Implementation:
+def mergeIntervals(intervals):
+    intervals.sort(key=lambda x: x[0])
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+    return merged
+
+# LeetCode Problems:
+# - Merge Intervals (LeetCode #56)
+# - Insert Interval (LeetCode #57)
+# - Non-Overlapping Intervals (LeetCode #435)
+```
+
+
