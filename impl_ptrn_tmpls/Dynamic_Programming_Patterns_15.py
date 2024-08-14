@@ -1,9 +1,20 @@
 # Pattern: Dynamic Programming Patterns
-# Introduction: 
+# Introduction:
 # Involves breaking down problems into smaller subproblems and solving them using a bottom-up or top-down approach.
 
-# Sample Problem:
-# Calculate the n-th Fibonacci number.
+# Sample Problems of DP based pattern is provided in individual files:
+# Fibonacci Numbers
+#
+# 0/1 Knapsack
+#
+# Longest Common Subsequence (LCS)
+#
+# Longest Increasing Subsequence (LIS)
+#
+# Subset Sum
+#
+# Matrix Chain Multiplication
+
 
 # Example:
 n = 5

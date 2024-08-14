@@ -1,13 +1,43 @@
 # Pattern: Breadth-First Search (BFS)
-# Introduction: 
+# Introduction:
 # A traversal technique that explores nodes level by level in a tree or graph.
 
 # Sample Problem:
 # Perform level-order traversal of a binary tree.
+from collections import deque
 
-# Example:
-root = [3, 9, 20, None, None, 15, 7]
-# Output: [[3], [9, 20], [15, 7]]
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def level_order(root):
+    if not root:
+        return []
+    result = []
+    queue = deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        result.append(level)
+    return result
+
+
+# Example usage:
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20, TreeNode(15), TreeNode(7))
+
+print(level_order(root))  # Output: [[3], [9, 20], [15, 7]]
 
 # LeetCode Problems:
 # 1. Binary Tree Level Order Traversal (LeetCode #102)
