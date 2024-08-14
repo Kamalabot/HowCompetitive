@@ -4,16 +4,17 @@ class Node:
         self.left = None
         self.right = None
 
-a = Node('a')
-b = Node('b')
-c = Node('c')
-d = Node('d')
-e = Node('e')
-f = Node('f')
+
+a = Node("a")
+b = Node("b")
+c = Node("c")
+d = Node("d")
+e = Node("e")
+f = Node("f")
 
 a.left = b
 a.right = c
-b.left = d 
+b.left = d
 b.right = e
 c.right = f
 
@@ -25,20 +26,24 @@ c.right = f
 
 # Steps of the DFS Algorithm:
 # Create a string that will hold the return value
-# create a stack and push the current node into the stack 
+# create a stack and push the current node into the stack
 # While there is element in this stack, there are nodes to visit
 # pop the top element of the stack and assign it as observation node
+
 # Do some activity on the node, like reading values or modifying children
 # check if there is right child and insert it on top of stack
-# check if there is left child and insert it to top of stack 
+# check if there is left child and insert it to top of stack
 # return / print the value that is collected, or the activity that is done
 
+
 def depthFirstPrint(node):
-    stack = [node] # The node provided is the root, and it is immediately pushed into stack
-    # algo has to run if there something in stack. 
+    stack = [
+        node
+    ]  # The node provided is the root, and it is immediately pushed into stack
+    # algo has to run if there something in stack.
     # If nothing in stack, means the operation is completed
     while len(stack) > 0:
-        curr = stack.pop(0) # this means the particular node has been visited
+        curr = stack.pop(0)  # this means the particular node has been visited
         print(curr.val)
         # Add curr's children to the stack. It must be non-null
 
@@ -50,7 +55,9 @@ def depthFirstPrint(node):
         if curr.left is not None:
             stack.insert(0, curr.left)
 
+
 # depthFirstPrint(a)
+
 
 def dfs_recursive(node):
     if node is None:
@@ -86,21 +93,22 @@ def dfs_inorder(node):
     print(node.val)
     dfs_inorder(node.right)
 
+
 # print("******post*********")
 dfs_postorder(a)
 # print("******pre*********")
 # dfs_preorder(a)
 # print("******InOrder*******")
 # dfs_inorder(a)
- 
+
 # Solving the tree to return the Sum of the values in the tree
-# 
-a = Node(2) 
-b = Node(3) 
-c = Node(7) 
-d = Node(4) 
-e = Node(-2) 
-f = Node(8) 
+#
+a = Node(2)
+b = Node(3)
+c = Node(7)
+d = Node(4)
+e = Node(-2)
+f = Node(8)
 
 a.left = b
 a.right = c
@@ -109,11 +117,12 @@ b.right = f
 c.right = d
 
 
-def dfs_sum(node): 
+def dfs_sum(node):
     if node is None:
         return 0
-    # Single line solution... 
+    # Single line solution...
     return dfs_sum(node.right) + node.val + dfs_sum(node.left)
 
 
 # print(dfs_sum(a))
+

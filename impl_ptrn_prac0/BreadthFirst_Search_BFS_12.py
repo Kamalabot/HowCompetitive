@@ -4,6 +4,9 @@
 
 # Sample Problem:
 # Perform level-order traversal of a binary tree.
+# intuition 1: Breadth-First is also called Level Order traversal
+# intuition 2: Will be using queue to store and extract the elements
+
 from collections import deque
 
 
