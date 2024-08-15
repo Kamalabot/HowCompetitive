@@ -1,7 +1,7 @@
 from typing import List
 
 
-def insertion_sort(in_list):
+def insertion_sort(in_list: List[int]):
     # key is to traverse 1 to len(list)
     for i in range(1, len(in_list)):
         key = in_list[i]
