@@ -6,6 +6,11 @@
 # It works by repeatedly dividing the portion of the array that could contain the item in
 # half until you've narrowed down the possible locations to just one.
 
+# intuition 1: create left and right (two) pointers
+# intuition 2: ensure the right doesn't go below left
+# intuition 3: check if target below mid or above and
+# move the left and right
+
 
 def binary_search(nums, target):
     # start with left and right pointers

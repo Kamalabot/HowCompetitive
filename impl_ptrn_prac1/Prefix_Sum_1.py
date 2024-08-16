@@ -6,20 +6,20 @@
 # Input: nums = [1, 2, 3, 4, 5, 6], i = 1, j = 3
 # Output: 9
 
-# intution 1: creating a new "sums" array that holds incrementing sums
-# intution 2: sum of nums between indices is diff of those indices in sums array
+# intuition 1: creating a new "sums" array that holds incrementing sums
+# intuition 2: sum of nums between indices is diff of those indices in sums array
+# intuition 3: get the sum of each element by referring to earlier elem in SumArray and
+# current num_array
 
 # Example Implementation:
 def prefix_sum(nums, i, j):
-    # create a array len(nums) 0s
     P = [0] * len(nums)
-    P[0] = nums[0]  # first element will be its own sum
+    # store the sums upto that idx
+    P[0] = nums[0]
     for k in range(1, len(nums)):
-        # traverse rest from idx 1 to end of nums
         P[k] = P[k - 1] + nums[k]
-        # sum in curr k idx = value in prev k idx + val present at k idx of nums
+    print(P)
     return P[j] - P[i - 1]
-    # return the sum between two indices, i and j
 
 
 nums = [1, 2, 3, 4, 5, 6]

@@ -13,25 +13,20 @@
 
 
 def search_rotated_array(nums, target):
-    # create two pointers
     left, right = 0, len(nums) - 1
-    # while right pointer has not crossed left
+
     while left <= right:
-        # get the mid value of left and right
-        mid = (left + right) // 2
-        # check if the target is at the mid location
+        mid = left + (right - left) // 2
         if nums[mid] == target:
             return mid
-        # check if left half is sorted
-        if nums[left] <= nums[mid]:  # Left half is sorted
-            # check if target is between left and mid
+
+        if nums[left] < nums[mid]:
             if nums[left] <= target < nums[mid]:
                 right = mid - 1
             else:
                 left = mid + 1
-        else:  # Right half is sorted
-            # check if target is between mid and right
-            if nums[mid] < target <= nums[right]:
+        else:
+            if nums[right] >= target > nums[mid]:
                 left = mid + 1
             else:
                 right = mid - 1
@@ -39,6 +34,8 @@ def search_rotated_array(nums, target):
 
 
 print(search_rotated_array([4, 5, 6, 7, 0, 1, 2], 0))  # Output: 4
+print(search_rotated_array([4, 5, 6, 7, 0, 1, 2], 4))  # Output: 0
+print(search_rotated_array([4, 5, 6, 7, 0, 1, 2], 10))  # Output: -1
 
 # LeetCode Problems:
 # 1. Search in Rotated Sorted Array (LeetCode #33)
