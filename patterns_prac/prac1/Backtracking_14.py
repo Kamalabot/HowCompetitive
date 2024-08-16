@@ -4,6 +4,10 @@
 
 # Sample Problem:
 # Generate all permutations of a given list of numbers.
+
+# Backtracking Algo : Need to review
+
+
 def permute(nums):
     result = []
 

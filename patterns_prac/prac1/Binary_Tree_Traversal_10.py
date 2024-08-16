@@ -1,6 +1,9 @@
 # Pattern: Binary Tree Traversal
 # Introduction:
+
 # Involves visiting all the nodes in a binary tree in a specific order (PreOrder, InOrder, PostOrder).
+# intuition 1: using the while loop for iteration requires to maintain stack
+# intuition 2: when visiting any node, append the current node to the stack
 
 # Sample Problem:
 # Perform inorder traversal of a binary tree.

@@ -1,4 +1,5 @@
 # Given an integer array nums, return the length of the longest strictly increasing subsequence.
+# dynamic programming algo: yet to review
 
 
 def length_of_lis(nums):

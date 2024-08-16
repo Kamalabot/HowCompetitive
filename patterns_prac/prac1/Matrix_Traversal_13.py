@@ -4,6 +4,10 @@
 
 # Sample Problem:
 # Perform flood fill on a 2D grid. Change all the cells connected to the starting cell to a new color.
+
+# Dynamic Programming: Intuitions yet to be reviewed... Not required to attempt
+
+
 def flood_fill(image, sr, sc, new_color):
     original_color = image[sr][sc]
     if original_color == new_color:

@@ -2,6 +2,8 @@
 # matrices together. The problem is not to perform the multiplications but merely
 # to decide the order in which to perform the multiplications.
 
+# Dynamic Programming algorithm: intutition yet to reviewed,
+
 import sys
 
 

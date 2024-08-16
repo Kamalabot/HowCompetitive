@@ -13,22 +13,7 @@
 
 # Example Implementation:
 def two_pointers(nums, target):
-    # create two pointers, one at the left end
-    # another at right end
-    left, right = 0, len(nums) - 1
-    while left < right:
-        # when the right has not crossed the left ptr
-        if nums[left] + nums[right] == target:
-            # check if sum of numbers at left & right pointers == target
-            return [left, right]  # return the pointers
-        elif nums[left] + nums[right] < target:
-            # if the sum is less, then increment left ptr
-            left += 1
-        else:
-            # if sum is more then decrement right ptr
-            right -= 1
-    return []
-    # if not matching target, then return empty array
+    pass
 
 
 nums = [1, 2, 3, 4, 6]

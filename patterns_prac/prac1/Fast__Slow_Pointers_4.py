@@ -19,18 +19,7 @@ class ListNode:
 
 
 def hasCycle(head):
-    slow, fast = head, head
-    # assign head to both slow and fast
-    while fast and fast.next:
-        # till the fast and fast.next node are not null
-        slow = slow.next
-        # move slow to just its next
-        fast = fast.next.next
-        # move fast next node of its next
-        if slow == fast:
-            # idea is if slow becomes equal to fast then there is cycle
-            return True
-    return False
+    pass
 
 
 # Creating a linked list: [3 -> 2 -> 0 -> -4]

@@ -6,15 +6,15 @@
 # Input: nums = [3, 2, 1, 5, 6, 4], k = 2
 # Output: 5
 
+# intuition 1: can use heapq to get the nlargest elements
+# intution 2: can use sorting and then get the elements
+
 # Example Implementation:
 import heapq
 
 
 def findKthLargest(nums, k):
-    print(heapq.nlargest(k, nums))
-    # will return the last k elements in descending order
-    return heapq.nlargest(k, nums)[-1]
-    # when asking for kth element, you get the last element
+    pass
 
 
 nums = [3, 2, 1, 5, 6, 4]

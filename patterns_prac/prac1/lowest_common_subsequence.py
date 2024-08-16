@@ -1,5 +1,9 @@
 # Given two strings text1 and text2, return the length of their longest common subsequence.
 # A subsequence is a sequence that appears in the same relative order but not necessarily consecutively.
+
+# dynamic Programming algo: Yet to review
+
+
 def lcs(text1, text2):
     m, n = len(text1), len(text2)
     dp = [[0] * (n + 1) for _ in range(m + 1)]

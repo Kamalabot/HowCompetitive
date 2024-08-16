@@ -5,6 +5,9 @@
 # Sample Problem:
 # Find all paths from the root to leaves in a binary tree.
 
+# intution1: Need to start the stack with root and its value, as tuple
+# intution2: append the right and left node to stack, along with curr path value
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):

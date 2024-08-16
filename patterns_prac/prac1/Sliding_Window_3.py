@@ -13,17 +13,7 @@
 
 # Example Implementation:
 def sliding_window(nums, k):
-    # start by taking subarray from the beginning and sum
-    max_sum = sum(nums[:k])
-    current_sum = max_sum
-    # loop from the next elem after the sub array
-    for i in range(k, len(nums)):
-        # here i = 3 when k = 3, ideally it will be next elem
-        current_sum += nums[i] - nums[i - k]
-        # adding substracting the element in front of the subarray
-        max_sum = max(max_sum, current_sum)
-        # no need to store all the current_sum values
-    return max_sum
+    pass
 
 
 nums = [2, 1, 5, 1, 3, 2]
