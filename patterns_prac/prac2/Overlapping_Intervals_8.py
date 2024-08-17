@@ -14,15 +14,7 @@
 
 # Example Implementation:
 def mergeIntervals(intervals):
-    sorted_interval = sorted(intervals, key=lambda x: x[0])
-    merged = []
-    for elem in intervals:
-        if not merged or merged[-1][1] < elem[0]:
-            merged.append(elem)
-        else:
-            merged[-1][1] = max(elem[1], merged[-1][1])
-
-    return merged
+    pass
 
 
 intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]

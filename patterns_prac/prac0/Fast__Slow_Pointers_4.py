@@ -8,7 +8,8 @@
 
 # intuition 1: moving the nodes by 1 or 2 nodes is controlled by next attr
 # intuition 2: looping of the nodes are controlled by the fast node
-# intuition 3: if slow becomes same as fast, then there is cycle.
+# intuition 3: exiting of the loop is controlled by fast and fast.next
+# intuition 4: if slow becomes same as fast, then there is cycle.
 
 # Example Implementation:
 class ListNode:

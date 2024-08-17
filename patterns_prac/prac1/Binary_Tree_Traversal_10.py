@@ -1,12 +1,11 @@
 # Pattern: Binary Tree Traversal
 # Introduction:
 
-# Involves visiting all the nodes in a binary tree in a specific order (PreOrder, InOrder, PostOrder).
-# intuition 1: using the while loop for iteration requires to maintain stack
-# intuition 2: when visiting any node, append the current node to the stack
-
 # Sample Problem:
-# Perform inorder traversal of a binary tree.
+
+# Perform all traversals in binary tree.
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -14,6 +13,36 @@ class TreeNode:
         self.right = right
 
 
+def dfs_recurse_pre(node):
+    if node is None:
+        return
+    print(node.val)
+    dfs_recurse_pre(node.left)
+    dfs_recurse_pre(node.right)
+
+
+def dfs_recurse_in(node):
+    if node is None:
+        return
+    dfs_recurse_in(node.left)
+    print(node.val)
+    dfs_recurse_in(node.right)
+
+
+def dfs_recurse_post(node):
+    if node is None:
+        return
+    dfs_recurse_post(node.left)
+    dfs_recurse_post(node.right)
+    print(node.val)
+
+
+# Involves visiting all the nodes in a binary tree in a specific order (PreOrder, InOrder, PostOrder).
+# intuition 1: using the while loop for iteration requires to maintain stack
+# intuition 2: when visiting any node, append the current node to the stack
+
+
+# intuition 0 : pre, in, post order traversals are variants of depth first search
 # intuition 1 : will use stack for in-order traversal of the nodes
 def inorder_traversal(root):
     result = []
@@ -32,23 +61,25 @@ def inorder_traversal(root):
 
 
 def depthFirstPrint(node):
-    stack = [
-        node
-    ]  # The node provided is the root, and it is immediately pushed into stack
-    # algo has to run if there something in stack.
-    # If nothing in stack, means the operation is completed
+    stack = [node]
     while len(stack) > 0:
-        curr = stack.pop(0)  # this means the particular node has been visited
+        curr = stack.pop(0)
         print(curr.val)
-        # Add curr's children to the stack. It must be non-null
-
-        # The append will push the element to the back, which is like queue
-        # by doing that, the breadth first traversal happens
+        if curr.left is not None:
+            stack.insert(0, curr.left)
         if curr.right is not None:
             stack.insert(0, curr.right)
 
-        if curr.left is not None:
-            stack.insert(0, curr.left)
+
+def breadthFirstPrint(node):
+    stack = [node]
+    while len(stack) > 1:
+        curr = stack.pop(0)
+        print(curr.val)
+        if curr.left:
+            stack.append(curr.left)
+        if curr.right:
+            stack.append(curr.right)
 
 
 # Example usage:

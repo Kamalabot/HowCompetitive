@@ -8,8 +8,7 @@
 
 # intuition 1: moving the nodes by 1 or 2 nodes is controlled by next attr
 # intuition 2: looping of the nodes are controlled by the fast node
-# intuition 3: exiting of the loop is controlled by fast and fast.next
-# intuition 4: if slow becomes same as fast, then there is cycle.
+# intuition 3: if slow becomes same as fast, then there is cycle.
 
 # Example Implementation:
 class ListNode:
@@ -20,15 +19,7 @@ class ListNode:
 
 
 def hasCycle(head):
-    slow, fast = head, head  # both start at head
-    # if the slow becomes None the list ended
-
-    while fast and fast.next:
-        slow = slow.next
-        fast = fast.next.next  # one moves faster
-        if slow == fast:
-            return True
-    return False
+    pass
 
 
 # Creating a linked list: [3 -> 2 -> 0 -> -4]
@@ -48,7 +39,6 @@ node4.next = node2
 head = node1
 
 print(hasCycle(head))
-
 # LeetCode Problems:
 # - Linked List Cycle (LeetCode #141)
 # - Happy Number (LeetCode #202)

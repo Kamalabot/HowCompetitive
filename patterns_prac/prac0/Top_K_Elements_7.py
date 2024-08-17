@@ -11,10 +11,8 @@ import heapq
 
 
 def findKthLargest(nums, k):
-    print(heapq.nlargest(k, nums))
-    # will return the last k elements in descending order
-    return heapq.nlargest(k, nums)[-1]
-    # when asking for kth element, you get the last element
+    elm = heapq.nlargest(k, nums)
+    return elm[-1]
 
 
 nums = [3, 2, 1, 5, 6, 4]

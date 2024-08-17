@@ -14,8 +14,7 @@ import heapq
 
 
 def findKthLargest(nums, k):
-    elm = heapq.nlargest(k, nums)
-    return elm[-1]
+    pass
 
 
 nums = [3, 2, 1, 5, 6, 4]
