@@ -14,19 +14,13 @@
 # intuition 1: stack is Implemented with list,
 # and the entry, exit happens on right of the list
 # intuition 2: start by assuming there are no nextGreaterElements for any element
-# intuition 3: enumerate idx of every element, and append it to stack
+# intuition 3: enumerate index of every element, and append it to stack
 # intuition 4: use the while loop to work with stack and parallely check
 # if current element in for loop iteration is greater to idx present in stack
 
 # Example Implementation:
 def nextGreaterElements(nums):
-    P = [-1] * len(nums)
-    stack = []
-    for i in range(len(nums)):
-        while stack and nums[stack[-1]] < nums[i]:
-            P[stack.pop()] = nums[i]
-        stack.append(i)
-    return P
+    pass
 
 
 nums = [2, 1, 2, 4, 3]

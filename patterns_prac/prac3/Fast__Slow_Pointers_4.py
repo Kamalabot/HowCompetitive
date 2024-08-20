@@ -8,9 +8,7 @@
 
 # intuition 1: moving the nodes by 1 or 2 nodes is controlled by next attr
 # intuition 2: looping of the nodes are controlled by the fast node
-# intuition 3: exiting of the loop is controlled by fast and fast.next
-# intuition 4: if slow becomes same as fast, then there is cycle.
-# intuition 5: change the slow and fast pointers and then compare them last
+# intuition 3: if slow becomes same as fast, then there is cycle.
 
 # Example Implementation:
 class ListNode:
@@ -21,16 +19,15 @@ class ListNode:
 
 
 def hasCycle(head):
-    slow, fast = head, head
-    # assign head to both slow and fast
+    if head is None:
+        return False
+
+    slow = head
+    fast = head
     while fast and fast.next:
-        # till the fast and fast.next node are not null
         slow = slow.next
-        # move slow to just its next
         fast = fast.next.next
-        # move fast next node of its next
         if slow == fast:
-            # idea is if slow becomes equal to fast then there is cycle
             return True
     return False
 
@@ -46,12 +43,15 @@ node1.next = node2
 node2.next = node3
 node3.next = node4
 
-# Creating a cycle: -4 -> 2 (node4.next = node2)
-node4.next = node2
-
 head = node1
 
 print(hasCycle(head))
+
+# Creating a cycle: -4 -> 2 (node4.next = node2)
+node4.next = node2
+
+print(hasCycle(head))
+
 # LeetCode Problems:
 # - Linked List Cycle (LeetCode #141)
 # - Happy Number (LeetCode #202)

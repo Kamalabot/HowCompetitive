@@ -52,6 +52,7 @@ def inorder_traversal(root):
     while current or stack:
         # while there are elements in stack
         while current:
+            # keep on going to left nodes
             stack.append(current)
             current = current.left
         current = stack.pop()

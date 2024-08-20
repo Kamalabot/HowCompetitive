@@ -13,7 +13,6 @@ def insertion_sort(in_list: List[int]):
         while j >= 0 and key > in_list[j]:
             in_list[j + 1] = in_list[j]
             j -= 1
-
         in_list[j + 1] = key
     return in_list
 

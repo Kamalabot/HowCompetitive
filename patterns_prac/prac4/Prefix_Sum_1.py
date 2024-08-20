@@ -8,19 +8,10 @@
 
 # intution 1: creating a new "sums" array that holds incrementing sums
 # intution 2: sum of nums between indices is diff of those indices in sums array
-# intuition 3: need to keep j as it is, and i has to be reduced by 1
 
 # Example Implementation:
 def prefix_sum(nums, i, j):
-    # create a array len(nums) 0s
-    P = [0] * len(nums)
-    P[0] = nums[0]  # first element will be its own sum
-    for k in range(1, len(nums)):
-        # traverse rest from idx 1 to end of nums
-        P[k] = P[k - 1] + nums[k]
-        # sum in curr k idx = value in prev k idx + val present at k idx of nums
-    return P[j] - P[i - 1]
-    # return the sum between two indices, i and j
+    pass
 
 
 nums = [1, 2, 3, 4, 5, 6]

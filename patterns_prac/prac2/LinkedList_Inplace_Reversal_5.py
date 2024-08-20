@@ -18,59 +18,44 @@ class ListNode:
 # intuition is create and assign the new node
 # to curr.next and then move curr to curr.next
 def create_linked_list(head):
-    dummy = ListNode(0)  # not to worry,  this will be discarded
+    dummy = ListNode(0)
     curr = dummy
-    for val in head:
-        curr.next = ListNode(val)
+    for i in head:
+        curr.next = ListNode(i)
         curr = curr.next
-    return dummy.next  # the next node is returned
+
+    return dummy.next
 
 
-# intuition 1: the last node will have next node as None
-# intuition 2: there are multiple node movements that require
-# visual understanding
-
-
-# Example Implementation:
-def reverseBetween(head, m, n):
+def reverseBetween(head: ListNode, m, n):
     if not head:
         return None  # no list so none
 
-    dummy = ListNode(0)  # dummy node has to be created
+    dummy = ListNode(0)
     dummy.next = head
     prev = dummy
 
     for _ in range(m - 1):
-        # travese the list up to m
-        print(f"first for loop: {prev.val} \n")
+        print("First for loop: {prev.val}")
         prev = prev.next
-        # this is the starting point after traversal
-    reverse = None  # initiate reverse linkedlist
-
+    # 1 -> 2 -> 3 -> 4 -> 5
+    reverse = None
+    # will start at 3
     curr = prev.next
 
-    # we are moving the curr to m index
     for _ in range(n - m + 1):
-        if prev:
-            print(f"Reversing loop next value: {prev.val} \n")
-        if curr:
-            print(f"Reversing loop curr value: {curr.val} \n")
-        if reverse:
-            print(f"Reversing loop reverse value: {reverse.val} \n")
-        # iterate over the range
-        # intuition 3: In order successfully reverse,
-        # curr's prev, and curr's next node needs to
-        # be connected properly, as shown below
+        # next will point at 4
         next = curr.next
+        # 3 will point back to None
         curr.next = reverse
+        # reverse is point at 3
         reverse = curr
-        # this will Assigned None at beginning
+        # curr is pointing at 4
         curr = next
-    # why are we doing it?
+
     prev.next.next = curr
     prev.next = reverse
-    return dummy.next  # effectively we are returning reverse
-    # through dummy, why?
+    return dummy.next
 
 
 # Print the result

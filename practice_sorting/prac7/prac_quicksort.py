@@ -8,19 +8,7 @@ from typing import List
 
 
 def quick_sort(in_list: List[int]):
-    if len(in_list) < 1:
-        return in_list
-    pivot = in_list[len(in_list) - 1]
-    left = []
-    right = []
-
-    for i in range(len(in_list) - 1):
-        if in_list[i] > pivot:
-            left.append(in_list[i])
-        else:
-            right.append(in_list[i])
-
-    return quick_sort(left) + [pivot] + quick_sort(right)
+    pass
 
 
 in_array = [1, 8, 7, 9, 0, 12, 15, 78, 68, 36]

@@ -10,6 +10,7 @@
 # intuition 2: looping of the nodes are controlled by the fast node
 # intuition 3: exiting of the loop is controlled by fast and fast.next
 # intuition 4: if slow becomes same as fast, then there is cycle.
+# intuition 5: change the slow and fast pointers and then compare them last
 
 # Example Implementation:
 class ListNode:

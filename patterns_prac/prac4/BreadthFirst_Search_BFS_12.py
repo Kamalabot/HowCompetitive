@@ -25,11 +25,10 @@ class TreeNode:
 def level_order(root):
     if not root:
         return []
-
     result = []
     queue = deque([root])
-
     while queue:
+        # there is additional list for the level
         level = []
         for _ in range(len(queue)):
             node = queue.popleft()
@@ -39,7 +38,6 @@ def level_order(root):
             if node.right:
                 queue.append(node.right)
         result.append(level)
-
     return result
 
 

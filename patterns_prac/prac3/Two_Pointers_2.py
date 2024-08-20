@@ -15,10 +15,9 @@
 def two_pointers(nums, target):
     left, right = 0, len(nums) - 1
     while left <= right:
-        curr = nums[left] + nums[right]
-        if curr == target:
+        if nums[left] + nums[right] == target:
             return [left, right]
-        if curr < target:  # this was wrong
+        if nums[left] + nums[right] < target:
             left += 1
         else:
             right -= 1

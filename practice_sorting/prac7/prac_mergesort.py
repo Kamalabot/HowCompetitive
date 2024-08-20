@@ -11,33 +11,7 @@ from typing import List
 
 
 def merge_sort(in_list: List[int]):
-    if len(in_list) > 1:
-        mid = len(in_list) // 2
-        left = in_list[:mid]
-        right = in_list[mid:]
-        merge_sort(left)
-        merge_sort(right)
-        i = j = k = 0
-
-        while i < len(left) and j < len(right):
-            if left[i] > right[j]:
-                in_list[k] = left[i]
-                i += 1
-            else:
-                in_list[k] = right[j]
-                j += 1
-            k += 1
-
-        while i < len(left):
-            in_list[k] = left[i]
-            i += 1
-            k += 1
-
-        while j < len(right):
-            in_list[k] = right[j]
-            j += 1
-            k += 1
-    return in_list
+    pass
 
 
 in_array = [1, 8, 7, 9, 0, 12, 15, 78, 68, 36]

@@ -47,88 +47,84 @@ def dfs_recurse_post(node):
     print(node.val)
 
 
-print("Pre Order: \n")
-dfs_recurse_pre(root)
-
-print("In Order: \n")
-dfs_recurse_in(root)
-
-print("Post Order: \n")
-dfs_recurse_post(root)
-
 # Involves visiting all the nodes in a binary tree in a specific order (PreOrder, InOrder, PostOrder).
+# intuition 0: result and the stack are maintained in different lists
 # intuition 1: using the while loop for iteration requires to maintain stack
-# intuition 2: when visiting any node, append the current node to the stack
+# intuition 2: when visiting any node, append the current node(head) to the stack
+# intuition 3: make the current.left as current
 
 
-# intuition 0 : pre, in, post order traversals are variants of depth first search
-# intuition 1 : will use stack for in-order traversal of the nodes
-def inorder_traversal_01(root):
-    if root is None:
-        return None
-    stack = [root]
-    while len(stack) > 0:
-        curr = stack.pop()
-        if curr.left:
-            stack.insert(0, curr.left)
-            # print(curr.left.val)
-        print(curr.val)
-        if curr.right:
-            stack.insert(0, curr.right)
-            # print(curr.right.val)
-
-
-def inorder_traversal(head):
-    # this is correct in order traversal
+def inorder_traversal(root):
     result = []
     stack = []
-    current = head
-    print(current)
+    current = root
     while current or stack:
         while current:
             stack.append(current)
             current = current.left
-            print("reaching...")
+            # result.append(current.val)
         current = stack.pop()
         result.append(current.val)
         current = current.right
     return result
 
 
-print("In order 01 While loop")
-inorder_traversal_01(root)
-
-print("In order While loop")
-print(inorder_traversal(root))
-
-
 def depthFirstPrint(node):
+    print("enterin")
+    if node is None:
+        return None
+    string = ""
     stack = [node]
     while len(stack) > 0:
-        curr = stack.pop(0)
+        curr = stack.pop()
         print(curr.val)
-        if curr.left is not None:
-            stack.insert(0, curr.left)
-        if curr.right is not None:
-            stack.insert(0, curr.right)
+        string += str(curr.val)
+        if curr.left:
+            stack.append(curr.left)
+        if curr.right:
+            stack.append(curr.right)
+    return string
 
 
 def breadthFirstPrint(node):
+    if node is None:
+        return None
+    string = ""
     stack = [node]
     while len(stack) > 0:
         curr = stack.pop(0)
         print(curr.val)
-        if curr.left is not None:
+        string += str(curr.val)
+        if curr.left:
             stack.append(curr.left)
-        if curr.right is not None:
+        if curr.right:
             stack.append(curr.right)
+    return string
 
 
-print("depth first While loop")
-depthFirstPrint(root)  # Output:
+print(inorder_traversal(root))  # Output: [1, 3, 2]
 
-print("Breadth first While loop")
-breadthFirstPrint(root)
+# Example usage:
+root = TreeNode(1)
+root.right = TreeNode(2)
+root.left = TreeNode(5)
+root.right.left = TreeNode(3)
+root.right.right = TreeNode(4)
+root.left.right = TreeNode(6)
+root.left.left = TreeNode(7)
+
+print(depthFirstPrint(root))  # Output:
+
+# Example usage:
+root = TreeNode(1)
+root.right = TreeNode(2)
+root.left = TreeNode(5)
+root.right.left = TreeNode(3)
+root.right.right = TreeNode(4)
+root.left.right = TreeNode(6)
+root.left.left = TreeNode(7)
+
+print(breadthFirstPrint(root))  # Output:
 
 # LeetCode Problems:
 # 1. PreOrder → Binary Tree Paths (LeetCode #257)

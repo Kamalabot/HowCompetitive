@@ -9,6 +9,7 @@
 # intuition 1: moving the nodes by 1 or 2 nodes is controlled by next attr
 # intuition 2: looping of the nodes are controlled by the fast node
 # intuition 3: if slow becomes same as fast, then there is cycle.
+# intuition 4: Do the checking after changing fast and slow pointers
 
 # Example Implementation:
 class ListNode:
@@ -19,7 +20,17 @@ class ListNode:
 
 
 def hasCycle(head):
-    pass
+    if head is None:
+        return False
+
+    while fast and fast.next:
+        slow, fast = head, head
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+
+    return False
 
 
 # Creating a linked list: [3 -> 2 -> 0 -> -4]
@@ -34,7 +45,7 @@ node2.next = node3
 node3.next = node4
 
 # Creating a cycle: -4 -> 2 (node4.next = node2)
-node4.next = node2
+# node4.next = node2
 
 head = node1
 

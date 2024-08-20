@@ -13,23 +13,13 @@
 
 # Example Implementation:
 def two_pointers(nums, target):
-    left, right = 0, len(nums) - 1
-    while left <= right:
-        curr = nums[left] + nums[right]
-        if curr == target:
-            return [left, right]
-        if curr < target:  # this was wrong
-            left += 1
-        else:
-            right -= 1
-    return []
+    pass
 
 
 nums = [1, 2, 3, 4, 6]
 target = 6
 
 print(two_pointers(nums, target))
-print(two_pointers(nums, 7))
 
 # LeetCode Problems:
 # - Two Sum II - Input Array is Sorted (LeetCode #167)

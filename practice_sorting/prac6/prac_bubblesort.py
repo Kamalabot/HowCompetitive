@@ -7,7 +7,7 @@ from typing import List
 # intuition 3: swapped if next element is smaller than current
 def bubble_sort(in_list: List[int]):
     n = len(in_list)
-    for i in range(n):
+    for i in range(len(in_list)):
         for j in range(n - i - 1):
             if in_list[j] > in_list[j + 1]:
                 in_list[j], in_list[j + 1] = in_list[j + 1], in_list[j]
