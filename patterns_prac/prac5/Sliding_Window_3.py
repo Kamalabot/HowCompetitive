@@ -13,22 +13,13 @@
 
 # Example Implementation:
 def sliding_window(nums, k):
-    subsum = sum(nums[:k])
-    max_sum = subsum
-    # print(len(nums))
-    for i in range(k, len(nums)):
-        print(subsum)
-        subsum += nums[i] - nums[i - k]
-        max_sum = max(subsum, max_sum)
-
-    return max_sum
+    pass
 
 
 nums = [2, 1, 5, 1, 3, 2]
 k = 3
 
 print(sliding_window(nums, k))
-
 # LeetCode Problems:
 # - Maximum Average Subarray I (LeetCode #643)
 # - Longest Substring Without Repeating Characters (LeetCode #3)

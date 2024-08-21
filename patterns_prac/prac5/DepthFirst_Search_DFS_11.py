@@ -35,22 +35,6 @@ def binary_tree_paths(root):
     return paths
 
 
-def bin_dfs_path(root):
-    if root is None:
-        return []
-    paths = []
-    stack = [(root, str(root.val))]
-    while len(stack) > 0:
-        curr, path = stack.pop()
-        if not curr.left and not curr.right:
-            paths.append(path)
-        if curr.right:
-            stack.append((curr.right, path + " -> " + str(curr.right.val)))
-        if curr.left:
-            stack.append((curr.left, path + " -> " + str(curr.left.val)))
-    return paths
-
-
 # Example usage:
 root = TreeNode(1)
 root.left = TreeNode(2)

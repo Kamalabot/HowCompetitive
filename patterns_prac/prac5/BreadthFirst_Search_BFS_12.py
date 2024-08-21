@@ -28,14 +28,15 @@ def level_order(root):
     result = []
     queue = deque([root])
     while queue:
+        # there is additional list for the level
         level = []
         for _ in range(len(queue)):
-            curr = queue.popleft()
-            level.append(curr.val)
-            if curr.left:
-                queue.append(curr.left)
-            if curr.right:
-                queue.append(curr.right)
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
         result.append(level)
     return result
 

@@ -10,9 +10,36 @@ from typing import List
 # assign them individually to original array
 
 
-def merge_sort(in_list: List[int]):
-    pass
+def merge_sort(mylist):
+    if len(mylist) > 1:
+        mid = len(mylist) // 2
+        left = mylist[:mid]
+        right = mylist[mid:]
+        merge_sort(left)
+        merge_sort(right)
+        i = j = k = 0
+
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                mylist[k] = left[i]
+                i += 1
+            else:
+                mylist[k] = right[j]
+                j += 1
+            k += 1
+
+        while i < len(left):
+            mylist[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            mylist[k] = right[j]
+            j += 1
+            k += 1
+    return mylist
 
 
 in_array = [1, 8, 7, 9, 0, 12, 15, 78, 68, 36]
+
 print(merge_sort(in_array))

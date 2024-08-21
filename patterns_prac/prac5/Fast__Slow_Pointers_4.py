@@ -19,17 +19,7 @@ class ListNode:
 
 
 def hasCycle(head):
-    if head is None:
-        return False
-
-    slow, fast = head, head
-
-    while fast.next and fast.next.next:
-        slow = slow.next
-        fast = fast.next.next
-        if slow == fast:
-            return True
-    return False
+    pass
 
 
 # Creating a linked list: [3 -> 2 -> 0 -> -4]
@@ -44,16 +34,11 @@ node2.next = node3
 node3.next = node4
 
 # Creating a cycle: -4 -> 2 (node4.next = node2)
-# node4.next = node2
+node4.next = node2
 
 head = node1
 
 print(hasCycle(head))
-
-node4.next = node2
-
-print(hasCycle(head))
-
 # LeetCode Problems:
 # - Linked List Cycle (LeetCode #141)
 # - Happy Number (LeetCode #202)

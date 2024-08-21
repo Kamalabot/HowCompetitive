@@ -18,43 +18,59 @@ class ListNode:
 # intuition is create and assign the new node
 # to curr.next and then move curr to curr.next
 def create_linked_list(head):
-    dummy = ListNode(0)
+    dummy = ListNode(0)  # not to worry,  this will be discarded
     curr = dummy
     for val in head:
         curr.next = ListNode(val)
         curr = curr.next
-    return dummy.next
+    return dummy.next  # the next node is returned
 
 
 # intuition 1: the last node will have next node as None
 # intuition 2: there are multiple node movements that require
 # visual understanding
-# intuition 3: curr is the head, through prev.next
 
 
 # Example Implementation:
 def reverseBetween(head, m, n):
-    if head is None:
-        return None
+    if not head:
+        return None  # no list so none
 
-    dummy = ListNode(0)
+    dummy = ListNode(0)  # dummy node has to be created
     dummy.next = head
     prev = dummy
 
     for _ in range(m - 1):
+        # travese the list up to m
+        print(f"first for loop: {prev.val} \n")
         prev = prev.next
+        # this is the starting point after traversal
+    reverse = None  # initiate reverse linkedlist
 
-    reverse = None
     curr = prev.next
 
+    # we are moving the curr to m index
     for _ in range(n - m + 1):
+        if prev:
+            print(f"Reversing loop next value: {prev.val} \n")
+        if curr:
+            print(f"Reversing loop curr value: {curr.val} \n")
+        if reverse:
+            print(f"Reversing loop reverse value: {reverse.val} \n")
+        # iterate over the range
+        # intuition 3: In order successfully reverse,
+        # curr's prev, and curr's next node needs to
+        # be connected properly, as shown below
         next = curr.next
         curr.next = reverse
         reverse = curr
+        # this will Assigned None at beginning
         curr = next
+    # why are we doing it?
     prev.next.next = curr
     prev.next = reverse
-    return dummy.next
+    return dummy.next  # effectively we are returning reverse
+    # through dummy, why?
 
 
 # Print the result
@@ -69,10 +85,9 @@ print("printing input linked list\n")
 while input_head:
     print(input_head.val, end=" ")
     input_head = input_head.next
+    print("\n")
 # beware the above process will make the input_head to None
 # copying also wont work
-
-print("\n")
 
 input_head = create_linked_list(head=nums)
 
@@ -83,7 +98,6 @@ while rev_head:
     print(rev_head.val, end=" ")
     rev_head = rev_head.next
 
-print("\n")
 # LeetCode Problems:
 # - Reverse Linked List (LeetCode #206)
 # - Reverse Linked List II (LeetCode #92)

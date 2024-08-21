@@ -13,16 +13,7 @@
 
 
 def binary_search(nums, target):
-    left, right = 0, len(nums) - 1
-    while left <= right:
-        mid = left + (right - left) // 2
-        if nums[mid] == target:
-            return mid
-        if target < nums[mid]:
-            right = mid - 1
-        else:
-            left = mid + 1
-    return -1
+    pass
 
 
 # Example Input:
@@ -31,8 +22,6 @@ target = 7
 
 # Example Output:
 index = binary_search(nums, target)
-index = binary_search(nums, 1)
-
 print(
     f"Target {target} is found at index {index}"
 )  # Output: Target 7 is found at index 6
