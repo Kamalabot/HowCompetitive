@@ -26,45 +26,9 @@ def create_linked_list(head):
     return dummy.next  # the next node is returned
 
 
-def create_ll(head):
-    if head is None:
-        return None
-    dummy = ListNode(0)
-    curr = dummy
-    for val in head:
-        curr = ListNode(val)
-        curr = curr.next
-    return dummy.next
-
-
 # intuition 1: the last node will have next node as None
 # intuition 2: there are multiple node movements that require
 # visual understanding
-
-
-def reverseBtw(head, m, n):
-    if head is None:
-        return None
-
-    dummy = ListNode(0)
-    dummy.next = head
-    prev = dummy
-
-    for _ in range(m - 1):
-        prev = prev.next
-
-    reverse = None
-    curr = prev.next
-
-    for _ in range(n - m + 1):
-        next = curr.next
-        curr.next = reverse
-        reverse = curr
-        curr = next
-    prev.next.next = curr
-    prev.next = reverse
-
-    return dummy.next
 
 
 # Example Implementation:
@@ -87,6 +51,16 @@ def reverseBetween(head, m, n):
 
     # we are moving the curr to m index
     for _ in range(n - m + 1):
+        if prev:
+            print(f"Reversing loop next value: {prev.val} \n")
+        if curr:
+            print(f"Reversing loop curr value: {curr.val} \n")
+        if reverse:
+            print(f"Reversing loop reverse value: {reverse.val} \n")
+        # iterate over the range
+        # intuition 3: In order successfully reverse,
+        # curr's prev, and curr's next node needs to
+        # be connected properly, as shown below
         next = curr.next
         curr.next = reverse
         reverse = curr

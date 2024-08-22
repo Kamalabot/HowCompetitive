@@ -13,12 +13,7 @@
 
 # Example Implementation:
 def sliding_window(nums, k):
-    subsum = sum(nums[:k])
-    maxsum = subsum
-    for i in range(k, len(nums)):
-        subsum += nums[i] - nums[i - k]
-        maxsum = max(maxsum, subsum)
-    return maxsum
+    pass
 
 
 nums = [2, 1, 5, 1, 3, 2]

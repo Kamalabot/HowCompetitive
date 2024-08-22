@@ -14,17 +14,10 @@
 
 # Example Implementation:
 def mergeIntervals(intervals):
-    s_intls = sorted(intervals, key=lambda x: x[0])
-    merged = [s_intls[0]]
-    for intl in s_intls[1:]:
-        if merged[-1][1] > intl[0]:
-            merged[-1][1] = max(merged[-1][1], intl[1])
-        else:
-            merged.append(intl)
-    return merged
+    pass
 
 
-intervals = [[1, 3], [2, 6], [8, 16], [15, 18]]
+intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
 print(mergeIntervals(intervals))
 
 # LeetCode Problems:

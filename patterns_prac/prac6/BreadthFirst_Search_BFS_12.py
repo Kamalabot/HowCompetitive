@@ -22,24 +22,6 @@ class TreeNode:
 # intuition 2:
 
 
-def lorder(root):
-    if not root:
-        return []
-    result = []
-    queue = deque([root])
-    while queue:
-        level = []
-        for _ in range(len(queue)):
-            curr = queue.popleft()
-            level.append(curr.val)
-            if curr.right:
-                queue.append(curr.right)
-            if curr.left:
-                queue.append(curr.left)
-        result.append(level)
-    return result
-
-
 def level_order(root):
     if not root:
         return []
@@ -64,7 +46,7 @@ root = TreeNode(3)
 root.left = TreeNode(9)
 root.right = TreeNode(20, TreeNode(15), TreeNode(7))
 
-print(lorder(root))  # Output: [[3], [9, 20], [15, 7]]
+print(level_order(root))  # Output: [[3], [9, 20], [15, 7]]
 
 # LeetCode Problems:
 # 1. Binary Tree Level Order Traversal (LeetCode #102)

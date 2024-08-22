@@ -13,19 +13,7 @@
 
 # Example Implementation:
 def two_pointers(nums, target):
-    left, right = 0, len(nums) - 1
-    while left <= right:
-        mid = left + (right - left) // 2
-
-        if nums[mid] == target:
-            return mid
-
-        if target < nums[mid]:  # if target is less than mid element
-            # if nums[mid] < target:  # if mid element is less than target
-            right = mid - 1
-        else:
-            left = mid + 1
-    return -1
+    pass
 
 
 nums = [1, 2, 3, 4, 6]
