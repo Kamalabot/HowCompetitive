@@ -22,6 +22,9 @@ root.right.right = TreeNode(4)
 root.left.right = TreeNode(6)
 root.left.left = TreeNode(7)
 
+f = 5
+print(f"these: {f")
+
 
 def dfs_recurse_pre(node):
     pass
