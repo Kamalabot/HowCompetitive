@@ -21,22 +21,6 @@ class TreeNode:
 # intuition 1: At each level, the nodes are collected
 # intuition 2:
 
-def lorder(root):
-    if not root
-        return None
-
-    result = []
-    queue = deque([root])
-    while queue:
-        level = []
-        for _ in range(len(queue)):
-            curr = queue.popleft()
-            level.append(curr.val)
-            if curr.left:
-                queue.append(curr.left)
-            if curr.right:
-                queue.append(curr.right)
-        result.append(level)
 
 def level_order(root):
     if not root:

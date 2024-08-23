@@ -19,25 +19,6 @@ class TreeNode:
         self.right = right
 
 
-def bintree_dfs(root):
-    if root is None:
-        return root
-
-    stack = [(root, str(root.val))]
-    paths = []
-
-    while stack:
-        curr, path = stack.pop()
-        if not curr.left and not curr.right:
-            paths.append(path)
-        if curr.right:
-            stack.append((curr.right, path + " -> " + str(curr.right.val)))
-        if curr.left:
-            stack.append((curr.left, path + " -> " + str(curr.left.val)))
-
-    return paths
-
-
 def binary_tree_paths(root):
     if not root:
         return []
@@ -59,8 +40,7 @@ root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
 root.left.right = TreeNode(5)
-
-print(bintree_dfs(root))  # Output: ["1->2->5", "1->3"]
+print(binary_tree_paths(root))  # Output: ["1->2->5", "1->3"]
 
 # Example:
 root = [1, 2, 3, None, 5]

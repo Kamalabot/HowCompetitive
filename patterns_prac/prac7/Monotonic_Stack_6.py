@@ -20,13 +20,7 @@
 
 # Example Implementation:
 def nextGreaterElements(nums):
-    result = [-1] * len(nums)
-    stack = []
-    for idx in range(len(nums)):
-        while stack and nums[stack[-1]] < nums[idx]:
-            result[stack.pop()] = nums[idx]
-        stack.append(idx)
-    return result
+    pass
 
 
 nums = [2, 1, 2, 4, 3]

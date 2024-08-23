@@ -11,7 +11,35 @@ from typing import List
 
 
 def merge_sort(in_list: List[int]):
-    pass
+    if len(in_list) > 1:
+        mid = len(in_list) // 2
+        left = in_list[:mid]
+        right = in_list[mid:]
+        merge_sort(left)
+        merge_sort(right)
+
+        idx = jdx = kdx = 0
+
+        while idx < len(left) and jdx < len(right):
+            if left[idx] < right[jdx]:
+                in_list[kdx] = left[idx]
+                idx += 1
+            else:
+                in_list[kdx] = right[jdx]
+                jdx += 1
+            kdx += 1
+
+        while idx < len(left):
+            in_list[kdx] = left[idx]
+            idx += 1
+            kdx += 1
+
+        while jdx < len(right):
+            in_list[kdx] = right[jdx]
+            jdx += 1
+            kdx += 1
+
+    return in_list
 
 
 in_array = [1, 8, 7, 9, 0, 12, 15, 78, 68, 36]

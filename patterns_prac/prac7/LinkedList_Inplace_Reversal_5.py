@@ -8,8 +8,6 @@
 
 # Definition for singly-linked list.
 
-from typing import List
-
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -17,49 +15,16 @@ class ListNode:
         self.next = next
 
 
-def create_list(head: List[int]):
-    dummy = ListNode(0)
-    curr = dummy.next
-    for val in head:
-        curr = ListNode(val)
-        curr = curr.next
-    return dummy.next
-
-
-# intuition is create and assign the new node
-# to curr.next and then move curr to curr.next
+# intuition is create a new dummy node
+# assign it to curr
+# assign the actual nodes to curr.next
+# move curr to curr.next
 def create_linked_list(head):
-    dummy = ListNode(0)  # not to worry,  this will be discarded
+    dummy = ListNode(0)
     curr = dummy
     for val in head:
         curr.next = ListNode(val)
         curr = curr.next
-    return dummy.next  # the next node is returned
-
-
-def reverseBtn(head, m, n):
-    if head is None:
-        return None
-
-    dummy = ListNode(0)
-    dummy.next = head
-    prev = dummy
-
-    for _ in range(m - 1):
-        prev = dummy.next
-
-    reverse = None
-    curr = prev.next
-
-    for _ in range(n - m + 1):
-        next = curr.next
-        curr.next = reverse
-        reverse = curr
-        prev = next
-
-    prev.next.next = curr
-    prev.next = reverse
-
     return dummy.next
 
 

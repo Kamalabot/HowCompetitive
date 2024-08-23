@@ -7,7 +7,15 @@ from typing import List
 
 
 def insertion_sort(in_list: List[int]):
-    pass
+    for idx in range(1, len(in_list)):
+        key = in_list[idx]
+        jdx = idx - 1
+        while jdx >= 0 and in_list[jdx] < key:
+            in_list[jdx + 1] = in_list[jdx]
+            jdx -= 1
+        in_list[jdx + 1] = key
+
+    return in_list
 
 
 int_list = [5, 6, 1, 10, 7, 8, 9, 12, 15, 4]
