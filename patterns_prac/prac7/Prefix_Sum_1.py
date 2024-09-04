@@ -11,7 +11,13 @@
 
 # Example Implementation:
 def prefix_sum(nums, i, j):
-    pass
+    P = [0] * len(nums)
+    P[0] = nums[0]
+
+    for idx in range(1, len(nums)):
+        P[idx] = P[idx - 1] + nums[idx]
+    print(P)
+    return P[j] - P[i - 1]
 
 
 nums = [1, 2, 3, 4, 5, 6]

@@ -13,11 +13,20 @@
 
 # Example Implementation:
 def two_pointers(nums, target):
-    pass
+    left, right = 0, len(nums) - 1
+    while left < right:
+        sumt = nums[left] + nums[right]
+        if sumt == target:
+            return [left, right]
+        elif sumt < target:
+            left += 1
+        else:
+            right -= 1
+    return []
 
 
 nums = [1, 2, 3, 4, 6]
-target = 6
+target = 130
 
 print(two_pointers(nums, target))
 
