@@ -1,55 +1,51 @@
 import heapq
 
+# intuition1: use two seperate stores, maintaining priority and storing tasks
+# intuition2: create the priority by adding the urgency and importance
+# intuition3: push the tasks with priority int the heapq
+# intuition4: poping the task from priority and deleting from tasks store
+# intuition5: updating the tasks will call for re-push into heapq, and
+# removing earlier taskid from tasks store
+
 
 class TaskManager:
     def __init__(self):
-        # tasks is the heap in which the tasks are pushed in
-        self.tasks = []
-        # tasks map store the tasks with task_id as key
-        self.tasks_map = {}
+        self.task_heap = []
+        self.task_map = {}
 
-    def add_task(self, task_id, urgency, importance):
-        # create priority
-        priority = -(urgency + importance)
-        # push tasks into the heap with priority as the first tuple element
-        heapq.heappush(self.tasks, (priority, task_id, urgency, importance))
-        # add the task_id to the task_map
-        self.tasks_map[task_id] = (priority, urgency, importance)
-
-    def get_task(self):
-        # pop the high priority task
-        _, task_id, urgency, importance = heapq.heappop(self.tasks)
-        # check if the task_id in task_map and del it
-        if task_id in self.tasks_map:
-            del self.tasks_map[task_id]
-            print(
-                f"Here is urgent task of {task_id}, with urge: {urgency} and imp: {importance}"
-            )
-            return (task_id, urgency, importance)
-        print("No Tasks...")
-        return None
-
-    def update_task(self, task_id, new_urge, new_imp):
-        if task_id in self.tasks_map:
-            # delete the old task completely
-            del self.tasks_map[task_id]
-            # need to remove it from tasks also, so find the index
-            # not required, as it is not present in tasks map
-            # create new priority
-            priority = -(new_imp + new_urge)
-            # push the new task into the tasks heap
-            task = (priority, task_id, new_urge, new_imp)
-            heapq.heappush(self.tasks, task)
+    def add_task(self, tid, urg, imp):
+        pri = -(urg + imp)
+        heapq.heappush(self.task_heap, (pri, tid, urg, imp))
+        self.task_map[tid] = (pri, urg, imp)
+        # print(f"pushed to heap: {self.task_heap}")
 
     def print_tasks(self):
-        for _, task in self.tasks_map.items():
-            print(f"Task is: Priority: {-1 * task[0]}, urge: {task[1]}, imp: {task[2]}")
+        for tid, task in self.task_map.items():
+            print(f"tid: {tid} urge: {task[1]} impo: {task[2]}")
+
+    def get_task(self):
+        _, tid, urg, imp = heapq.heappop(self.task_heap)
+        if tid in self.task_map:
+            del self.task_map[tid]
+            print(f"Returning tid: {tid} urge: {urg} impo: {imp}")
+            return (tid, urg, imp)
+        print("No tasks found")
+        return None
+
+    def update_task(self, tid, nurg, nimp):
+        if tid in self.task_map:
+            del self.task_map[tid]
+            new_pri = -(nurg + nimp)
+            heapq.heappush(self.task_heap, (new_pri, tid, nurg, nimp))
+            self.task_map[tid] = (new_pri, nurg, nimp)
+        else:
+            print("check taskid, given taskid is missing...")
 
 
 tm1 = TaskManager()
-tm1.add_task(task_id=0, urgency=1, importance=1)
-tm1.add_task(task_id=2, urgency=5, importance=2)
-tm1.add_task(task_id=1, urgency=0, importance=3)
+tm1.add_task(tid=0, urg=1, imp=1)
+tm1.add_task(tid=1, urg=3, imp=2)
+tm1.add_task(tid=2, urg=1, imp=1)
 
 tm1.print_tasks()
 
@@ -59,6 +55,6 @@ print("After getting the urgent task\n")
 
 tm1.print_tasks()
 
-tm1.update_task(task_id=1, new_imp=5, new_urge=5)
+tm1.update_task(tid=2, nimp=5, nurg=5)
 print("After updating task_id: 1\n")
 tm1.print_tasks()

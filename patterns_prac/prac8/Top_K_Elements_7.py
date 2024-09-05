@@ -8,6 +8,9 @@
 
 # intuition 1: can use heapq to get the nlargest elements
 # intution 2: can use sorting and then get the elements
+# information 1: heapq is an array where a[idx] < a[2 * idx + 1] and
+# a[idx] < a[2 * idx + 2]
+
 
 # Example Implementation:
 import heapq

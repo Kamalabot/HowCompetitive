@@ -1,5 +1,6 @@
 # Pattern: LinkedList In-place Reversal
-# Introduction: The In-place Reversal of a LinkedList pattern reverses parts of a linked list without using extra space.
+# Introduction: The In-place Reversal of a LinkedList pattern
+# reverses parts of a linked list without using extra space.
 
 # Sample Problem: Reverse a sublist of a linked list from position m to n.
 # Input: head = [1, 2, 3, 4, 5], m = 2, n = 4
@@ -22,8 +23,8 @@ class ListNode:
 def create_linked_list(head):
     dummy = ListNode(0)
     curr = dummy
-    for val in head:
-        curr.next = ListNode(val)
+    for elem in head:
+        curr.next = ListNode(elem)
         curr = curr.next
     return dummy.next
 
@@ -38,41 +39,25 @@ def reverseBetween(head, m, n):
     if not head:
         return None  # no list so none
 
-    dummy = ListNode(0)  # dummy node has to be created
+    dummy = ListNode(0)
     dummy.next = head
     prev = dummy
 
-    for _ in range(m - 1):
-        # travese the list up to m
-        print(f"first for loop: {prev.val} \n")
+    for _ in range(m):
         prev = prev.next
-        # this is the starting point after traversal
-    reverse = None  # initiate reverse linkedlist
 
+    reverse = None
     curr = prev.next
 
-    # we are moving the curr to m index
     for _ in range(n - m + 1):
-        if prev:
-            print(f"Reversing loop next value: {prev.val} \n")
-        if curr:
-            print(f"Reversing loop curr value: {curr.val} \n")
-        if reverse:
-            print(f"Reversing loop reverse value: {reverse.val} \n")
-        # iterate over the range
-        # intuition 3: In order successfully reverse,
-        # curr's prev, and curr's next node needs to
-        # be connected properly, as shown below
         next = curr.next
         curr.next = reverse
         reverse = curr
-        # this will Assigned None at beginning
         curr = next
-    # why are we doing it?
+
     prev.next.next = curr
     prev.next = reverse
-    return dummy.next  # effectively we are returning reverse
-    # through dummy, why?
+    return dummy.next
 
 
 # Print the result

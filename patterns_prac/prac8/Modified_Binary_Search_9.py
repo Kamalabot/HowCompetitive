@@ -11,6 +11,13 @@
 # Intuition 3: Move the left and right pointers depending on the target status
 # in modified there is addition check if target is between mid in left / mid and right
 
+# intuition 4: Need to check if the left is smaller than mid
+# intuition 4: Need to check if the left is smaller than mid
+# to understand about the left and right side
+# to understand about the left and right side
+# intuition 4: Need to check if the left is smaller than mid
+# to understand about the left and right side
+
 
 def search_rotated_array(nums, target):
     pass

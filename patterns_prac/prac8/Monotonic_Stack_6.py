@@ -17,6 +17,7 @@
 # intuition 3: enumerate index of every element, and append it to stack
 # intuition 4: use the while loop to work with stack and parallely check
 # if current element in for loop iteration is greater to idx present in stack
+# intuition 5: last element pointed by the stack is compared to the current element
 
 # Example Implementation:
 def nextGreaterElements(nums):

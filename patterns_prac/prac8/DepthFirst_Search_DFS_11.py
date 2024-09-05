@@ -19,6 +19,23 @@ class TreeNode:
         self.right = right
 
 
+def tree_path(root):
+    if root is None:
+        return []
+
+    paths = []
+    stack = [(root, str(root.val))]
+
+    while stack:
+        curr, path = stack.pop()
+        if curr.right:
+            stack.append((curr.right, f"{path} -> {curr.right.val}"))
+        if curr.left:
+            stack.append((curr.left, f"{path} -> {curr.left.val}"))
+        if not curr.left and not curr.right:
+            paths.append(path)
+
+
 def binary_tree_paths(root):
     if not root:
         return []
