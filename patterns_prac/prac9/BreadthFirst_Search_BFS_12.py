@@ -18,29 +18,31 @@ class TreeNode:
         self.right = right
 
 
-def lorder(root):
-    if not root:
-        return []
-    queue = deque([root])
-    nodes = []
-    while queue:
-        level = []
-        for _ in range(len(queue)):
-            node = queue.popleft()
-            level.append(node)
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
-        nodes.append(level)
-    return nodes
-
-
 # intuition 1: Deque is used as queue
 # intuition 2: At each level, the nodes are collected
 # intuition 3: Enumerate for loop the queue elements and append vals to level
 # intuition 4: look at the right and left of each elm and append to queue
 # intuition 5: levels are appended finally to nodes and returned
+
+
+def lorder(root):
+    if not root:
+        return []
+    result = []
+    queue = deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            curr = queue.popleft()
+            level.append(curr.val)
+            if curr.left:
+                queue.append(curr.left)
+
+            if curr.right:
+                queue.append(curr.right)
+        result.append(level)
+
+    return result
 
 
 def level_order(root):
@@ -67,7 +69,7 @@ root = TreeNode(3)
 root.left = TreeNode(9)
 root.right = TreeNode(20, TreeNode(15), TreeNode(7))
 
-print(level_order(root))  # Output: [[3], [9, 20], [15, 7]]
+print(lorder(root))  # Output: [[3], [9, 20], [15, 7]]
 
 # LeetCode Problems:
 # 1. Binary Tree Level Order Traversal (LeetCode #102)

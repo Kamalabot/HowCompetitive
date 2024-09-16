@@ -48,67 +48,30 @@ def dfs_recurse_post(node):
 #
 # - while loop on curr or stack and then inner while on curr
 #
-#   > inner while curr is true, and appended to stack
-#   > curr.left is assigned to curr
+#   > inner while left side is checked, and appended to stack
 #
 # - in outer while stack is poped on curr and value appended to result
 #
 # - right node is assigned to curr
 def inorder_traversal(root):
-    if root is None:
-        return None
-    result = []
-    stack = []
-    curr = root
-    while len(stack) > 0 or curr:
-        while curr:
-            stack.append(curr)
-            curr = curr.left
-        curr = stack.pop()
-        result.append(curr.val)
-        curr = curr.right
-    return result
+    pass
 
 
 def depthFirstPrint(node):
-    if node is None:
-        return "empty"
-    stack = [node]
-    st = ""
-    while stack:
-        curr = stack.pop()
-        if curr.left:
-            stack.append(curr.left)
-        if curr.right:
-            stack.append(curr.right)
-        st += str(curr.val) + " -> "
-    return st
+    pass
 
 
 def breadthFirstPrint(node):
-    if node is None:
-        return "empty"
-    stack = [node]
-    st = ""
-    while stack:
-        curr = stack.pop()
-        if curr.left:
-            stack.insert(0, curr.left)
-        if curr.right:
-            stack.insert(0, curr.right)
-        st += str(curr.val) + " -> "
-    return st
+    pass
 
 
 root = populate()
 print(inorder_traversal(root))  # Output: [1, 3, 2]
 
 root = populate()
-print("dfs with while traversal")
 print(depthFirstPrint(root))  # Output:
 
 root = populate()
-print("bfs with while traversal")
 print(breadthFirstPrint(root))  # Output:
 
 # LeetCode Problems:
