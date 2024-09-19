@@ -8,31 +8,32 @@ def permute(num: List[int]) -> List[List[int]]:
     if (len(num)) == 1:
         return [num[:]]
 
-    for x in range(len(num)): #1 in range(3) # 1 in range(2) 
-        n = num.pop()        #num = [1,2] n = 3 # num = [1] n = 2 
-        permutations = permute(num) # permns = permute([1,2]) # permns = permute([1]) = [1] 
+    for x in range(len(num)):  # i 1 in range(3) # 1 in range(2)
+        n = num.pop()  # num = [1,2] n = 3 # num = [1] n = 2
+        permutations = permute(
+            num
+        )  # permns = permute([1,2]) # permns = permute([1]) = [1]
 
-        for perm in permutations: #--#for perm in [1] 
-            perm.append(n) #--#[1].append(2)
-        result.extend(permutations) #--#[[1,2]]
-        num.append(n) #--#num=[1,2] 
-    
-    return result #--#[[1,2]]
+        for perm in permutations:  # --#for perm in [1]
+            perm.append(n)  # --#[1].append(2)
+        result.extend(permutations)  # --#[[1,2]]
+        num.append(n)  # --#num=[1,2]
+
+    return result  # --#[[1,2]]
 
 
 perm_me = [1, 2, 3]
 # print(permute(perm_me))
 
 
-def permuto(elements: List[int]) -> List[List[int]]:
-
+def permuto(elements: List[str]) -> List[List[str]]:
     if len(elements) == 0:
         return [elements]
 
     firstEl = elements[0]
     restEl = elements[1:]
-    print('firstEl', firstEl)
-    print('restEl', restEl)
+    print("firstEl", firstEl)
+    print("restEl", restEl)
     permWOFirst = permuto(restEl)
 
     permutationAll = []
@@ -41,12 +42,12 @@ def permuto(elements: List[int]) -> List[List[int]]:
             # iterate all possible insertion position
             permWFirst = perm[:i] + [firstEl] + perm[i:]
             permutationAll.append(permWFirst)
-    
+
     return permutationAll
 
 
-perm_one = ['a']
-print('final_out', permuto(perm_one))
+perm_one = ["a", "b", "C"]
+print("final_out", permuto(perm_one))
 
 
 def permutations(arr):
@@ -55,7 +56,7 @@ def permutations(arr):
 
     result = []
     for i, element in enumerate(arr):
-        rest = arr[:i] + arr[i+1:]
+        rest = arr[:i] + arr[i + 1 :]
         for p in permutations(rest):
             result.append([element] + p)
 

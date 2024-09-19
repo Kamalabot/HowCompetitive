@@ -13,10 +13,13 @@ def memo_gridTraveller(m, n, memo={}):
         return 1
     if m == 0 or n == 0:
         return 0
-    memo[(m, n)] = memo_gridTraveller(m - 1, n, memo) + memo_gridTraveller(m, n - 1, memo)
+    memo[(m, n)] = memo_gridTraveller(m - 1, n, memo) + memo_gridTraveller(
+        m, n - 1, memo
+    )
     return memo[(m, n)]
 
-#Testing
+
+# Testing
 
 print(gridTraveller(1, 1))
 print(gridTraveller(2, 2))
