@@ -2,8 +2,8 @@
 
 
 def fibo(n):
-    if n == 1 or n == 2:
-        return n
+    if n <= 2:
+        return 1
     return fibo(n - 1) + fibo(n - 2)
 
 
@@ -28,3 +28,4 @@ def fibo_memo(h, memo=dict()):
 
 print(f"Fibo sum of 2: {fibo(2)}")
 print(f"Fibo sum of 5: {fibo(5)}")
+print(f"Fibo sum of 10: {fibo(10)}")
