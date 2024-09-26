@@ -9,6 +9,9 @@
 def fact(n):
     if n <= 2:
         return n
+    # it will return 0 for 0,
+    # but it will never go to 0
+    # as it will get returned by 1 itself
     return fact(n - 1) * n
 
 

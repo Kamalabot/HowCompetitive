@@ -1,4 +1,5 @@
-Here are two additional dynamic programming (DP) problems on grids, along with examples and code solutions:
+Here are two additional dynamic programming (DP) problems on grids,
+along with examples and code solutions:
 
 ---
 

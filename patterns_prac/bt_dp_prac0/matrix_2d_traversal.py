@@ -1,3 +1,4 @@
+# This is a backtracking algorithm
 # Given a 2D grid of integers, traverse the grid in a depth-first manner and return all
 # possible paths from the top-left corner to the bottom-right corner.
 

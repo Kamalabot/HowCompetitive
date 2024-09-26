@@ -4,6 +4,7 @@
 
 # intu1 : 2 base cases m, n = 1 / m or n = 0
 # intu2 : reduce the gridsize and recurse
+# intu3 : actual traversal is not done
 
 
 def gt(m, n):

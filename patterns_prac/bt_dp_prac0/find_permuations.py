@@ -14,7 +14,7 @@ def permute(in_list: List[int]) -> List[List[int]]:
     for idx, x in enumerate(in_list):
         # leave the current element
         rest = in_list[:idx] + in_list[idx + 1 :]
-        # call permute on the rest
+        # call permute recursively on the rest
         for p in permute(rest):
             # append the current element back to result
             result.append([x] + p)

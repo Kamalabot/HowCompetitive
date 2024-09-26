@@ -415,3 +415,64 @@ For `prices = [7, 1, 5, 3, 6, 4]`:
   - Update the `min_price` if we find a lower price.
   - Calculate the potential profit and update `max_profit` if it's higher.
 - We make recursive calls to explore the remaining prices, ensuring we cover all buy/sell combinations step by step.
+
+The **recursive** and **backtracking** methods for finding combinations, subsets, and permutations are conceptually similar but differ in how they handle exploration and decision-making:
+
+### 1. **Recursive Approach**:
+
+- **Purpose**: Directly explores all possibilities.
+- **Nature**: Calls the function recursively for each branch, without much pruning of invalid or unnecessary paths.
+- **Depth**: May explore all branches fully (including some invalid ones), leading to higher time complexity in certain cases.
+
+#### Example (Recursive Subset):
+
+```python
+def subsets_recursive(nums):
+    result = []
+
+    def helper(i, current):
+        if i == len(nums):
+            result.append(current)
+            return
+        helper(i + 1, current)           # Exclude nums[i]
+        helper(i + 1, current + [nums[i]]) # Include nums[i]
+
+    helper(0, [])
+    return result
+```
+
+### 2. **Backtracking Approach**:
+
+- **Purpose**: Focuses on efficient exploration by **pruning unnecessary paths** early. It "backtracks" when a decision leads to an invalid or unwanted result.
+- **Nature**: Backtracking is a refined form of recursion. It tries a path, and if it leads to a dead end or a non-optimal solution, it **reverts (backtracks)** to try a different path.
+- **Depth**: It avoids fully exploring paths that are invalid earlier, making it generally more efficient in problems with constraints.
+
+#### Example (Backtracking Subset):
+
+```python
+def subsets_backtracking(nums):
+    result = []
+
+    def backtrack(start, current):
+        result.append(list(current))  # Include the current subset
+        for i in range(start, len(nums)):
+            current.append(nums[i])   # Choose the current element
+            backtrack(i + 1, current) # Explore further with the chosen element
+            current.pop()             # Backtrack (undo the choice)
+
+    backtrack(0, [])
+    return result
+```
+
+### **Key Differences**:
+
+1. **Backtracking Prunes Paths**: Backtracking often terminates recursive calls early by rejecting invalid or suboptimal solutions. In contrast, pure recursion may explore all branches without pruning.
+
+2. **Efficiency**: Backtracking is typically more efficient than brute-force recursion, especially in constrained problems, because it doesn't explore unnecessary paths.
+
+3. **State Reversal**: Backtracking explicitly undoes a choice (using techniques like `.pop()`), while recursion might not involve state reversal but rather branches off completely.
+
+### Use Case:
+
+- **Backtracking** is often used in problems where constraints are important, like the **N-Queens problem** or **solving Sudoku**.
+- **Recursion** is simpler and more direct, especially when you need to explore all possibilities without additional constraints (e.g., generating subsets or combinations without constraints).

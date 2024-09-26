@@ -4,8 +4,13 @@
 
 # Sample Problem:
 # Perform flood fill on a 2D grid. Change all the cells connected to the starting cell to a new color.
+# (starting cell, sr, sc)
+
+
 def flood_fill(image, sr, sc, new_color):
     original_color = image[sr][sc]
+    # why return when original color is same
+    # as nc, other cells still might be diff
     if original_color == new_color:
         return image
 
@@ -25,7 +30,7 @@ def flood_fill(image, sr, sc, new_color):
     return image
 
 
-print(flood_fill([[1, 1, 1], [1, 1, 0], [1, 0, 1]], 1, 1, 2))
+print(flood_fill(image=[[1, 1, 1], [1, 1, 0], [1, 0, 1]], sr=1, sc=1, new_color=2))
 
 # Output: [[2,2,2],[2,2,0],[2,0,1]]
 

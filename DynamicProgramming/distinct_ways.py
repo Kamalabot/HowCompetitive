@@ -1,10 +1,13 @@
 ### Problem Statement: Decode Ways
 
-# Given a string `s` containing only digits, determine the total number of ways to decode it, where:
+# Given a string `s` containing only digits,
+# determine the total number of ways to decode it, where:
 # - '1' to '9' map to 'A' to 'I'.
 # - '10' to '26' map to 'J' to 'Z'.
 
-# The string cannot contain leading zeros, and each digit or pair of digits must form a valid character.
+# The string cannot contain leading zeros,
+# and each digit or pair of digits must
+# form a valid character.
 
 # ### Example to Understand the Problem:
 
@@ -33,10 +36,12 @@ def numDecodings(s):
 
     # Fill the dp array
     for i in range(2, len(s) + 1):
-        # Check if the current character can be decoded as a single digit
+        # Check if the current character can be
+        # decoded as a single digit
         if s[i - 1] != "0":
             dp[i] += dp[i - 1]
-        # Check if the last two characters can be decoded as a valid two-digit number
+        # Check if the last two
+        # characters can be decoded as a valid two-digit number
         if 10 <= int(s[i - 2 : i]) <= 26:
             dp[i] += dp[i - 2]
 

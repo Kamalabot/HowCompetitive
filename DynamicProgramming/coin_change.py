@@ -5,7 +5,7 @@
 from typing import List
 
 
-def coinChange(coins: List[int], amount: int) -> int:
+def coinChange(coins: List[int], amount: int) -> float:
     # dp[i] reps the minimum coins needed
     dp = [float("inf")] * (amount + 1)
     # tabulation dp is used
@@ -13,6 +13,7 @@ def coinChange(coins: List[int], amount: int) -> int:
 
     # process each coin, (this is recurring)
     for coin in coins:
+        # iterate over curr coin to range of amount + 1
         for i in range(coin, amount + 1):
             dp[i] = min(dp[i], dp[i - coin] + 1)
 
