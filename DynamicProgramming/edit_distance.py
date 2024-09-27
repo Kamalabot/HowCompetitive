@@ -13,14 +13,19 @@ def minDistance(word1, word2):
     # distance of transforming word1[:i] to empty word
     for j in range(n + 1):
         dp[0][j] = j
-    # distance of transforming empty word to word2[:j]
+    # distance of transforming empty word to
+    # word2[:j]
     # fill the table
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            if word1[i - 1] == word2[j - 1]:
-                dp[i][j] = dp[i - 1][j - 1]
+    for idx in range(1, m + 1):
+        for jdx in range(1, n + 1):
+            if word1[idx - 1] == word2[jdx - 1]:
+                # no cost incurred
+                dp[idx][jdx] = dp[idx - 1][jdx - 1]
             else:
-                dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] + 1)
+                dp[idx][jdx] = min(
+                    dp[idx - 1][jdx] + 1, dp[idx][jdx - 1] + 1, dp[idx - 1][jdx - 1] + 1
+                )
+                # insertion, deletion, replacement
     print(dp)
     return dp[m][n]
 

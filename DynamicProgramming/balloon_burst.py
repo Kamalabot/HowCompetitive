@@ -21,6 +21,13 @@
 #    - Burst `1` (index 2): Coins = `1 * 1 * 8 = 8`. Remaining: `[1, 8, 1]`.
 #    - Burst `8` (index 1): Coins = `1 * 8 * 1 = 8`. Remaining: `[1, 1]`.
 # 3. Total Coins: `3 + 40 + 8 + 8 = 59`.
+# Why not following strategy?
+
+# - Burst 5 : 40 : [1, 3, 1, 8, 1]
+# - Burst 1 : 24 : [1, 3, 8, 1]
+# - Burst 8 : 24 : [1, 3, 1]
+# - Burst 3 : 3 : [1, 1]
+# Total coinns : 84
 
 # **Output**: `59`
 
@@ -33,7 +40,7 @@ def maxCoins(nums):
     dp = [[0] * n for _ in range(n)]
 
     for length in range(2, n):
-        for left in range(n - length):
+        for left in range(0, n - length):
             right = left + length
             for k in range(left + 1, right):
                 dp[left][right] = max(

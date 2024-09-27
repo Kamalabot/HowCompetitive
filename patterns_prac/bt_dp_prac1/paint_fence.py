@@ -1,6 +1,9 @@
 ### Problem Statement: Paint Fence
 
-# You are given `n` posts to paint and `k` different colors. You need to paint all the posts such that no more than two adjacent posts have the same color. Find the total number of ways to paint the fence.
+# You are given `n` posts to paint and `k` different colors.
+# You need to paint all the posts such that no more than
+# two adjacent posts have the same color. Find the total number
+# of ways to paint the fence.
 
 # ### Example to Understand the Problem:
 
@@ -16,7 +19,9 @@
 
 # **Output**: `4`
 
-# The goal is to calculate the number of valid ways to paint the fence posts while ensuring no more than two consecutive posts are painted the same color.
+# The goal is to calculate the number of valid ways to paint
+# the fence posts while ensuring no more than two consecutive
+# posts are painted the same color.
 
 
 def numWays(n, k):
@@ -25,7 +30,7 @@ def numWays(n, k):
     if n == 1:
         return k
 
-    # Base cases
+    # # Base cases
     # same, diff = 0, k
     # total = same + diff
 

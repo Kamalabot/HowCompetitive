@@ -12,12 +12,12 @@ def uniquePathsWithObstacles(obstacleGrid):
 
     # Fill the first row
     for j in range(1, n):
-        # check if it is obstacle or add to the dp table
+        # check if the grid is having obstacle make dp cell to 0
         dp[0][j] = dp[0][j - 1] if obstacleGrid[0][j] == 0 else 0
 
     # Fill the first column
     for i in range(1, m):
-        # check if it is obstacle or add to the dp table
+        # check if the grid is having obstacle make dp cell to 0
         dp[i][0] = dp[i - 1][0] if obstacleGrid[i][0] == 0 else 0
 
     # Fill the rest of the DP table
