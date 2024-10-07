@@ -23,5 +23,8 @@ def num_decodings(s):
             dp[idx] += dp[idx - 1]
         if 10 <= int(s[idx - 2 : idx]) <= 26:
             dp[idx] += dp[idx - 2]
-
+    print(f"Final dp: {dp}")
     return dp[len(s)]
+
+
+print(f'Number of ways to decode 2156: {num_decodings("2156")}')
