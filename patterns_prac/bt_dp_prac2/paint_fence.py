@@ -47,7 +47,7 @@ def numWays(n, k):
     # filling the dp
     for idx in range(2, n + 1):
         dp[idx] = (k - 1) * (dp[idx - 1] + dp[idx - 2])
-
+    print(dp)
     return dp[n]
 
 

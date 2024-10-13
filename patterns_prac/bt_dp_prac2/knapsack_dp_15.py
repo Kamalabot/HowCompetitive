@@ -38,6 +38,6 @@ def knapsack(weights, values, W):
 weights = [1, 2, 3, 4]
 values = [10, 15, 40, 25]
 
-print(knapsack(weights, values, 8))
-print(knapsack(weights, values, 2))
+print(knapsack(weights, values, 8))  # 75
+print(knapsack(weights, values, 2))  # 15
 # there will be 8 columns in the DP table

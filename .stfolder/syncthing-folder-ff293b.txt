@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: kedru-aylre
+created: 2024-10-13T05:41:59+05:30
