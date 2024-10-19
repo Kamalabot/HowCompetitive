@@ -1,3 +1,4 @@
 .env
 target/
 OAI_CONFIG_LIST.json
+*.db
